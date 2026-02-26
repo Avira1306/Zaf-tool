@@ -10,9 +10,9 @@ export async function onRequestPost(context) {
     const company = formData.get("company");
     const message = formData.get("message");
 
-    const sheetId = context.env.SHEET_ID;
-    const clientEmail = context.env.GOOGLE_CLIENT_EMAIL;
-    const privateKey = context.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
+   const serviceAccount = JSON.parse(context.env.GOOGLE_SERVICE_ACCOUNT);
+   const clientEmail = serviceAccount.client_email;
+   const privateKey = serviceAccount.private_key;
 
     // Create JWT for Google
     const jwtHeader = {
