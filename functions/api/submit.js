@@ -102,8 +102,8 @@ export async function onRequestPost(context) {
     );
 
   } catch (error) {
-    return new Response("Error submitting form", { status: 500 });
-  }
+  return new Response("ERROR: " + error.message, { status: 500 });
+}
 }
 
 function str2ab(str) {
