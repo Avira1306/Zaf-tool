@@ -10,17 +10,20 @@ export async function onRequestPost(context) {
     const company = formData.get("company");
     const message = formData.get("message");
 
-   const serviceAccount = JSON.parse(context.env.GOOGLE_SERVICE_ACCOUNT);
-   const clientEmail = serviceAccount.client_email;
-   const privateKey = serviceAccount.private_key;
+    const sheetId = context.env.SHEET_ID;
 
-    // Create JWT for Google
+    const serviceAccount = JSON.parse(context.env.GOOGLE_SERVICE_ACCOUNT);
+    const clientEmail = serviceAccount.client_email;
+    const privateKey = serviceAccount.private_key;
+
+    // ---------- JWT CREATION ----------
+
+    const now = Math.floor(Date.now() / 1000);
+
     const jwtHeader = {
       alg: "RS256",
       typ: "JWT"
     };
-
-    const now = Math.floor(Date.now() / 1000);
 
     const jwtClaim = {
       iss: clientEmail,
@@ -32,20 +35,15 @@ export async function onRequestPost(context) {
 
     const encoder = new TextEncoder();
 
-    const base64UrlEncode = (obj) =>
-      btoa(JSON.stringify(obj))
-        .replace(/=/g, "")
-        .replace(/\+/g, "-")
-        .replace(/\//g, "_");
-
-    const headerEncoded = base64UrlEncode(jwtHeader);
-    const claimEncoded = base64UrlEncode(jwtClaim);
+    const headerEncoded = base64UrlEncode(JSON.stringify(jwtHeader));
+    const claimEncoded = base64UrlEncode(JSON.stringify(jwtClaim));
 
     const unsignedToken = `${headerEncoded}.${claimEncoded}`;
 
+    // Proper PEM decoding
     const keyData = await crypto.subtle.importKey(
       "pkcs8",
-      str2ab(privateKey),
+      pemToArrayBuffer(privateKey),
       { name: "RSASSA-PKCS1-v1_5", hash: "SHA-256" },
       false,
       ["sign"]
@@ -58,11 +56,10 @@ export async function onRequestPost(context) {
     );
 
     const signedToken =
-      unsignedToken +
-      "." +
-      arrayBufferToBase64Url(signature);
+      unsignedToken + "." + arrayBufferToBase64Url(signature);
 
-    // Exchange JWT for access token
+    // ---------- GET ACCESS TOKEN ----------
+
     const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -70,10 +67,16 @@ export async function onRequestPost(context) {
     });
 
     const tokenData = await tokenResponse.json();
+
+    if (!tokenData.access_token) {
+      throw new Error("Failed to get access token");
+    }
+
     const accessToken = tokenData.access_token;
 
-    // Append row to sheet
-    await fetch(
+    // ---------- APPEND TO SHEET ----------
+
+    const sheetResponse = await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1:append?valueInputOption=USER_ENTERED`,
       {
         method: "POST",
@@ -96,23 +99,44 @@ export async function onRequestPost(context) {
       }
     );
 
+    if (!sheetResponse.ok) {
+      throw new Error("Failed to write to Google Sheet");
+    }
+
     return Response.redirect(
       `${new URL(context.request.url).origin}?success=true`,
       302
     );
 
   } catch (error) {
-  return new Response("ERROR: " + error.message, { status: 500 });
-}
+    return new Response("ERROR: " + error.message, { status: 500 });
+  }
 }
 
-function str2ab(str) {
-  const buf = new ArrayBuffer(str.length);
-  const bufView = new Uint8Array(buf);
-  for (let i = 0; i < str.length; i++) {
-    bufView[i] = str.charCodeAt(i);
+// ---------- HELPERS ----------
+
+function pemToArrayBuffer(pem) {
+  const base64 = pem
+    .replace(/-----BEGIN PRIVATE KEY-----/, "")
+    .replace(/-----END PRIVATE KEY-----/, "")
+    .replace(/\s/g, "");
+
+  const binary = atob(base64);
+  const buffer = new ArrayBuffer(binary.length);
+  const view = new Uint8Array(buffer);
+
+  for (let i = 0; i < binary.length; i++) {
+    view[i] = binary.charCodeAt(i);
   }
-  return buf;
+
+  return buffer;
+}
+
+function base64UrlEncode(str) {
+  return btoa(str)
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
 }
 
 function arrayBufferToBase64Url(buffer) {
