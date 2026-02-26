@@ -885,10 +885,9 @@
     <h3 id="modal-title" style="margin-bottom:0.5rem;">Get Team Pricing</h3>
     <p style="color:var(--muted); font-size:0.9rem; margin-bottom:1.5rem;">We'll send a custom quote within 4 hours.</p>
     
-    <!-- NETLIFY FORM -->
-    <form name="team-quote" netlify>
-      <input type="hidden" name="form-name" value="team-quote">
-      
+    <!-- CLOUDFARE FORM -->
+    <form method="POST" action="/api/submit">
+            
       <label for="team-size" class="visually-hidden">Team size</label>
       <input type="text" id="team-size" name="team_size" placeholder="Team size (e.g., 10)" required 
              style="width:100%; background:var(--bg); border:1px solid var(--border); color:var(--text); padding:0.75rem; border-radius:6px; margin-bottom:0.75rem; font-family:inherit;">
