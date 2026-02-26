@@ -942,7 +942,9 @@
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+
+<script>
 function openTeamModal() {
   document.getElementById('teamModal').style.display = 'block';
   document.body.style.overflow = 'hidden';
@@ -962,19 +964,22 @@ function closeSuccess() {
 window.onclick = function(event) {
   const modal = document.getElementById('teamModal');
   const success = document.getElementById('formSuccess');
-  if (event.target == modal) {
-    closeTeamModal();
-  }
-  if (event.target == success) {
-    closeSuccess();
-  }
+  if (event.target == modal) closeTeamModal();
+  if (event.target == success) closeSuccess();
 }
 
 // Show success message after form submission
 if (window.location.search.includes('success=true')) {
   document.getElementById('formSuccess').style.display = 'block';
 }
+
+// Debug form submit
+document.querySelector("form").addEventListener("submit", function() {
+  console.log("Form submitting...");
+});
 </script>
+
+</body>
 
 <!-- FAQ -->
 <section id="faq" aria-labelledby="faq-title">
