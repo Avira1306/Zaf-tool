@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 1200px;
+      height: 630px;
+      overflow: hidden;
+      font-family: 'Inter', 'Segoe UI', sans-serif;
+      background: #070B14;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    /* Background glow */
+    .glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(37,99,235,0.18) 0%, transparent 65%);
+      top: -150px; left: -100px;
+      pointer-events: none;
+    }
+    .glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 65%);
+      bottom: -100px; right: 100px;
+      pointer-events: none;
+    }
+
+    /* Grid lines subtle bg */
+    .grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(37,99,235,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37,99,235,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .content {
+      position: relative; z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 80px;
+      gap: 60px;
+    }
+
+    /* LEFT */
+    .left { flex: 1; }
+
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(37,99,235,0.12);
+      border: 1px solid rgba(37,99,235,0.35);
+      color: #60A5FA;
+      padding: 6px 16px; border-radius: 999px;
+      font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; margin-bottom: 24px;
+    }
+
+    .logo {
+      font-size: 52px; font-weight: 900;
+      letter-spacing: -2px; color: #F1F5F9;
+      margin-bottom: 20px; line-height: 1;
+    }
+    .logo span { color: #3B82F6; }
+
+    .tagline {
+      font-size: 22px; font-weight: 400;
+      color: #94A3B8; line-height: 1.5;
+      max-width: 460px; margin-bottom: 36px;
+    }
+    .tagline strong { color: #F1F5F9; font-weight: 600; }
+
+    .pills {
+      display: flex; gap: 10px; flex-wrap: wrap;
+    }
+    .pill {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #CBD5E1;
+      padding: 6px 14px; border-radius: 6px;
+      font-size: 13px; font-weight: 500;
+    }
+
+    /* RIGHT */
+    .right {
+      display: flex; flex-direction: column; gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 18px 28px;
+      text-align: center;
+      min-width: 180px;
+    }
+    .stat-card.highlight {
+      background: rgba(37,99,235,0.1);
+      border-color: rgba(37,99,235,0.3);
+    }
+    .stat-num {
+      font-size: 40px; font-weight: 900;
+      color: #F1F5F9; letter-spacing: -2px; line-height: 1;
+    }
+    .stat-num .accent { color: #3B82F6; }
+    .stat-num .gold { color: #F59E0B; }
+    .stat-label {
+      font-size: 12px; color: #64748B;
+      margin-top: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* Bottom bar */
+    .bottom-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #1D4ED8, #3B82F6, #F59E0B);
+    }
+  </style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="glow"></div>
+  <div class="glow2"></div>
+
+  <div class="content">
+    <div class="left">
+      <div class="badge">⚡ v3.0 — Excel Add-in</div>
+      <div class="logo">ZAF<span>tool</span></div>
+      <div class="tagline">
+        <strong>25 professional tools</strong> for financial modelling,
+        model auditing & data cleaning.<br/>
+        One ribbon tab. Every tool in one click.
+      </div>
+      <div class="pills">
+        <div class="pill">🎨 Formatting</div>
+        <div class="pill">🧭 Navigation</div>
+        <div class="pill">📊 Data</div>
+        <div class="pill">🧹 Cleaning</div>
+        <div class="pill">🔬 Model Audit</div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="stat-card highlight">
+        <div class="stat-num">25<span class="accent">+</span></div>
+        <div class="stat-label">Professional Tools</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num"><span class="gold">₹</span>2,999</div>
+        <div class="stat-label">Per User / Year</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num" style="font-size:28px; color:#22C55E;">3-Day</div>
+        <div class="stat-label">Free Trial</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-bar"></div>
+</body>
+</html>
