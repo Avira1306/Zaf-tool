@@ -1212,5 +1212,56 @@ document.querySelector("form").addEventListener("submit", function() {
   </div>
 </footer>
 
+  <!-- EXIT-INTENT POPUP - Free Checklist -->
+<div id="exitPopup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(7,11,20,0.95); z-index:10000; align-items:center; justify-content:center;">
+  <div style="background:var(--card); border:1px solid var(--border); border-radius:20px; max-width:420px; width:92%; padding:40px 32px; position:relative; text-align:center; box-shadow:0 30px 80px rgba(0,0,0,0.6);">
+    
+    <!-- Close button -->
+    <button onclick="closeExitPopup()" style="position:absolute; top:16px; right:20px; background:none; border:none; font-size:28px; color:var(--muted); cursor:pointer;">×</button>
+    
+    <div style="font-size:3.5rem; margin-bottom:20px;">📋</div>
+    <h3 style="font-size:1.6rem; margin-bottom:12px;">Before you go...</h3>
+    <p style="color:var(--muted); margin-bottom:24px; font-size:1.05rem;">Grab our FREE 10-Point Model Audit Checklist (PDF) — the exact checklist used by investment bankers & CA firms.</p>
+    
+    <a href="https://wa.me/917827161430?text=Hi%20Abhishek%2C%20I%20saw%20the%20exit%20popup%20on%20ZAFtool.com%20and%20want%20the%20FREE%2010-Point%20Model%20Audit%20Checklist%20PDF.%20Please%20send%20it.%20Thank%20you!" 
+       class="cta" 
+       style="display:inline-block; background:var(--accent); color:white; padding:16px 36px; font-size:1.1rem; font-weight:700; border-radius:8px; text-decoration:none;"
+       target="_blank" rel="noopener noreferrer">
+      Send me the FREE Checklist →
+    </a>
+    
+    <p style="margin-top:20px; color:var(--dim); font-size:0.85rem;">Takes 3 seconds • Delivered instantly on WhatsApp</p>
+  </div>
+</div>
+
+<script>
+function showExitPopup() {
+  document.getElementById('exitPopup').style.display = 'flex';
+}
+
+function closeExitPopup() {
+  document.getElementById('exitPopup').style.display = 'none';
+}
+
+// Exit-intent detection
+let mouseLeft = false;
+document.addEventListener('mouseleave', function(e) {
+  if (e.clientY < 10 && !mouseLeft) {
+    mouseLeft = true;
+    setTimeout(() => {
+      if (!localStorage.getItem('popupShown')) {
+        showExitPopup();
+        localStorage.setItem('popupShown', 'true');
+      }
+    }, 800);
+  }
+});
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape") closeExitPopup();
+});
+</script>
+  
 </body>
 </html>
