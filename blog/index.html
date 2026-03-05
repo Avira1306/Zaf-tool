@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Blog — Excel Tips for Finance Professionals | ZAFtool</title>
+  <meta name="description" content="Practical Excel guides for investment bankers, CA firms, and FP&A teams. Model auditing, data consolidation, formatting, and automation — written by finance professionals."/>
+  <link rel="canonical" href="https://www.zaftool.com/blog"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root{--bg:#0a0e1a;--surface:#111827;--border:#1e2d45;--accent:#2563eb;--accent2:#38bdf8;--text:#e2e8f0;--muted:#94a3b8;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.7;}
+    nav{background:rgba(10,14,26,0.97);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;}
+    .nav-logo{font-weight:700;font-size:1.3rem;color:#fff;text-decoration:none;}
+    .nav-logo span{color:var(--accent2);}
+    .nav-cta{background:var(--accent);color:#fff;padding:0.55rem 1.4rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;}
+    .hero{max-width:900px;margin:0 auto;padding:4rem 2rem 2rem;text-align:center;}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3rem);font-weight:900;color:#fff;margin-bottom:1rem;}
+    .hero p{color:var(--muted);font-size:1.1rem;max-width:560px;margin:0 auto;}
+    .grid{max-width:900px;margin:3rem auto;padding:0 2rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:1.5rem;}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;transition:border-color 0.2s,transform 0.2s;text-decoration:none;display:block;}
+    .card:hover{border-color:var(--accent2);transform:translateY(-3px);}
+    .card-img{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;}
+    .card-img.audit{background:linear-gradient(135deg,#0f172a,#1e293b);}
+    .card-img.consolidate{background:linear-gradient(135deg,#0c1a2e,#1a2f4a);}
+    .card-img.format{background:linear-gradient(135deg,#0f1f12,#1a3322);}
+    .card-img.tools{background:linear-gradient(135deg,#1a0f2e,#2d1b4e);}
+    .card-img.errors{background:linear-gradient(135deg,#2d0f0f,#4e1b1b);}
+    .card-img.macabacus{background:linear-gradient(135deg,#1a1a0a,#2d2d0f);}
+    .card-body{padding:1.5rem;}
+    .card-tag{font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent2);margin-bottom:0.6rem;}
+    .card-title{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:0.6rem;line-height:1.35;}
+    .card-desc{color:var(--muted);font-size:0.9rem;line-height:1.6;margin-bottom:1rem;}
+    .card-meta{display:flex;justify-content:space-between;font-size:0.8rem;color:var(--muted);}
+    .tag-pill{display:inline-block;background:rgba(37,99,235,0.12);border:1px solid rgba(56,189,248,0.2);color:var(--accent2);padding:0.2rem 0.7rem;border-radius:12px;font-size:0.75rem;font-weight:600;}
+    /* Lead magnet banner */
+    .lead-banner{max-width:900px;margin:0 auto 3rem;padding:0 2rem;}
+    .lead-inner{background:linear-gradient(135deg,#0f2147,#1e3a6e);border:1px solid rgba(56,189,248,0.3);border-radius:14px;padding:2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;}
+    .lead-icon{font-size:3rem;flex-shrink:0;}
+    .lead-text h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;margin-bottom:0.4rem;}
+    .lead-text p{color:var(--muted);font-size:0.9rem;}
+    .lead-btn{background:var(--accent2);color:#0a0e1a;padding:0.7rem 1.6rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:0.9rem;white-space:nowrap;flex-shrink:0;}
+    footer{background:var(--surface);border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:0.9rem;}
+    footer a{color:var(--accent2);text-decoration:none;}
+  </style>
+</head>
+<body>
+<nav>
+  <a href="https://www.zaftool.com" class="nav-logo">ZAF<span>Tools</span></a>
+  <a href="https://www.zaftool.com/#pricing" class="nav-cta">Start Free Trial</a>
+</nav>
+
+<div class="hero">
+  <h1>Excel Guides for Finance Professionals</h1>
+  <p>Practical tutorials on financial model auditing, Excel automation, and tools that save analysts 10+ hours a week.</p>
+</div>
+
+<div class="lead-banner">
+  <div class="lead-inner">
+    <div class="lead-icon">📋</div>
+    <div class="lead-text">
+      <h3>Free: 25-Point Financial Model Audit Checklist</h3>
+      <p>Download the checklist every IB analyst needs before sending a model to a client. PDF, print-ready.</p>
+    </div>
+    <a href="https://www.zaftool.com/checklist" class="lead-btn">Download Free →</a>
+  </div>
+</div>
+
+<div class="grid">
+  <a href="https://www.zaftool.com/blog/how-to-audit-financial-model-excel" class="card">
+    <div class="card-img audit">🔍</div>
+    <div class="card-body">
+      <div class="card-tag">📊 Financial Modelling</div>
+      <div class="card-title">How to Audit a Financial Model in Excel: Complete Guide (2026)</div>
+      <div class="card-desc">Find formula errors, hardcoded values, broken links and inconsistencies before they reach your client. Free checklist included.</div>
+      <div class="card-meta"><span class="tag-pill">Most Popular</span><span>8 min read</span></div>
+    </div>
+  </a>
+
+  <a href="https://www.zaftool.com/blog/consolidate-excel-files-automatically" class="card">
+    <div class="card-img consolidate">⚡</div>
+    <div class="card-body">
+      <div class="card-tag">⚡ Excel Automation</div>
+      <div class="card-title">How to Consolidate Multiple Excel Files Automatically (2026)</div>
+      <div class="card-desc">Merge 20 Excel files into one master sheet in seconds. Power Query, VBA, and one-click methods compared.</div>
+      <div class="card-meta"><span class="tag-pill">High Traffic</span><span>7 min read</span></div>
+    </div>
+  </a>
+
+  <a href="https://www.zaftool.com/blog/excel-financial-model-formatting" class="card">
+    <div class="card-img format">🎨</div>
+    <div class="card-body">
+      <div class="card-tag">🎨 Formatting</div>
+      <div class="card-title">How to Format a Financial Model for Client Delivery</div>
+      <div class="card-desc">The exact formatting standards used by Big 4 and IB teams. Colour coding, print settings, number formats — all covered.</div>
+      <div class="card-meta"><span class="tag-pill">Coming Soon</span><span>6 min read</span></div>
+    </div>
+  </a>
+
+  <a href="https://www.zaftool.com/blog/best-excel-tools-investment-bankers" class="card">
+    <div class="card-img tools">🛠️</div>
+    <div class="card-body">
+      <div class="card-tag">🛠️ Tools & Reviews</div>
+      <div class="card-title">Best Excel Add-ins for Investment Bankers in India (2026)</div>
+      <div class="card-desc">Macabacus vs ZAFtool vs Accelerate Excel — honest comparison of the top Excel add-ins for Indian finance professionals.</div>
+      <div class="card-meta"><span class="tag-pill">Coming Soon</span><span>9 min read</span></div>
+    </div>
+  </a>
+
+  <a href="https://www.zaftool.com/blog/common-financial-model-errors" class="card">
+    <div class="card-img errors">⚠️</div>
+    <div class="card-body">
+      <div class="card-tag">⚠️ Model Errors</div>
+      <div class="card-title">10 Most Common Financial Model Errors (and How to Fix Them)</div>
+      <div class="card-desc">The formula mistakes that embarrass analysts in front of clients — and the one-click fixes for each of them.</div>
+      <div class="card-meta"><span class="tag-pill">Coming Soon</span><span>5 min read</span></div>
+    </div>
+  </a>
+
+  <a href="https://www.zaftool.com/vs-macabacus" class="card">
+    <div class="card-img macabacus">⚔️</div>
+    <div class="card-body">
+      <div class="card-tag">⚔️ Comparison</div>
+      <div class="card-title">ZAFtool vs Macabacus: Which Excel Add-in is Right for Indian Finance Teams?</div>
+      <div class="card-desc">Pricing, features, India compatibility — a head-to-head comparison to help you decide.</div>
+      <div class="card-meta"><span class="tag-pill">Coming Soon</span><span>6 min read</span></div>
+    </div>
+  </a>
+</div>
+
+<footer>
+  <p>© 2026 ZAFtool — Excel Tools for Finance Professionals</p>
+  <p style="margin-top:0.5rem;"><a href="https://www.zaftool.com">Home</a> &nbsp;•&nbsp; <a href="mailto:abhishek.bhandari@zaftool.com">abhishek.bhandari@zaftool.com</a> &nbsp;•&nbsp; <a href="https://www.linkedin.com/in/abhishek-bhandari-6b048979/">LinkedIn</a></p>
+</footer>
+</body>
+</html>
