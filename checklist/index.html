@@ -26,7 +26,6 @@
     .form-group input::placeholder { color: #4b5563; }
     .btn { width: 100%; padding: 16px; background: #3b82f6; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 8px; }
     .btn:hover { background: #2563eb; }
-    .btn:disabled { background: #1e3a5f; cursor: not-allowed; }
     .privacy { color: #4b5563; font-size: 12px; margin-top: 12px; }
     .success { display: none; text-align: center; padding: 20px 0; }
     .success-icon { font-size: 48px; margin-bottom: 16px; }
@@ -38,9 +37,13 @@
     .logo { font-size: 20px; font-weight: 700; color: #3b82f6; margin-bottom: 32px; }
     .back { color: #6b7280; font-size: 13px; margin-top: 24px; }
     .back a { color: #3b82f6; text-decoration: none; }
+    iframe { display: none; }
   </style>
 </head>
 <body>
+
+<!-- Hidden iframe to submit form without page reload -->
+<iframe name="hidden_iframe" id="hidden_iframe"></iframe>
 
 <div class="card">
   <div class="logo">ZAFTools</div>
@@ -55,87 +58,72 @@
     <div class="check-item"><span class="check-icon">✓</span> Circular reference audit</div>
     <div class="check-item"><span class="check-icon">✓</span> Balance sheet equation validation</div>
     <div class="check-item"><span class="check-icon">✓</span> External link & broken reference check</div>
-    <p class="more">+ 20 more checks →</p>
+    <p class="more">+ 20 more checks</p>
   </div>
 
-  <!-- Form -->
+  <!-- Form — posts to Google Apps Script via hidden iframe (no CORS issues) -->
   <div id="form-section">
-    <div class="form-group">
-      <label>Your Name</label>
-      <input type="text" id="name" placeholder="Rahul Sharma" autocomplete="name"/>
-    </div>
-    <div class="form-group">
-      <label>Work Email</label>
-      <input type="email" id="email" placeholder="rahul@firm.com" autocomplete="email"/>
-    </div>
-    <button class="btn" id="submit-btn" onclick="handleSubmit()">Download Free Checklist →</button>
-    <div class="error-msg" id="error-msg">Please enter your name and a valid email.</div>
-    <p class="privacy">No spam. Unsubscribe anytime. Your data is safe.</p>
+    <form id="lead-form"
+          action="https://script.google.com/macros/s/AKfycbywmlcl84TXcLZXz0wCIqs6HMIZ_g7VADSN25FtN_jiQuvprK1Z0_QRR3UidWR27Ezz/exec"
+          method="POST"
+          target="hidden_iframe"
+          onsubmit="handleSubmit(event)">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" name="name" id="name" placeholder="Rahul Sharma" required/>
+      </div>
+      <div class="form-group">
+        <label>Work Email</label>
+        <input type="email" name="email" id="email" placeholder="rahul@firm.com" required/>
+      </div>
+      <input type="hidden" name="source" value="checklist"/>
+      <input type="hidden" name="timestamp" id="timestamp"/>
+      <button type="submit" class="btn">Download Free Checklist</button>
+      <div class="error-msg" id="error-msg">Please enter your name and a valid email.</div>
+      <p class="privacy">No spam. Unsubscribe anytime.</p>
+    </form>
   </div>
 
   <!-- Success -->
   <div class="success" id="success-section">
-    <div class="success-icon">🎉</div>
+    <div class="success-icon">&#x1F389;</div>
     <h2>Your checklist is ready!</h2>
-    <p>Click below to download your PDF. We've also sent a copy to your email.</p>
-    <a href="/assets/ZAFtool_Financial_Model_Audit_Checklist.pdf" download class="download-btn">⬇ Download PDF Now</a>
+    <p>Click below to download your PDF.</p>
+    <a href="/assets/ZAFtool_Financial_Model_Audit_Checklist.pdf" download class="download-btn">Download PDF Now</a>
   </div>
 
-  <p class="back"><a href="/">← Back to ZAFTools</a></p>
+  <p class="back"><a href="/">Back to ZAFTools</a></p>
 </div>
 
 <script>
-  const SHEET_URL = "https://script.google.com/macros/s/AKfycbywmlcl84TXcLZXz0wCIqs6HMIZ_g7VADSN25FtN_jiQuvprK1Z0_QRR3UidWR27Ezz/exec";
+  function handleSubmit(e) {
+    var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var errMsg = document.getElementById('error-msg');
 
-  function validateEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
-
-  async function handleSubmit() {
-    const name = document.getElementById('name').value.trim();
-    const email = document.getElementById('email').value.trim();
-    const errMsg = document.getElementById('error-msg');
-    const btn = document.getElementById('submit-btn');
-
-    if (!name || !validateEmail(email)) {
+    if (!name || !email) {
+      e.preventDefault();
       errMsg.style.display = 'block';
       return;
     }
 
-    errMsg.style.display = 'none';
-    btn.disabled = true;
-    btn.textContent = 'Saving...';
+    // Set timestamp
+    document.getElementById('timestamp').value = new Date().toISOString();
 
-    try {
-      // Save to Google Sheet
-      await fetch(SHEET_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, source: 'checklist', timestamp: new Date().toISOString() })
-      });
-    } catch(e) {
-      // Continue even if sheet fails — don't block download
-      console.log('Sheet save failed:', e);
-    }
+    // Show success after short delay (form posts to hidden iframe)
+    setTimeout(function() {
+      document.getElementById('form-section').style.display = 'none';
+      document.getElementById('success-section').style.display = 'block';
 
-    // Show success + download
-    document.getElementById('form-section').style.display = 'none';
-    document.getElementById('success-section').style.display = 'block';
-
-    // Auto-trigger download
-    setTimeout(() => {
-      const link = document.createElement('a');
+      // Auto trigger download
+      var link = document.createElement('a');
       link.href = '/assets/ZAFtool_Financial_Model_Audit_Checklist.pdf';
       link.download = 'ZAFtool_Financial_Model_Audit_Checklist.pdf';
+      document.body.appendChild(link);
       link.click();
-    }, 500);
+      document.body.removeChild(link);
+    }, 800);
   }
-
-  // Allow Enter key
-  document.addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') handleSubmit();
-  });
 </script>
 
 </body>
