@@ -37,13 +37,9 @@
     .logo { font-size: 20px; font-weight: 700; color: #3b82f6; margin-bottom: 32px; }
     .back { color: #6b7280; font-size: 13px; margin-top: 24px; }
     .back a { color: #3b82f6; text-decoration: none; }
-    iframe { display: none; }
   </style>
 </head>
 <body>
-
-<!-- Hidden iframe to submit form without page reload -->
-<iframe name="hidden_iframe" id="hidden_iframe"></iframe>
 
 <div class="card">
   <div class="logo">ZAFTools</div>
@@ -53,40 +49,30 @@
 
   <div class="checklist-preview">
     <h3>What's inside</h3>
-    <div class="check-item"><span class="check-icon">✓</span> Formula consistency checks across sheets</div>
-    <div class="check-item"><span class="check-icon">✓</span> Hardcoded value detection</div>
-    <div class="check-item"><span class="check-icon">✓</span> Circular reference audit</div>
-    <div class="check-item"><span class="check-icon">✓</span> Balance sheet equation validation</div>
-    <div class="check-item"><span class="check-icon">✓</span> External link & broken reference check</div>
+    <div class="check-item"><span class="check-icon">&#10003;</span> Formula consistency checks across sheets</div>
+    <div class="check-item"><span class="check-icon">&#10003;</span> Hardcoded value detection</div>
+    <div class="check-item"><span class="check-icon">&#10003;</span> Circular reference audit</div>
+    <div class="check-item"><span class="check-icon">&#10003;</span> Balance sheet equation validation</div>
+    <div class="check-item"><span class="check-icon">&#10003;</span> External link & broken reference check</div>
     <p class="more">+ 20 more checks</p>
   </div>
 
-  <!-- Form — posts to Google Apps Script via hidden iframe (no CORS issues) -->
   <div id="form-section">
-    <form id="lead-form"
-          action="https://script.google.com/macros/s/AKfycbywmlcl84TXcLZXz0wCIqs6HMIZ_g7VADSN25FtN_jiQuvprK1Z0_QRR3UidWR27Ezz/exec"
-          method="POST"
-          target="hidden_iframe"
-          onsubmit="handleSubmit(event)">
-      <div class="form-group">
-        <label>Your Name</label>
-        <input type="text" name="name" id="name" placeholder="Rahul Sharma" required/>
-      </div>
-      <div class="form-group">
-        <label>Work Email</label>
-        <input type="email" name="email" id="email" placeholder="rahul@firm.com" required/>
-      </div>
-      <input type="hidden" name="source" value="checklist"/>
-      <input type="hidden" name="timestamp" id="timestamp"/>
-      <button type="submit" class="btn">Download Free Checklist</button>
-      <div class="error-msg" id="error-msg">Please enter your name and a valid email.</div>
-      <p class="privacy">No spam. Unsubscribe anytime.</p>
-    </form>
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" id="name" placeholder="Rahul Sharma" autocomplete="name"/>
+    </div>
+    <div class="form-group">
+      <label>Work Email</label>
+      <input type="email" id="email" placeholder="rahul@firm.com" autocomplete="email"/>
+    </div>
+    <button class="btn" onclick="handleSubmit()">Download Free Checklist</button>
+    <div class="error-msg" id="error-msg">Please enter your name and a valid email.</div>
+    <p class="privacy">No spam. Unsubscribe anytime.</p>
   </div>
 
-  <!-- Success -->
   <div class="success" id="success-section">
-    <div class="success-icon">&#x1F389;</div>
+    <div class="success-icon">&#127881;</div>
     <h2>Your checklist is ready!</h2>
     <p>Click below to download your PDF.</p>
     <a href="/assets/ZAFtool_Financial_Model_Audit_Checklist.pdf" download class="download-btn">Download PDF Now</a>
@@ -96,33 +82,48 @@
 </div>
 
 <script>
-  function handleSubmit(e) {
+  var FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScyZaO-i9VkXeGQQT4a1iiYdI_7HFNTPs4HM57HB_n50FPZhA/formResponse";
+  var FIELD_NAME = "entry.190592467";
+  var FIELD_EMAIL = "entry.1225113432";
+
+  function validateEmail(e) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+  }
+
+  function handleSubmit() {
     var name = document.getElementById('name').value.trim();
     var email = document.getElementById('email').value.trim();
     var errMsg = document.getElementById('error-msg');
 
-    if (!name || !email) {
-      e.preventDefault();
+    if (!name || !validateEmail(email)) {
       errMsg.style.display = 'block';
       return;
     }
+    errMsg.style.display = 'none';
 
-    // Set timestamp
-    document.getElementById('timestamp').value = new Date().toISOString();
+    // Submit to Google Forms via fetch (no-cors)
+    var formData = new FormData();
+    formData.append(FIELD_NAME, name);
+    formData.append(FIELD_EMAIL, email);
 
-    // Show success after short delay (form posts to hidden iframe)
+    fetch(FORM_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      body: formData
+    });
+
+    // Show success + trigger download immediately
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('success-section').style.display = 'block';
+
     setTimeout(function() {
-      document.getElementById('form-section').style.display = 'none';
-      document.getElementById('success-section').style.display = 'block';
-
-      // Auto trigger download
       var link = document.createElement('a');
       link.href = '/assets/ZAFtool_Financial_Model_Audit_Checklist.pdf';
       link.download = 'ZAFtool_Financial_Model_Audit_Checklist.pdf';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-    }, 800);
+    }, 500);
   }
 </script>
 
