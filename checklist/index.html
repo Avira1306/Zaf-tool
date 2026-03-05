@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Free: 25-Point Financial Model Audit Checklist | ZAFTools</title>
+  <meta name="description" content="Download the 25-point financial model audit checklist used by top finance professionals. Free PDF, instant download."/>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #0a0a0f; color: #fff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; }
+    .card { background: #13131a; border: 1px solid #2a2a3a; border-radius: 16px; padding: 48px 40px; max-width: 520px; width: 100%; text-align: center; }
+    .badge { display: inline-block; background: #1e3a5f; color: #3b82f6; font-size: 12px; font-weight: 600; padding: 6px 14px; border-radius: 20px; margin-bottom: 24px; letter-spacing: 0.5px; text-transform: uppercase; }
+    h1 { font-size: 28px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; }
+    h1 span { color: #3b82f6; }
+    .subtitle { color: #9ca3af; font-size: 15px; line-height: 1.6; margin-bottom: 32px; }
+    .checklist-preview { background: #0d1117; border: 1px solid #1f2937; border-radius: 12px; padding: 20px 24px; margin-bottom: 32px; text-align: left; }
+    .checklist-preview h3 { font-size: 13px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 14px; }
+    .check-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; font-size: 14px; color: #d1d5db; border-bottom: 1px solid #1f2937; }
+    .check-item:last-child { border-bottom: none; }
+    .check-icon { color: #3b82f6; font-size: 16px; flex-shrink: 0; }
+    .more { color: #6b7280; font-size: 13px; margin-top: 10px; }
+    .form-group { margin-bottom: 16px; text-align: left; }
+    .form-group label { display: block; font-size: 13px; color: #9ca3af; margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 14px 16px; background: #0d1117; border: 1px solid #2a2a3a; border-radius: 8px; color: #fff; font-size: 15px; outline: none; transition: border-color 0.2s; }
+    .form-group input:focus { border-color: #3b82f6; }
+    .form-group input::placeholder { color: #4b5563; }
+    .btn { width: 100%; padding: 16px; background: #3b82f6; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; margin-top: 8px; }
+    .btn:hover { background: #2563eb; }
+    .btn:disabled { background: #1e3a5f; cursor: not-allowed; }
+    .privacy { color: #4b5563; font-size: 12px; margin-top: 12px; }
+    .success { display: none; text-align: center; padding: 20px 0; }
+    .success-icon { font-size: 48px; margin-bottom: 16px; }
+    .success h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .success p { color: #9ca3af; margin-bottom: 24px; }
+    .download-btn { display: inline-block; padding: 14px 32px; background: #10b981; color: #fff; border-radius: 8px; font-size: 16px; font-weight: 600; text-decoration: none; transition: background 0.2s; }
+    .download-btn:hover { background: #059669; }
+    .error-msg { color: #ef4444; font-size: 13px; margin-top: 8px; display: none; }
+    .logo { font-size: 20px; font-weight: 700; color: #3b82f6; margin-bottom: 32px; }
+    .back { color: #6b7280; font-size: 13px; margin-top: 24px; }
+    .back a { color: #3b82f6; text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <div class="logo">ZAFTools</div>
+  <div class="badge">Free Download</div>
+  <h1>25-Point Financial Model<br/><span>Audit Checklist</span></h1>
+  <p class="subtitle">The exact checklist used by IB analysts before sending any model to a client. Catch errors before they embarrass you.</p>
+
+  <div class="checklist-preview">
+    <h3>What's inside</h3>
+    <div class="check-item"><span class="check-icon">✓</span> Formula consistency checks across sheets</div>
+    <div class="check-item"><span class="check-icon">✓</span> Hardcoded value detection</div>
+    <div class="check-item"><span class="check-icon">✓</span> Circular reference audit</div>
+    <div class="check-item"><span class="check-icon">✓</span> Balance sheet equation validation</div>
+    <div class="check-item"><span class="check-icon">✓</span> External link & broken reference check</div>
+    <p class="more">+ 20 more checks →</p>
+  </div>
+
+  <!-- Form -->
+  <div id="form-section">
+    <div class="form-group">
+      <label>Your Name</label>
+      <input type="text" id="name" placeholder="Rahul Sharma" autocomplete="name"/>
+    </div>
+    <div class="form-group">
+      <label>Work Email</label>
+      <input type="email" id="email" placeholder="rahul@firm.com" autocomplete="email"/>
+    </div>
+    <button class="btn" id="submit-btn" onclick="handleSubmit()">Download Free Checklist →</button>
+    <div class="error-msg" id="error-msg">Please enter your name and a valid email.</div>
+    <p class="privacy">No spam. Unsubscribe anytime. Your data is safe.</p>
+  </div>
+
+  <!-- Success -->
+  <div class="success" id="success-section">
+    <div class="success-icon">🎉</div>
+    <h2>Your checklist is ready!</h2>
+    <p>Click below to download your PDF. We've also sent a copy to your email.</p>
+    <a href="/assets/ZAFtool_Financial_Model_Audit_Checklist.pdf" download class="download-btn">⬇ Download PDF Now</a>
+  </div>
+
+  <p class="back"><a href="/">← Back to ZAFTools</a></p>
+</div>
+
+<script>
+  const SHEET_URL = "https://script.google.com/macros/s/AKfycbwkOn-2GTkvux8sh09HvdqlW-6LB9EAuFvDiU2pP58-0Qw0FMZU3K9PC0B0GadeB5cE/exec";
+
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  async function handleSubmit() {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const errMsg = document.getElementById('error-msg');
+    const btn = document.getElementById('submit-btn');
+
+    if (!name || !validateEmail(email)) {
+      errMsg.style.display = 'block';
+      return;
+    }
+
+    errMsg.style.display = 'none';
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
+    try {
+      // Save to Google Sheet
+      await fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, source: 'checklist', timestamp: new Date().toISOString() })
+      });
+    } catch(e) {
+      // Continue even if sheet fails — don't block download
+      console.log('Sheet save failed:', e);
+    }
+
+    // Show success + download
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('success-section').style.display = 'block';
+
+    // Auto-trigger download
+    setTimeout(() => {
+      const link = document.createElement('a');
+      link.href = '/assets/ZAFtool_Financial_Model_Audit_Checklist.pdf';
+      link.download = 'ZAFtool_Financial_Model_Audit_Checklist.pdf';
+      link.click();
+    }, 500);
+  }
+
+  // Allow Enter key
+  document.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') handleSubmit();
+  });
+</script>
+
+</body>
+</html>
