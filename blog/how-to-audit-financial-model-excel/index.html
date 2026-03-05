@@ -4,319 +4,333 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>How to Audit a Financial Model in Excel: Complete Guide (2026) | ZAFtool</title>
-  <meta name="description" content="Learn how to audit a financial model in Excel step by step. Find formula errors, hardcoded values, broken links and inconsistencies before they reach your client. Free checklist included."/>
-  <meta name="keywords" content="how to audit financial model excel, financial model audit checklist, excel model audit, formula error check excel, financial model review"/>
+  <meta name="description" content="Find formula errors, hardcoded values, broken links and inconsistencies before they reach your client. Free checklist included."/>
   <link rel="canonical" href="https://www.zaftool.com/blog/how-to-audit-financial-model-excel"/>
-  <meta property="og:title" content="How to Audit a Financial Model in Excel (2026 Guide)"/>
-  <meta property="og:description" content="Step-by-step guide to auditing financial models in Excel. Catch errors before they reach clients."/>
-  <meta property="og:url" content="https://www.zaftool.com/blog/how-to-audit-financial-model-excel"/>
-  <meta property="og:type" content="article"/>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "How to Audit a Financial Model in Excel: Complete Guide (2026)",
-    "description": "Learn how to audit a financial model in Excel step by step. Find formula errors, hardcoded values, broken links and inconsistencies.",
-    "author": {"@type": "Person", "name": "Abhishek Bhandari"},
-    "publisher": {"@type": "Organization", "name": "ZAFtool"},
-    "datePublished": "2026-02-28",
-    "dateModified": "2026-02-28"
-  }
-  </script>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --bg: #0a0e1a;
-      --surface: #111827;
-      --border: #1e2d45;
-      --accent: #2563eb;
-      --accent2: #38bdf8;
-      --text: #e2e8f0;
-      --muted: #94a3b8;
-      --warn: #f59e0b;
-      --success: #10b981;
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; line-height: 1.75; font-size: 1.05rem; }
+    :root{--bg:#0a0e1a;--surface:#111827;--border:#1e2d45;--accent:#2563eb;--accent2:#38bdf8;--text:#e2e8f0;--muted:#94a3b8;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.8;}
 
-    /* NAV */
-    nav { background: rgba(10,14,26,0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-    .nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1.3rem; color: #fff; text-decoration: none; }
-    .nav-logo span { color: var(--accent2); }
-    .nav-cta { background: var(--accent); color: #fff; padding: 0.55rem 1.4rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    /* ── NAV — identical to landing page ── */
+    nav{background:rgba(10,14,26,0.97);backdrop-filter:blur(10px);position:sticky;top:0;z-index:100;border-bottom:1px solid var(--border);padding:0 2rem;height:60px;display:flex;justify-content:space-between;align-items:center;}
+    .nav-logo{font-weight:700;font-size:1.3rem;color:#fff;text-decoration:none;flex-shrink:0;}
+    .nav-logo span{color:var(--accent2);}
+    .nav-links{display:flex;align-items:center;gap:2rem;list-style:none;margin:0;padding:0;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-links a{color:var(--text);text-decoration:none;font-size:0.95rem;font-weight:500;opacity:0.85;transition:opacity 0.2s,color 0.2s;white-space:nowrap;}
+    .nav-links a:hover{opacity:1;color:#fff;}
+    .nav-links a.highlight{color:var(--accent2);opacity:1;}
+    .nav-cta{background:var(--accent);color:#fff;padding:0.55rem 1.4rem;border-radius:6px;text-decoration:none;font-weight:600;font-size:0.9rem;flex-shrink:0;transition:background 0.2s;}
+    .nav-cta:hover{background:#1d4ed8;}
 
-    /* HERO */
-    .hero { max-width: 800px; margin: 0 auto; padding: 4rem 2rem 2rem; }
-    .breadcrumb { font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem; }
-    .breadcrumb a { color: var(--accent2); text-decoration: none; }
-    .tag { display: inline-block; background: rgba(37,99,235,0.15); color: var(--accent2); border: 1px solid rgba(56,189,248,0.3); padding: 0.3rem 0.9rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 1.2rem; }
-    h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 900; line-height: 1.2; margin-bottom: 1.2rem; color: #fff; }
-    .meta { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; }
-    .meta span { display: flex; align-items: center; gap: 0.4rem; }
-    .intro-box { background: linear-gradient(135deg, rgba(37,99,235,0.1), rgba(56,189,248,0.05)); border: 1px solid rgba(56,189,248,0.2); border-radius: 12px; padding: 1.5rem 2rem; margin-bottom: 3rem; font-size: 1.05rem; color: var(--text); }
-    .intro-box strong { color: var(--accent2); }
+    /* ── BREADCRUMB ── */
+    .breadcrumb{max-width:780px;margin:2rem auto 0;padding:0 2rem;font-size:0.85rem;color:var(--muted);}
+    .breadcrumb a{color:var(--accent2);text-decoration:none;}
+    .breadcrumb span{margin:0 0.4rem;opacity:0.5;}
 
-    /* CONTENT */
-    .content { max-width: 800px; margin: 0 auto; padding: 0 2rem 4rem; }
-    h2 { font-family: 'Playfair Display', serif; font-size: 1.7rem; font-weight: 700; color: #fff; margin: 3rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-    h3 { font-size: 1.15rem; font-weight: 600; color: var(--accent2); margin: 1.8rem 0 0.7rem; }
-    p { color: var(--text); margin-bottom: 1.2rem; }
-    ul, ol { padding-left: 1.5rem; margin-bottom: 1.2rem; }
-    li { margin-bottom: 0.5rem; color: var(--text); }
-    li strong { color: #fff; }
-    a { color: var(--accent2); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    /* ── ARTICLE HEADER ── */
+    .article-header{max-width:780px;margin:1.5rem auto 2.5rem;padding:0 2rem;}
+    .article-tag{display:inline-flex;align-items:center;gap:0.4rem;background:rgba(37,99,235,0.15);border:1px solid rgba(56,189,248,0.25);color:var(--accent2);padding:0.3rem 0.9rem;border-radius:20px;font-size:0.8rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1.2rem;}
+    .article-header h1{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.6rem);font-weight:900;color:#fff;line-height:1.25;margin-bottom:1.2rem;}
+    .article-meta{display:flex;gap:1.5rem;color:var(--muted);font-size:0.9rem;flex-wrap:wrap;}
 
-    /* CALLOUT BOXES */
-    .callout { border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1.5rem 0; }
-    .callout.warning { background: rgba(245,158,11,0.1); border-left: 4px solid var(--warn); }
-    .callout.tip { background: rgba(16,185,129,0.1); border-left: 4px solid var(--success); }
-    .callout.info { background: rgba(37,99,235,0.1); border-left: 4px solid var(--accent); }
-    .callout strong { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .callout.warning strong { color: var(--warn); }
-    .callout.tip strong { color: var(--success); }
-    .callout.info strong { color: var(--accent2); }
+    /* ── ARTICLE BODY ── */
+    .article-body{max-width:780px;margin:0 auto;padding:0 2rem 4rem;}
+    .article-body p{color:#cbd5e1;margin-bottom:1.4rem;font-size:1.02rem;}
+    .article-body h2{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:#fff;margin:2.5rem 0 1rem;}
+    .article-body h3{font-size:1.15rem;font-weight:600;color:#fff;margin:2rem 0 0.75rem;}
+    .article-body ul,.article-body ol{color:#cbd5e1;padding-left:1.5rem;margin-bottom:1.4rem;}
+    .article-body li{margin-bottom:0.5rem;}
+    .article-body strong{color:#fff;}
+    .article-body code{background:#1e2d45;color:var(--accent2);padding:0.15rem 0.5rem;border-radius:4px;font-size:0.9rem;font-family:monospace;}
 
-    /* STEP CARDS */
-    .steps { display: flex; flex-direction: column; gap: 1.2rem; margin: 1.5rem 0; }
-    .step { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; display: flex; gap: 1.2rem; align-items: flex-start; }
-    .step-num { background: var(--accent); color: #fff; font-weight: 700; font-size: 0.9rem; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
-    .step-body h4 { font-size: 1rem; font-weight: 600; color: #fff; margin-bottom: 0.4rem; }
-    .step-body p { margin: 0; font-size: 0.95rem; color: var(--muted); }
+    /* ── CALLOUT BOXES ── */
+    .callout{background:linear-gradient(135deg,#1a1a2e,#16213e);border-left:3px solid #f59e0b;border-radius:0 10px 10px 0;padding:1.2rem 1.5rem;margin:1.8rem 0;color:#fde68a;}
+    .callout.info{border-color:var(--accent2);color:#bae6fd;}
+    .callout.success{border-color:#10b981;color:#a7f3d0;}
+    .callout-icon{font-size:1.1rem;margin-right:0.5rem;}
 
-    /* TABLE */
-    .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-    th { background: var(--surface); color: var(--accent2); font-weight: 600; padding: 0.8rem 1rem; text-align: left; border-bottom: 2px solid var(--border); }
-    td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--border); color: var(--text); }
-    tr:hover td { background: rgba(255,255,255,0.02); }
+    /* ── STEP BLOCKS ── */
+    .step{display:flex;gap:1.2rem;margin:1.5rem 0;align-items:flex-start;}
+    .step-num{background:var(--accent);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.9rem;flex-shrink:0;margin-top:0.1rem;}
+    .step-content h4{color:#fff;font-weight:600;margin-bottom:0.4rem;}
+    .step-content p{color:#cbd5e1;margin:0;}
 
-    /* ZAF CTA BLOCK */
-    .zaf-cta { background: linear-gradient(135deg, #1e3a6e, #0f2147); border: 1px solid rgba(56,189,248,0.3); border-radius: 16px; padding: 2.5rem; margin: 3rem 0; text-align: center; }
-    .zaf-cta h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: #fff; margin-bottom: 0.8rem; }
-    .zaf-cta p { color: var(--muted); margin-bottom: 1.5rem; max-width: 500px; margin-left: auto; margin-right: auto; }
-    .zaf-cta .btn { display: inline-block; background: var(--accent); color: #fff; padding: 0.85rem 2.2rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1rem; margin: 0.4rem; }
-    .zaf-cta .btn.secondary { background: transparent; border: 1px solid rgba(56,189,248,0.4); color: var(--accent2); }
-    .trial-key { background: rgba(0,0,0,0.3); border: 1px dashed rgba(56,189,248,0.3); border-radius: 6px; padding: 0.4rem 1rem; font-family: monospace; color: var(--accent2); font-size: 0.9rem; display: inline-block; margin-top: 0.8rem; }
+    /* ── CHECKLIST ── */
+    .checklist{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem 2rem;margin:2rem 0;}
+    .checklist h3{color:#fff;margin-bottom:1rem;font-size:1.1rem;}
+    .checklist-item{display:flex;align-items:flex-start;gap:0.75rem;padding:0.5rem 0;border-bottom:1px solid var(--border);color:#cbd5e1;font-size:0.95rem;}
+    .checklist-item:last-child{border-bottom:none;}
+    .checklist-item::before{content:"☐";color:var(--accent2);font-size:1.1rem;flex-shrink:0;margin-top:0.05rem;}
 
-    /* CHECKLIST */
-    .checklist { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem 2rem; margin: 1.5rem 0; }
-    .checklist h4 { color: var(--accent2); font-size: 1rem; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.85rem; }
-    .checklist li { list-style: none; padding-left: 0; margin-bottom: 0.6rem; display: flex; align-items: flex-start; gap: 0.6rem; }
-    .checklist li::before { content: '☐'; color: var(--accent2); font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    /* ── COMPARISON TABLE ── */
+    .table-wrap{overflow-x:auto;margin:1.5rem 0;}
+    table{width:100%;border-collapse:collapse;font-size:0.92rem;}
+    th{background:#1e2d45;color:var(--accent2);padding:0.75rem 1rem;text-align:left;font-weight:600;}
+    td{padding:0.7rem 1rem;border-bottom:1px solid var(--border);color:#cbd5e1;}
+    tr:last-child td{border-bottom:none;}
+    tr:hover td{background:rgba(30,45,69,0.4);}
 
-    /* FOOTER */
-    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 2rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
-    footer a { color: var(--accent2); text-decoration: none; }
+    /* ── CTA BOX ── */
+    .cta-box{background:linear-gradient(135deg,#0f2147,#1e3a6e);border:1px solid rgba(56,189,248,0.3);border-radius:16px;padding:2.5rem;text-align:center;margin:3rem 0;}
+    .cta-box h2{font-family:'Playfair Display',serif;font-size:1.7rem;color:#fff;margin-bottom:0.75rem;}
+    .cta-box p{color:var(--muted);margin-bottom:1.5rem;max-width:500px;margin-left:auto;margin-right:auto;}
+    .cta-btn{display:inline-block;background:var(--accent2);color:#0a0e1a;padding:0.85rem 2rem;border-radius:8px;font-weight:700;text-decoration:none;font-size:1rem;margin-bottom:0.75rem;}
+    .cta-meta{color:var(--muted);font-size:0.85rem;}
+
+    /* ── FAQ ── */
+    .faq-item{border-bottom:1px solid var(--border);padding:1.2rem 0;}
+    .faq-q{color:#fff;font-weight:600;margin-bottom:0.5rem;}
+    .faq-a{color:#cbd5e1;font-size:0.95rem;}
+
+    /* ── RELATED ── */
+    .related{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem 2rem;margin:2rem 0;}
+    .related h3{color:#fff;margin-bottom:1rem;}
+    .related a{display:block;color:var(--accent2);text-decoration:none;padding:0.4rem 0;font-size:0.95rem;}
+    .related a:hover{color:#fff;}
+
+    /* ── FOOTER ── */
+    footer{background:var(--surface);border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:0.9rem;}
+    footer a{color:var(--accent2);text-decoration:none;}
+
+    @media(max-width:768px){.nav-links{display:none;}}
   </style>
 </head>
 <body>
 
+<!-- NAV — matches landing page -->
 <nav>
   <a href="https://www.zaftool.com" class="nav-logo">ZAF<span>Tools</span></a>
-  <a href="https://www.zaftool.com/#pricing" class="nav-cta">Start Free Trial</a>
+  <ul class="nav-links">
+    <li><a href="https://www.zaftool.com/#features">Features</a></li>
+    <li><a href="https://www.zaftool.com/#audit">Model Audit</a></li>
+    <li><a href="https://www.zaftool.com/#pricing">Pricing</a></li>
+    <li><a href="/compare/macabacus.html" class="highlight">vs Macabacus</a></li>
+    <li><a href="https://www.zaftool.com/#faq">FAQ</a></li>
+    <li><a href="/blog/">Blog</a></li>
+  </ul>
+  <a href="https://wa.me/917827161430?text=Hi%2C%20I%20want%20to%20start%20the%203-day%20FREE%20TRIAL%20of%20ZAF%20Excel%20Tools%20v3.0.%20Please%20send%20me%20the%20download%20link.%20Thank%20you!" class="nav-cta">Start Free Trial</a>
 </nav>
 
-<article>
-  <div class="hero">
-    <div class="breadcrumb"><a href="https://www.zaftool.com">Home</a> › <a href="https://www.zaftool.com/blog">Blog</a> › Financial Model Audit</div>
-    <div class="tag">📊 Financial Modelling</div>
-    <h1>How to Audit a Financial Model in Excel: Complete Guide (2026)</h1>
-    <div class="meta">
-      <span>✍️ Abhishek Bhandari</span>
-      <span>📅 February 28, 2026</span>
-      <span>⏱ 8 min read</span>
-    </div>
-    <div class="intro-box">
-      A single formula error in a financial model can cost a deal, embarrass your firm, or mislead a board. This guide shows you <strong>exactly how to audit a financial model in Excel</strong> — step by step — so nothing slips through before you hit send.
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="https://www.zaftool.com">Home</a>
+  <span>›</span>
+  <a href="/blog/">Blog</a>
+  <span>›</span>
+  Financial Model Audit
+</div>
+
+<!-- ARTICLE HEADER -->
+<div class="article-header">
+  <div class="article-tag">📊 Financial Modelling</div>
+  <h1>How to Audit a Financial Model in Excel: Complete Guide (2026)</h1>
+  <div class="article-meta">
+    <span>✍️ Abhishek Bhandari</span>
+    <span>📅 February 28, 2026</span>
+    <span>⏱ 8 min read</span>
+  </div>
+</div>
+
+<!-- ARTICLE BODY -->
+<article class="article-body">
+
+  <p>A single formula error in a financial model can cost a deal, embarrass your firm, or mislead a board. This guide shows you exactly how to audit a financial model in Excel — step by step — so nothing slips through before you hit send.</p>
+
+  <h2>Why Financial Model Audits Matter</h2>
+  <p>In 2013, JP Morgan's "London Whale" trading loss of $6 billion was partly attributed to an Excel model error — a formula that divided by a sum instead of an average. In India, model errors in pitch decks and information memorandums are caught embarrassingly late, often by the client.</p>
+  <p>Auditing a financial model isn't optional. It's the difference between a credible analyst and one who gets second-guessed at every meeting.</p>
+
+  <div class="callout">
+    <span class="callout-icon">⚠</span>
+    <strong>Common Risk:</strong> Studies show over 88% of spreadsheets contain at least one error. In financial models with 10+ sheets and hundreds of formulas, the odds of an unchecked error are extremely high.
+  </div>
+
+  <h2>What to Check When Auditing a Financial Model</h2>
+  <p>A complete financial model audit covers 6 categories of issues. Miss any one and you're leaving risk on the table.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Category</th><th>What to Look For</th><th>Risk Level</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Formula Errors</td><td>#REF!, #VALUE!, #DIV/0!, #N/A errors</td><td>🔴 Critical</td></tr>
+        <tr><td>Hardcoded Values</td><td>Numbers typed directly into formula cells</td><td>🔴 Critical</td></tr>
+        <tr><td>Inconsistent Formulas</td><td>Same row/column using different formula logic</td><td>🟠 High</td></tr>
+        <tr><td>Broken External Links</td><td>References to files/sheets that no longer exist</td><td>🟠 High</td></tr>
+        <tr><td>Cross-Sheet Errors</td><td>Formulas referencing wrong sheet or row</td><td>🟡 Medium</td></tr>
+        <tr><td>Formatting Issues</td><td>Inconsistent number formats, missing ₹/% signs</td><td>🟡 Medium</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Step-by-Step: How to Audit a Financial Model in Excel</h2>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>Check for Formula Errors First</h4>
+      <p>Press <code>Ctrl + End</code> to go to the last used cell. Then use <code>Ctrl + F</code> to search for "#REF", "#VALUE", "#DIV/0", "#N/A" across all sheets. Any errors here must be fixed before anything else.</p>
     </div>
   </div>
 
-  <div class="content">
-
-    <h2>Why Financial Model Audits Matter</h2>
-    <p>In 2013, JP Morgan's "London Whale" trading loss of $6 billion was partly attributed to an Excel model error — a formula that divided by a sum instead of an average. In India, model errors in pitch decks and information memorandums are caught embarrassingly late, often by the client.</p>
-    <p>Auditing a financial model isn't optional. It's the difference between a credible analyst and one who gets second-guessed at every meeting.</p>
-
-    <div class="callout warning">
-      <strong>⚠ Common Risk</strong>
-      Studies show over 88% of spreadsheets contain at least one error. In financial models with 10+ sheets and hundreds of formulas, the odds of an unchecked error are extremely high.
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>Identify Hardcoded Values in Formula Cells</h4>
+      <p>Go to <strong>Home → Find &amp; Select → Go To Special → Constants → Numbers</strong>. This highlights every cell with a typed number. In a well-built model, numbers should only appear in dedicated assumption cells — not buried inside formulas.</p>
     </div>
-
-    <h2>What to Check When Auditing a Financial Model</h2>
-    <p>A complete financial model audit covers 6 categories of issues. Miss any one and you're leaving risk on the table.</p>
-
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>Category</th><th>What to Look For</th><th>Risk Level</th></tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>Formula Errors</strong></td><td>#REF!, #VALUE!, #DIV/0!, #N/A errors</td><td>🔴 Critical</td></tr>
-          <tr><td><strong>Hardcoded Values</strong></td><td>Numbers typed directly into formula cells</td><td>🔴 Critical</td></tr>
-          <tr><td><strong>Inconsistent Formulas</strong></td><td>Same row/column using different formula logic</td><td>🟠 High</td></tr>
-          <tr><td><strong>Broken External Links</strong></td><td>References to files/sheets that no longer exist</td><td>🟠 High</td></tr>
-          <tr><td><strong>Cross-Sheet Errors</strong></td><td>Formulas referencing wrong sheet or row</td><td>🟡 Medium</td></tr>
-          <tr><td><strong>Formatting Issues</strong></td><td>Inconsistent number formats, missing ₹/% signs</td><td>🟡 Medium</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>Step-by-Step: How to Audit a Financial Model in Excel</h2>
-
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <div class="step-body">
-          <h4>Check for Formula Errors First</h4>
-          <p>Press <strong>Ctrl + End</strong> to go to the last used cell. Then use <strong>Ctrl + F</strong> to search for "#REF", "#VALUE", "#DIV/0", "#N/A" across all sheets. Any errors here must be fixed before anything else.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <div class="step-body">
-          <h4>Identify Hardcoded Values in Formula Cells</h4>
-          <p>Go to <strong>Home → Find & Select → Go To Special → Constants → Numbers</strong>. This highlights every cell with a typed number. In a well-built model, numbers should only appear in dedicated assumption cells — not buried inside formulas.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <div class="step-body">
-          <h4>Check Formula Consistency Across Rows</h4>
-          <p>Select the first formula cell in a row, then press <strong>Ctrl + Shift + End</strong> to select to the last. Use <strong>Ctrl + \</strong> (backslash) to highlight cells that differ from the first cell. These are your inconsistencies — review each one.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <div class="step-body">
-          <h4>Check for Broken External Links</h4>
-          <p>Go to <strong>Data → Edit Links</strong>. If any linked files show "Error: Source not found" or need updating, resolve these before sharing. Broken links silently return wrong values.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <div class="step-body">
-          <h4>Trace Precedents and Dependents on Key Cells</h4>
-          <p>Click any critical output cell (e.g., EBITDA, Net Profit). Press <strong>Ctrl + [</strong> to jump to precedents, or use <strong>Formulas → Trace Precedents</strong>. Verify the logic flows correctly from assumptions to outputs.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">6</div>
-        <div class="step-body">
-          <h4>Colour-Code the Model for Review</h4>
-          <p>Use colour to visually distinguish formula cells (no fill), hardcoded inputs (light blue), and cross-sheet links (light green). This makes logic immediately visible to any reviewer — including your client.</p>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">7</div>
-        <div class="step-body">
-          <h4>Do a Final Sense Check on Outputs</h4>
-          <p>Change a key assumption (e.g., revenue growth from 20% to 0%) and verify that outputs move in the expected direction and magnitude. If PAT barely changes when revenue drops to zero, something is wrong upstream.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="callout tip">
-      <strong>✅ Pro Tip</strong>
-      Build a dedicated "Audit Log" sheet in every model. Record every change made during the audit — cell reference, what was wrong, what was fixed. This is invaluable if a client ever questions a number later.
-    </div>
-
-    <h2>Financial Model Audit Checklist (Print-Ready)</h2>
-    <p>Use this checklist before sending any financial model to a client, investor, or senior reviewer:</p>
-
-    <div class="checklist">
-      <h4>Pre-Delivery Audit Checklist</h4>
-      <ul>
-        <li>All formula errors (#REF, #VALUE, #DIV/0, #N/A) resolved</li>
-        <li>No hardcoded numbers inside formula cells</li>
-        <li>Formula consistency checked across all key rows and columns</li>
-        <li>External links verified and updated</li>
-        <li>Cross-sheet references traced and confirmed correct</li>
-        <li>Model colour-coded (inputs, formulas, links clearly distinguished)</li>
-        <li>Key output cells traced back to assumption cells</li>
-        <li>Sense check passed (outputs respond correctly to assumption changes)</li>
-        <li>Number formatting consistent (₹ lakhs/crores, %, decimal places)</li>
-        <li>All sheets named clearly and in logical order</li>
-        <li>Print area set, page breaks checked</li>
-        <li>Filters, frozen rows, and zoom reset to default</li>
-      </ul>
-    </div>
-
-    <h2>How Long Does a Manual Model Audit Take?</h2>
-    <p>For a typical 10-sheet financial model (P&L, Balance Sheet, Cash Flow, DCF, 4-5 working sheets), a thorough manual audit takes:</p>
-
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Task</th><th>Manual Time</th><th>With ZAF Model Audit</th></tr></thead>
-        <tbody>
-          <tr><td>Find all formula errors</td><td>30–45 min</td><td>< 10 seconds</td></tr>
-          <tr><td>Check for hardcoded values</td><td>20–30 min</td><td>< 10 seconds</td></tr>
-          <tr><td>Identify inconsistent formulas</td><td>45–90 min</td><td>< 10 seconds</td></tr>
-          <tr><td>Colour-code the model</td><td>30–60 min</td><td>1 click</td></tr>
-          <tr><td>Reset view for delivery</td><td>10–15 min</td><td>1 click</td></tr>
-          <tr><td><strong>Total</strong></td><td><strong>2.5–4 hours</strong></td><td><strong>< 2 minutes</strong></td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- MID-ARTICLE CTA -->
-    <div class="zaf-cta">
-      <h3>Do This Audit in 60 Seconds — Not 4 Hours</h3>
-      <p>ZAFtool's Model Audit engine runs all 6 checks automatically and generates a colour-coded audit report. Used by investment bankers, CA firms, and FP&A teams across India.</p>
-      <a href="https://www.zaftool.com" class="btn">Try Free for 3 Days →</a>
-      <a href="https://wa.me/917827161430?text=Hi%2C%20I%20want%20to%20start%20the%203-day%20FREE%20TRIAL%20of%20ZAF%20Excel%20Tools%20v3.0.%20Please%20send%20me%20the%20download%20link.%20Thank%20you!" class="btn secondary">WhatsApp Demo Request</a>
-      <div><span class="trial-key">Trial Key: ZAF-TRIAL-2026</span></div>
-    </div>
-
-    <h2>Common Financial Model Audit Mistakes to Avoid</h2>
-
-    <h3>1. Auditing Only the Output Sheets</h3>
-    <p>Most analysts check the P&L and Balance Sheet but skip the working sheets. Errors almost always originate in the working sheets and flow downstream. Always audit every sheet.</p>
-
-    <h3>2. Relying on Excel's Built-In Error Check</h3>
-    <p>Excel's error checking (the green triangles) only catches a small subset of issues. It won't flag hardcoded values inside formulas, inconsistent logic, or structurally wrong cross-sheet references.</p>
-
-    <h3>3. Auditing After the Model Is Already Sent</h3>
-    <p>Build the audit into your workflow — not as a last-minute step. The best models are built with auditability in mind: clear input sheets, consistent formula logic, and colour-coding from the start.</p>
-
-    <h3>4. Not Documenting What You Found</h3>
-    <p>An audit without documentation is just guessing. Keep an audit log. If a client asks "why did this number change from the last version?", you want an answer.</p>
-
-    <h2>Frequently Asked Questions</h2>
-
-    <h3>What is a financial model audit?</h3>
-    <p>A financial model audit is a systematic review of an Excel-based financial model to identify formula errors, hardcoded values, inconsistent logic, broken links, and other issues that could produce incorrect outputs. It is performed before a model is shared with clients, investors, or senior management.</p>
-
-    <h3>How do I check for formula errors across all sheets in Excel?</h3>
-    <p>Use Ctrl+F to search for error text like "#REF!" across all sheets, or use the Go To Special feature (Ctrl+G → Special → Formulas → Errors) to select all error cells on the active sheet. For a multi-sheet audit, you need to repeat this on each sheet manually — or use a tool like ZAFtool that does it across all sheets simultaneously.</p>
-
-    <h3>What is the difference between a model audit and a model review?</h3>
-    <p>A model audit focuses on technical accuracy — finding errors, inconsistencies, and structural problems. A model review is broader and includes assessment of assumptions, methodology, and whether the model answers the right business question. Both are important; an audit should always precede a review.</p>
-
-    <h3>How often should you audit a financial model?</h3>
-    <p>Before every delivery to an external party (client, investor, lender). For internal models used regularly, a full audit every time assumptions or structure are significantly changed. Many teams also do a quick audit at the end of each working session.</p>
-
-    <!-- FINAL CTA -->
-    <div class="zaf-cta">
-      <h3>Stop Auditing Manually. Start Auditing Smart.</h3>
-      <p>ZAFtool's Model Audit tool checks your entire workbook for errors, hardcodes, inconsistencies and broken links — and highlights everything in a colour-coded report. 60 seconds. Every time.</p>
-      <a href="https://www.zaftool.com" class="btn">Start Free 3-Day Trial →</a>
-      <div style="margin-top:1rem; color: var(--muted); font-size: 0.85rem;">No credit card. No installation complexity. Works on Excel 2016–365.</div>
-    </div>
-
-    <h2>Related Articles</h2>
-    <ul>
-      <li><a href="https://www.zaftool.com/blog/best-excel-tools-investment-bankers">Best Excel Tools for Investment Bankers in India (2026)</a></li>
-      <li><a href="https://www.zaftool.com/blog/consolidate-excel-files-automatically">How to Consolidate Multiple Excel Files Automatically</a></li>
-      <li><a href="https://www.zaftool.com/blog/excel-financial-model-formatting">How to Format a Financial Model for Client Delivery</a></li>
-    </ul>
-
   </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>Check Formula Consistency Across Rows</h4>
+      <p>Select the first formula cell in a row, then press <code>Ctrl + Shift + End</code> to select to the last. Use <code>Ctrl + \</code> (backslash) to highlight cells that differ from the first cell. These are your inconsistencies — review each one.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h4>Check for Broken External Links</h4>
+      <p>Go to <strong>Data → Edit Links</strong>. If any linked files show "Error: Source not found" or need updating, resolve these before sharing. Broken links silently return wrong values.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">5</div>
+    <div class="step-content">
+      <h4>Trace Precedents and Dependents on Key Cells</h4>
+      <p>Click any critical output cell (e.g., EBITDA, Net Profit). Press <code>Ctrl + [</code> to jump to precedents, or use <strong>Formulas → Trace Precedents</strong>. Verify the logic flows correctly from assumptions to outputs.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">6</div>
+    <div class="step-content">
+      <h4>Colour-Code the Model for Review</h4>
+      <p>Use colour to visually distinguish formula cells (no fill), hardcoded inputs (light blue), and cross-sheet links (light green). This makes logic immediately visible to any reviewer — including your client.</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">7</div>
+    <div class="step-content">
+      <h4>Do a Final Sense Check on Outputs</h4>
+      <p>Change a key assumption (e.g., revenue growth from 20% to 0%) and verify that outputs move in the expected direction and magnitude. If PAT barely changes when revenue drops to zero, something is wrong upstream.</p>
+    </div>
+  </div>
+
+  <div class="callout success">
+    <span class="callout-icon">✅</span>
+    <strong>Pro Tip:</strong> Build a dedicated "Audit Log" sheet in every model. Record every change made during the audit — cell reference, what was wrong, what was fixed. This is invaluable if a client ever questions a number later.
+  </div>
+
+  <h2>Financial Model Audit Checklist (Print-Ready)</h2>
+  <p>Use this checklist before sending any financial model to a client, investor, or senior reviewer:</p>
+
+  <div class="checklist">
+    <h3>Pre-Delivery Audit Checklist</h3>
+    <div class="checklist-item">All formula errors (#REF, #VALUE, #DIV/0, #N/A) resolved</div>
+    <div class="checklist-item">No hardcoded numbers inside formula cells</div>
+    <div class="checklist-item">Formula consistency checked across all key rows and columns</div>
+    <div class="checklist-item">External links verified and updated</div>
+    <div class="checklist-item">Cross-sheet references traced and confirmed correct</div>
+    <div class="checklist-item">Model colour-coded (inputs, formulas, links clearly distinguished)</div>
+    <div class="checklist-item">Key output cells traced back to assumption cells</div>
+    <div class="checklist-item">Sense check passed (outputs respond correctly to assumption changes)</div>
+    <div class="checklist-item">Number formatting consistent (₹ lakhs/crores, %, decimal places)</div>
+    <div class="checklist-item">All sheets named clearly and in logical order</div>
+    <div class="checklist-item">Print area set, page breaks checked</div>
+    <div class="checklist-item">Filters, frozen rows, and zoom reset to default</div>
+  </div>
+
+  <h2>How Long Does a Manual Model Audit Take?</h2>
+  <p>For a typical 10-sheet financial model (P&amp;L, Balance Sheet, Cash Flow, DCF, 4–5 working sheets), a thorough manual audit takes:</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Task</th><th>Manual Time</th><th>With ZAF Model Audit</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Find all formula errors</td><td>30–45 min</td><td>&lt; 10 seconds</td></tr>
+        <tr><td>Check for hardcoded values</td><td>20–30 min</td><td>&lt; 10 seconds</td></tr>
+        <tr><td>Identify inconsistent formulas</td><td>45–90 min</td><td>&lt; 10 seconds</td></tr>
+        <tr><td>Colour-code the model</td><td>30–60 min</td><td>1 click</td></tr>
+        <tr><td>Reset view for delivery</td><td>10–15 min</td><td>1 click</td></tr>
+        <tr><td><strong>Total</strong></td><td><strong>2.5–4 hours</strong></td><td><strong>&lt; 2 minutes</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- MID-ARTICLE CTA -->
+  <div class="cta-box">
+    <h2>Do This Audit in 60 Seconds — Not 4 Hours</h2>
+    <p>ZAFtool's Model Audit engine runs all 6 checks automatically and generates a colour-coded audit report. Used by investment bankers, CA firms, and FP&amp;A teams across India.</p>
+    <a href="https://wa.me/917827161430?text=Hi%2C%20I%20want%20to%20start%20the%203-day%20FREE%20TRIAL%20of%20ZAF%20Excel%20Tools%20v3.0.%20Please%20send%20me%20the%20download%20link.%20Thank%20you!" class="cta-btn">Try Free for 3 Days →</a>
+    <div class="cta-meta">WhatsApp Demo &nbsp;•&nbsp; Trial Key: ZAF-TRIAL-2026</div>
+  </div>
+
+  <h2>Common Financial Model Audit Mistakes to Avoid</h2>
+
+  <h3>1. Auditing Only the Output Sheets</h3>
+  <p>Most analysts check the P&amp;L and Balance Sheet but skip the working sheets. Errors almost always originate in the working sheets and flow downstream. Always audit every sheet.</p>
+
+  <h3>2. Relying on Excel's Built-In Error Check</h3>
+  <p>Excel's error checking (the green triangles) only catches a small subset of issues. It won't flag hardcoded values inside formulas, inconsistent logic, or structurally wrong cross-sheet references.</p>
+
+  <h3>3. Auditing After the Model Is Already Sent</h3>
+  <p>Build the audit into your workflow — not as a last-minute step. The best models are built with auditability in mind: clear input sheets, consistent formula logic, and colour-coding from the start.</p>
+
+  <h3>4. Not Documenting What You Found</h3>
+  <p>An audit without documentation is just guessing. Keep an audit log. If a client asks "why did this number change from the last version?", you want an answer.</p>
+
+  <h2>Frequently Asked Questions</h2>
+
+  <div class="faq-item">
+    <div class="faq-q">What is a financial model audit?</div>
+    <div class="faq-a">A financial model audit is a systematic review of an Excel-based financial model to identify formula errors, hardcoded values, inconsistent logic, broken links, and other issues that could produce incorrect outputs. It is performed before a model is shared with clients, investors, or senior management.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How do I check for formula errors across all sheets in Excel?</div>
+    <div class="faq-a">Use Ctrl+F to search for error text like "#REF!" across all sheets, or use Go To Special (Ctrl+G → Special → Formulas → Errors) to select all error cells on the active sheet. For a multi-sheet audit, you need to repeat this on each sheet manually — or use a tool like ZAFtool that does it across all sheets simultaneously.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">What is the difference between a model audit and a model review?</div>
+    <div class="faq-a">A model audit focuses on technical accuracy — finding errors, inconsistencies, and structural problems. A model review is broader and includes assessment of assumptions, methodology, and whether the model answers the right business question. Both are important; an audit should always precede a review.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">How often should you audit a financial model?</div>
+    <div class="faq-a">Before every delivery to an external party (client, investor, lender). For internal models used regularly, a full audit every time assumptions or structure are significantly changed. Many teams also do a quick audit at the end of each working session.</div>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="cta-box">
+    <h2>Stop Auditing Manually. Start Auditing Smart.</h2>
+    <p>ZAFtool's Model Audit tool checks your entire workbook for errors, hardcodes, inconsistencies and broken links — and highlights everything in a colour-coded report. 60 seconds. Every time.</p>
+    <a href="https://wa.me/917827161430?text=Hi%2C%20I%20want%20to%20start%20the%203-day%20FREE%20TRIAL%20of%20ZAF%20Excel%20Tools%20v3.0.%20Please%20send%20me%20the%20download%20link.%20Thank%20you!" class="cta-btn">Start Free 3-Day Trial →</a>
+    <div class="cta-meta">No credit card. No installation complexity. Works on Excel 2016–365.</div>
+  </div>
+
+  <div class="related">
+    <h3>Related Articles</h3>
+    <a href="/blog/best-excel-tools-investment-bankers">Best Excel Tools for Investment Bankers in India (2026)</a>
+    <a href="/blog/consolidate-excel-files-automatically">How to Consolidate Multiple Excel Files Automatically</a>
+    <a href="/blog/excel-financial-model-formatting">How to Format a Financial Model for Client Delivery</a>
+  </div>
+
 </article>
 
 <footer>
   <p>© 2026 ZAFtool — Excel Tools for Finance Professionals</p>
-  <p style="margin-top:0.5rem;"><a href="https://www.zaftool.com">Home</a> &nbsp;•&nbsp; <a href="mailto:abhishek.bhandari@zaftool.com">abhishek.bhandari@zaftool.com</a> &nbsp;•&nbsp; <a href="https://www.linkedin.com/in/abhishek-bhandari-6b048979/">LinkedIn</a></p>
+  <p style="margin-top:0.5rem;">
+    <a href="https://www.zaftool.com">Home</a> &nbsp;•&nbsp;
+    <a href="mailto:abhishek.bhandari@zaftool.com">abhishek.bhandari@zaftool.com</a> &nbsp;•&nbsp;
+    <a href="https://www.linkedin.com/in/abhishek-bhandari-6b048979/">LinkedIn</a>
+  </p>
 </footer>
 
 </body>
