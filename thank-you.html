@@ -104,65 +104,92 @@
   <a href="/" class="nav-logo">ZAF<span>Tools</span></a>
 </nav>
 
-<div class="card">
-  <div class="success-icon">✅</div>
-  <h1>Your download is ready!</h1>
-  <p class="subtitle">You're one install away from 25 professional Excel tools.</p>
-
-  <div class="download-box">
-    <h3>📦 ZAFtool v3.0 — Full Trial (14 days, all 25 tools)</h3>
-    <p>File: <strong>ZAF_Pro.xlam</strong> · Expires 14 days from install · No card needed</p>
-    <a href="/ZAF_Pro.xlam"
-       class="dl-btn"
-       id="trialDownloadBtn">
-      ⬇ Download ZAFtool Now
-    </a>
-  </div>
-
-  <div class="steps">
-    <h3>Install in 3 steps — under 5 minutes</h3>
-    <div class="step-row">
-      <div class="step-num">1</div>
-      <div class="step-text">
-        <strong>Save the .xlam file</strong>
-        <span>Save it somewhere permanent (e.g. Documents/ZAFtool). Don't open it directly.</span>
-      </div>
-    </div>
-    <div class="step-row">
-      <div class="step-num">2</div>
-      <div class="step-text">
-        <strong>Open Excel → File → Options → Add-ins</strong>
-        <span>At the bottom, choose "Manage: Excel Add-ins" → click Go → Browse → select ZAF_Pro.xlam → OK</span>
-      </div>
-    </div>
-    <div class="step-row">
-      <div class="step-num">3</div>
-      <div class="step-text">
-        <strong>Look for the ZAFtool tab in your ribbon</strong>
-        <span>It appears automatically. Click any tool to get started. That's it!</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="upsell">
-    <strong>⏳ Trial lasts 14 days from today.</strong><br/>
-    If ZAFtool saves you time (it will), lock in the launch price of ₹2,999/yr before April 1 when it goes up.
-    <br/>
-    <a href="/#pricing">See pricing & upgrade →</a>
-  </div>
-
-  <div class="help-row">
-    Any install issues? Email <a href="mailto:abhishek.bhandari@zaftool.com">abhishek.bhandari@zaftool.com</a> — replies within a few hours.
-  </div>
+<div class="card" id="mainCard">
+  <!-- content injected by JS based on ?plan= param -->
 </div>
 
 <script>
-  // Fire GA download event when button is clicked
-  document.getElementById('trialDownloadBtn').addEventListener('click', function() {
+(function() {
+  var params  = new URLSearchParams(window.location.search);
+  var plan    = params.get('plan') || 'pro'; // 'lite' or 'pro'
+  var isLite  = plan === 'lite';
+
+  var card = document.getElementById('mainCard');
+
+  var downloadFile  = isLite ? '/ZAF_Lite.xlam'  : '/ZAF_Pro.xlam';
+  var downloadLabel = isLite ? 'ZAFtool Lite — Free Forever' : 'ZAFtool Pro Trial — 14 Days, All 25 Tools';
+  var fileInfo      = isLite ? 'ZAF_Lite.xlam · 6 core tools · No expiry'
+                             : 'ZAF_Pro.xlam · All 25 tools · 14-day trial · No card needed';
+  var gaLabel       = isLite ? 'lite_xlam' : 'trial_xlam';
+
+  card.innerHTML = [
+    '<div class="success-icon">' + (isLite ? '🆓' : '✅') + '</div>',
+    '<h1>Your download is ready!</h1>',
+    '<p class="subtitle">' + (isLite
+      ? 'ZAFtool Lite is yours — free forever. Install in under 5 minutes.'
+      : 'You\'re one install away from all 25 professional Excel tools.') + '</p>',
+
+    '<div class="download-box">',
+      '<h3>📦 ' + downloadLabel + '</h3>',
+      '<p>File: <strong>' + fileInfo + '</strong></p>',
+      '<a href="' + downloadFile + '" class="dl-btn" id="dlBtn" download>⬇ Download Now</a>',
+    '</div>',
+
+    '<div class="steps">',
+      '<h3>Install in 3 steps — under 5 minutes</h3>',
+      '<div class="step-row">',
+        '<div class="step-num">1</div>',
+        '<div class="step-text">',
+          '<strong>⚠ Right-click the file → Properties → check "Unblock" → Apply</strong>',
+          '<span>Windows blocks downloaded files by default. Do this FIRST or macros won\'t work.</span>',
+        '</div>',
+      '</div>',
+      '<div class="step-row">',
+        '<div class="step-num">2</div>',
+        '<div class="step-text">',
+          '<strong>Open Excel → File → Options → Add-ins</strong>',
+          '<span>At the bottom choose "Excel Add-ins" → Go → Browse → select the .xlam file → OK</span>',
+        '</div>',
+      '</div>',
+      '<div class="step-row">',
+        '<div class="step-num">3</div>',
+        '<div class="step-text">',
+          '<strong>Look for the ZAFtool tab in your ribbon</strong>',
+          '<span>It appears automatically. Click any tool to start. Full install guide: <a href="/docs/" style="color:var(--accent2);">zaftool.com/docs</a></span>',
+        '</div>',
+      '</div>',
+    '</div>',
+
+    isLite ? [
+      '<div class="upsell">',
+        '<strong>💡 Enjoying Lite?</strong> Upgrade to ZAF Pro for Model Audit, Consolidate Files, Data Cleaning and 19 more tools.',
+        '<br/><a href="/#pricing">See ZAF Pro — ₹2,999/yr →</a>',
+      '</div>'
+    ].join('') : [
+      '<div class="upsell">',
+        '<strong>⏳ Trial lasts 14 days from today.</strong><br/>',
+        'If ZAFtool saves you time (it will), lock in ₹2,999/yr before April 1 when it goes up.',
+        '<br/><a href="/#pricing">See pricing & upgrade →</a>',
+      '</div>'
+    ].join(''),
+
+    '<div class="help-row">',
+      'Any install issues? Email <a href="mailto:abhishek.bhandari@zaftool.com">abhishek.bhandari@zaftool.com</a> — replies within a few hours.',
+    '</div>'
+  ].join('');
+
+  // GA conversion event
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'download_page_view', { event_category: 'conversion', event_label: gaLabel });
+  }
+
+  // GA on download click
+  document.getElementById('dlBtn').addEventListener('click', function() {
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'file_download', { event_category: 'conversion', event_label: 'trial_xlam' });
+      gtag('event', 'file_download', { event_category: 'conversion', event_label: gaLabel });
     }
   });
+})();
 </script>
 
 </body>
