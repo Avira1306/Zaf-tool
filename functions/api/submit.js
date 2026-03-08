@@ -1,46 +1,38 @@
 export async function onRequestPost(context) {
   try {
     const formData = await context.request.formData();
+    const url = new URL(context.request.url);
 
-    const name = formData.get("name") || "Team Quote Request";
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-    const industry = formData.get("industry");
-    const teamSize = formData.get("team_size");
-    const company = formData.get("company");
-    const message = formData.get("message");
+    // --- Read all fields ---
+    const formType  = formData.get("form_type") || "team_quote";
+    const name      = formData.get("name")      || "";
+    const email     = formData.get("email")     || "";
+    const role      = formData.get("role")      || "";
+    const phone     = formData.get("phone")     || "";
+    const industry  = formData.get("industry")  || "";
+    const teamSize  = formData.get("team_size") || "";
+    const company   = formData.get("company")   || "";
+    const message   = formData.get("message")   || "";
 
-    const sheetId = context.env.SHEET_ID;
-
+    // --- Google Sheets auth ---
+    const sheetId        = context.env.SHEET_ID;
     const serviceAccount = JSON.parse(context.env.GOOGLE_SERVICE_ACCOUNT);
-    const clientEmail = serviceAccount.client_email;
-    const privateKey = serviceAccount.private_key;
-
-    // ---------- JWT CREATION ----------
+    const clientEmail    = serviceAccount.client_email;
+    const privateKey     = serviceAccount.private_key;
 
     const now = Math.floor(Date.now() / 1000);
-
-    const jwtHeader = {
-      alg: "RS256",
-      typ: "JWT"
-    };
-
-    const jwtClaim = {
+    const headerEncoded = base64UrlEncode(JSON.stringify({ alg: "RS256", typ: "JWT" }));
+    const claimEncoded  = base64UrlEncode(JSON.stringify({
       iss: clientEmail,
       scope: "https://www.googleapis.com/auth/spreadsheets",
       aud: "https://oauth2.googleapis.com/token",
       exp: now + 3600,
       iat: now
-    };
-
-    const encoder = new TextEncoder();
-
-    const headerEncoded = base64UrlEncode(JSON.stringify(jwtHeader));
-    const claimEncoded = base64UrlEncode(JSON.stringify(jwtClaim));
+    }));
 
     const unsignedToken = `${headerEncoded}.${claimEncoded}`;
+    const encoder = new TextEncoder();
 
-    // Proper PEM decoding
     const keyData = await crypto.subtle.importKey(
       "pkcs8",
       pemToArrayBuffer(privateKey),
@@ -49,16 +41,8 @@ export async function onRequestPost(context) {
       ["sign"]
     );
 
-    const signature = await crypto.subtle.sign(
-      "RSASSA-PKCS1-v1_5",
-      keyData,
-      encoder.encode(unsignedToken)
-    );
-
-    const signedToken =
-      unsignedToken + "." + arrayBufferToBase64Url(signature);
-
-    // ---------- GET ACCESS TOKEN ----------
+    const signature   = await crypto.subtle.sign("RSASSA-PKCS1-v1_5", keyData, encoder.encode(unsignedToken));
+    const signedToken = unsignedToken + "." + arrayBufferToBase64Url(signature);
 
     const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
@@ -67,86 +51,71 @@ export async function onRequestPost(context) {
     });
 
     const tokenData = await tokenResponse.json();
+    if (!tokenData.access_token) throw new Error("Failed to get access token");
 
-    if (!tokenData.access_token) {
-      throw new Error("Failed to get access token");
-    }
+    // --- Write row (always to Sheet1 for simplicity, with form_type column) ---
+    const row = [
+      new Date().toISOString(),
+      formType,
+      name,
+      email,
+      role,
+      phone,
+      industry,
+      teamSize,
+      company,
+      message
+    ];
 
-    const accessToken = tokenData.access_token;
-
-    // ---------- APPEND TO SHEET ----------
-
-    const sheetResponse = await fetch(
+    await fetch(
       `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1:append?valueInputOption=USER_ENTERED`,
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${tokenData.access_token}`,
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          values: [[
-            new Date().toISOString(),
-            name,
-            email,
-            phone,
-            industry,
-            teamSize,
-            company,
-            message
-          ]]
-        })
+        body: JSON.stringify({ values: [row] })
       }
     );
 
-    if (!sheetResponse.ok) {
-      throw new Error("Failed to write to Google Sheet");
+    // --- Redirect ---
+    const redirectParam = url.searchParams.get("redirect");
+    let redirectTo;
+    if (redirectParam) {
+      redirectTo = `${url.origin}${redirectParam}`;
+    } else if (formType === "trial") {
+      redirectTo = `${url.origin}/thank-you.html`;
+    } else {
+      redirectTo = `${url.origin}/?success=true`;
     }
 
-    return Response.redirect(
-      `${new URL(context.request.url).origin}?success=true`,
-      302
-    );
+    return Response.redirect(redirectTo, 302);
 
   } catch (error) {
     return new Response("ERROR: " + error.message, { status: 500 });
   }
 }
 
-// ---------- HELPERS ----------
-
 function pemToArrayBuffer(pem) {
   const base64 = pem
     .replace(/-----BEGIN PRIVATE KEY-----/, "")
     .replace(/-----END PRIVATE KEY-----/, "")
     .replace(/\s/g, "");
-
   const binary = atob(base64);
   const buffer = new ArrayBuffer(binary.length);
-  const view = new Uint8Array(buffer);
-
-  for (let i = 0; i < binary.length; i++) {
-    view[i] = binary.charCodeAt(i);
-  }
-
+  const view   = new Uint8Array(buffer);
+  for (let i = 0; i < binary.length; i++) view[i] = binary.charCodeAt(i);
   return buffer;
 }
 
 function base64UrlEncode(str) {
-  return btoa(str)
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
+  return btoa(str).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
 }
 
 function arrayBufferToBase64Url(buffer) {
   const bytes = new Uint8Array(buffer);
   let binary = "";
-  for (let i = 0; i < bytes.byteLength; i++) {
-    binary += String.fromCharCode(bytes[i]);
-  }
-  return btoa(binary)
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
+  for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary).replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
 }
