@@ -254,29 +254,131 @@
     .announce-bar .ab-close:hover { opacity: 1; }
 
     /* ── NAV ── */
-    nav {
+    nav.main-nav {
       position: fixed; top: 2.4rem; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(7,11,20,0.85);
-      backdrop-filter: blur(12px);
+      display: flex; align-items: center;
+      padding: 0 2.5rem; height: 56px;
+      background: rgba(7,11,20,0.96);
+      backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
     }
     .nav-logo {
-      font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px;
-      color: var(--text);
+      font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px;
+      color: var(--text); text-decoration: none; flex-shrink: 0;
+      margin-right: 2.5rem;
     }
     .nav-logo span { color: var(--accent2); }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
-    .nav-links a:hover { color: var(--text); }
+
+    /* Centre links */
+    .nav-links {
+      display: flex; align-items: center; gap: 0.25rem;
+      list-style: none; flex: 1;
+    }
+    .nav-links > li { position: relative; }
+    .nav-links > li > a,
+    .nav-links > li > button {
+      display: flex; align-items: center; gap: 0.3rem;
+      padding: 0 0.85rem; height: 56px;
+      color: var(--muted); text-decoration: none;
+      font-size: 0.9rem; font-weight: 500;
+      background: none; border: none; cursor: pointer;
+      font-family: inherit; transition: color 0.15s; white-space: nowrap;
+    }
+    .nav-links > li > a:hover,
+    .nav-links > li > button:hover,
+    .nav-links > li.nav-open > a,
+    .nav-links > li.nav-open > button { color: var(--text); }
+    .nav-chevron {
+      width: 14px; height: 14px; flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .nav-links > li.nav-open .nav-chevron { transform: rotate(180deg); }
+
+    /* Dropdown panel */
+    .nav-dropdown {
+      position: absolute; top: calc(100% + 1px); left: 50%;
+      transform: translateX(-50%);
+      min-width: 220px; background: #0d1117;
+      border: 1px solid var(--border); border-radius: 12px;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+      padding: 0.6rem 0;
+      opacity: 0; pointer-events: none;
+      transform: translateX(-50%) translateY(-6px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      z-index: 200;
+    }
+    .nav-links > li.nav-open .nav-dropdown {
+      opacity: 1; pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em;
+      text-transform: uppercase; color: var(--dim);
+      padding: 0.7rem 1.1rem 0.3rem;
+    }
+    .nav-dropdown a {
+      display: flex; flex-direction: column;
+      padding: 0.6rem 1.1rem;
+      text-decoration: none; border-radius: 6px;
+      margin: 0 0.3rem;
+      transition: background 0.15s;
+    }
+    .nav-dropdown a:hover { background: rgba(255,255,255,0.06); }
+    .nav-dropdown a .dd-title { color: var(--text); font-size: 0.875rem; font-weight: 500; }
+    .nav-dropdown a .dd-sub  { color: var(--dim);  font-size: 0.775rem; margin-top: 1px; }
+    .nav-dropdown hr { border: none; border-top: 1px solid var(--border); margin: 0.4rem 0; }
+
+    /* Right CTA */
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
     .nav-cta {
       background: var(--accent); color: #fff;
-      padding: 0.5rem 1.25rem; border-radius: 6px;
-      text-decoration: none; font-size: 0.9rem; font-weight: 600;
-      transition: background 0.2s;
+      padding: 0.5rem 1.2rem; border-radius: 7px;
+      text-decoration: none; font-size: 0.875rem; font-weight: 700;
+      transition: opacity 0.2s; white-space: nowrap;
     }
-    .nav-cta:hover { background: var(--accent2); }
+    .nav-cta:hover { opacity: 0.88; }
+
+    /* Mobile — collapse to hamburger below 860px */
+    .nav-hamburger {
+      display: none; flex-direction: column; justify-content: center;
+      gap: 5px; width: 32px; height: 32px;
+      background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto;
+    }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px; transition: all 0.3s;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      display: none; position: fixed; top: calc(2.4rem + 56px); left: 0; right: 0;
+      background: #0d1117; border-bottom: 1px solid var(--border);
+      z-index: 99; flex-direction: column; max-height: calc(100vh - 100px); overflow-y: auto;
+    }
+    .nav-drawer.open { display: flex; }
+    .nav-drawer a, .nav-drawer button {
+      display: block; padding: 0.9rem 1.5rem;
+      color: var(--muted); text-decoration: none; font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      background: none; border-left: none; border-right: none; border-top: none;
+      text-align: left; width: 100%; font-family: inherit; cursor: pointer;
+    }
+    .nav-drawer a:hover, .nav-drawer button:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+    .nav-drawer .drawer-sub a { padding-left: 2.25rem; font-size: 0.875rem; }
+    .nav-drawer .drawer-cta {
+      margin: 1rem 1.5rem 1.25rem;
+      background: var(--accent); color: #fff;
+      padding: 0.85rem; border-radius: 8px;
+      text-align: center; font-weight: 700; border: none;
+    }
+
+    @media (max-width: 860px) {
+      .nav-links, .nav-right { display: none; }
+      .nav-hamburger { display: flex; }
+    }
 
     /* ── FOOTER ── */
     footer {
@@ -641,6 +743,200 @@
       font-size: 0.8rem; font-weight: 600;
     }
 
+    /* ── TESTIMONIAL CAROUSEL ── */
+    .testi-section {
+      padding: 5rem 2rem;
+      background: var(--bg);
+    }
+    .testi-wrap {
+      max-width: 780px;
+      margin: 3rem auto 0;
+    }
+    .testi-track { position: relative; min-height: 220px; }
+    .testi-slide {
+      display: none;
+      animation: testiFadeIn 0.4s ease;
+    }
+    .testi-slide.active { display: block; }
+    @keyframes testiFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .testi-stars {
+      color: var(--gold);
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      margin-bottom: 1.5rem;
+    }
+    .testi-quote {
+      font-size: 1.3rem;
+      line-height: 1.65;
+      color: var(--text);
+      font-style: italic;
+      font-weight: 400;
+      margin: 0 0 2rem;
+      quotes: "\201C" "\201D";
+    }
+    .testi-quote::before { content: open-quote; color: var(--accent2); font-size: 2rem; line-height: 0; vertical-align: -0.5rem; margin-right: 4px; }
+    .testi-author {
+      display: flex; align-items: center; gap: 14px;
+    }
+    .testi-avatar {
+      width: 50px; height: 50px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.9rem; color: #fff; flex-shrink: 0;
+    }
+    .testi-name { font-weight: 700; color: var(--text); font-size: 0.95rem; }
+    .testi-role { color: var(--muted); font-size: 0.82rem; margin-top: 2px; }
+    .testi-nav {
+      display: flex; align-items: center; justify-content: center;
+      gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .testi-btn {
+      background: none; border: 1px solid var(--border);
+      color: var(--muted); width: 40px; height: 40px;
+      border-radius: 50%; font-size: 1rem; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: center; justify-content: center;
+    }
+    .testi-btn:hover { border-color: var(--accent); color: var(--text); }
+    .testi-dots { display: flex; gap: 8px; align-items: center; }
+    .testi-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border); border: none; cursor: pointer;
+      transition: all 0.2s; padding: 0;
+    }
+    .testi-dot.active { background: var(--accent); width: 24px; border-radius: 4px; }
+
+    /* ── BENTO FEATURES ── */
+    .bento-section {
+      padding: 5rem 2rem;
+      background: var(--surface);
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1.25rem;
+      margin-top: 3rem;
+    }
+    .bento-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .bento-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+    .bento-card.bento-wide { grid-column: span 2; }
+    .bento-card.bento-tall { grid-row: span 2; }
+    .bento-icon {
+      font-size: 2.2rem; margin-bottom: 1rem;
+    }
+    .bento-title {
+      font-size: 1.15rem; font-weight: 700; color: var(--text);
+      margin-bottom: 0.6rem;
+    }
+    .bento-desc {
+      font-size: 0.875rem; color: var(--muted); line-height: 1.6;
+    }
+    .bento-tag {
+      display: inline-block;
+      background: rgba(37,99,235,0.15);
+      color: var(--accent2);
+      font-size: 0.7rem; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border-radius: 4px;
+      margin-bottom: 0.75rem;
+    }
+    .bento-stat {
+      font-size: 2.5rem; font-weight: 800;
+      color: var(--accent2); line-height: 1;
+      margin-bottom: 0.4rem;
+    }
+    .bento-accent-bg {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%);
+      border-color: transparent;
+    }
+    .bento-accent-bg .bento-title, .bento-accent-bg .bento-desc { color: #fff; }
+    .bento-accent-bg .bento-desc { opacity: 0.8; }
+    .bento-gold-bg {
+      background: linear-gradient(135deg, #78350f 0%, #b45309 100%);
+      border-color: transparent;
+    }
+    .bento-gold-bg .bento-title { color: #fff; }
+    .bento-gold-bg .bento-desc { color: rgba(255,255,255,0.8); }
+    .bento-checklist {
+      list-style: none; margin-top: 1rem;
+    }
+    .bento-checklist li {
+      font-size: 0.85rem; color: rgba(255,255,255,0.85);
+      padding: 0.3rem 0; display: flex; gap: 0.5rem;
+    }
+    .bento-checklist li::before { content: "✓"; color: #86efac; font-weight: 700; }
+    @media (max-width: 780px) {
+      .bento-grid { grid-template-columns: 1fr 1fr; }
+      .bento-card.bento-wide { grid-column: span 2; }
+    }
+    @media (max-width: 520px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-card.bento-wide { grid-column: span 1; }
+    }
+
+    /* ── FOR YOU / YOUR TEAM split ── */
+    .split-section {
+      padding: 5rem 2rem;
+      background: var(--bg);
+    }
+    .split-tabs {
+      display: flex; gap: 0; border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+      max-width: 340px; margin: 2rem auto 3rem;
+    }
+    .split-tab {
+      flex: 1; padding: 0.65rem 1.25rem;
+      background: none; border: none; cursor: pointer;
+      font-family: inherit; font-size: 0.88rem; font-weight: 600;
+      color: var(--muted); transition: all 0.2s;
+    }
+    .split-tab.active {
+      background: var(--accent); color: #fff;
+    }
+    .split-panel { display: none; }
+    .split-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+    .split-content h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 1rem; line-height: 1.25; }
+    .split-content p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .split-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .split-list li {
+      display: flex; align-items: flex-start; gap: 0.6rem;
+      font-size: 0.9rem; color: var(--muted);
+    }
+    .split-list li::before { content: "✓"; color: var(--accent2); font-weight: 700; flex-shrink: 0; }
+    .split-cta { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+    .split-visual {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+    }
+    .split-tool-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.75rem 1rem; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px;
+    }
+    .split-tool-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .split-tool-name { font-weight: 600; font-size: 0.875rem; color: var(--text); }
+    .split-tool-desc { font-size: 0.78rem; color: var(--muted); }
+    .split-tool-badge {
+      margin-left: auto; font-size: 0.68rem; font-weight: 700;
+      background: rgba(37,99,235,0.15); color: var(--accent2);
+      padding: 0.2rem 0.5rem; border-radius: 4px; white-space: nowrap;
+    }
+    @media (max-width: 680px) {
+      .split-panel.active { grid-template-columns: 1fr; }
+      .split-visual { display: none; }
+    }
+
     /* ── PRICING ── */
     .pricing-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
@@ -779,8 +1075,7 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
-      nav { padding: 1rem; top: 2.4rem; }
-      .nav-links { display: none; }
+      nav.main-nav { padding: 0.9rem 1.25rem; }
       .audit-box { grid-template-columns: 1fr; }
       .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
       .hiw-step:not(:last-child)::after { display: none; }
@@ -959,21 +1254,184 @@
 </div>
 
 <!-- NAV -->
-<nav role="navigation" aria-label="Main navigation">
-  <div class="nav-logo" itemscope itemtype="https://schema.org/Organization">
-    <a href="https://www.zaftool.com/" itemprop="url" style="text-decoration:none; color:inherit;">
-      ZAF<span itemprop="name">Tools</span>
-    </a>
-  </div>
-  <ul class="nav-links">
-    <li><a href="#features">Features</a></li>
-    <li><a href="#audit">Model Audit</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#pricing">Pricing</a></li>
-    <li><a href="#faq">FAQ</a></li>
+<nav class="main-nav" role="navigation" aria-label="Main navigation" itemscope itemtype="https://schema.org/Organization">
+
+  <!-- Logo -->
+  <a href="https://www.zaftool.com/" class="nav-logo" itemprop="url" aria-label="ZAFtool home">
+    ZAF<span itemprop="name">tool</span>
+  </a>
+
+  <!-- Desktop centre links -->
+  <ul class="nav-links" role="list">
+
+    <!-- Product dropdown -->
+    <li class="nav-item-drop" id="navProduct">
+      <button aria-haspopup="true" aria-expanded="false" aria-controls="ddProduct">
+        Product
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="nav-dropdown" id="ddProduct" role="menu">
+        <div class="nav-dropdown-label">Plans</div>
+        <a href="/start-trial.html#lite" role="menuitem">
+          <span class="dd-title">ZAF Lite</span>
+          <span class="dd-sub">Free — 6 core tools</span>
+        </a>
+        <a href="/start-trial.html" role="menuitem">
+          <span class="dd-title">ZAF Pro</span>
+          <span class="dd-sub">₹2,999/yr — all 25 tools</span>
+        </a>
+        <a href="/#pricing" role="menuitem">
+          <span class="dd-title">ZAF Enterprise</span>
+          <span class="dd-sub">Custom — team licensing</span>
+        </a>
+        <hr/>
+        <div class="nav-dropdown-label">Explore</div>
+        <a href="/#features" role="menuitem">
+          <span class="dd-title">All 25 Tools</span>
+          <span class="dd-sub">Full feature list</span>
+        </a>
+        <a href="/#roadmap" role="menuitem">
+          <span class="dd-title">Roadmap</span>
+          <span class="dd-sub">What's coming next</span>
+        </a>
+      </div>
+    </li>
+
+    <!-- Pricing (direct link) -->
+    <li><a href="/#pricing">Pricing</a></li>
+
+    <!-- Resources dropdown -->
+    <li class="nav-item-drop" id="navResources">
+      <button aria-haspopup="true" aria-expanded="false" aria-controls="ddResources">
+        Resources
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="nav-dropdown" id="ddResources" role="menu">
+        <a href="/blog/" role="menuitem">
+          <span class="dd-title">Blog</span>
+          <span class="dd-sub">Tips & finance insights</span>
+        </a>
+        <a href="/checklist" role="menuitem">
+          <span class="dd-title">Free Audit Checklist</span>
+          <span class="dd-sub">Download free resource</span>
+        </a>
+        <a href="/docs/" role="menuitem">
+          <span class="dd-title">Install Guide</span>
+          <span class="dd-sub">Get up & running in 2 mins</span>
+        </a>
+        <a href="/release-notes/" role="menuitem">
+          <span class="dd-title">Release Notes</span>
+          <span class="dd-sub">Latest updates & fixes</span>
+        </a>
+      </div>
+    </li>
+
+    <!-- FAQ (direct link) -->
+    <li><a href="/#faq">FAQ</a></li>
+
   </ul>
-  <a href="/start-trial.html" class="nav-cta">Start Free Trial</a>
+
+  <!-- Desktop right CTA -->
+  <div class="nav-right">
+    <a href="/start-trial.html" class="nav-cta">Start Free Trial →</a>
+  </div>
+
+  <!-- Mobile hamburger (hidden on desktop) -->
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+    <span></span><span></span><span></span>
+  </button>
+
 </nav>
+
+<!-- Mobile drawer -->
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu">
+  <a href="/" class="nav-drawer-item">Home</a>
+  <a href="/#features" class="nav-drawer-item">All 25 Tools</a>
+  <a href="/#pricing" class="nav-drawer-item">Pricing</a>
+  <a href="/blog/" class="nav-drawer-item">Blog</a>
+  <a href="/checklist" class="nav-drawer-item">Free Audit Checklist</a>
+  <a href="/docs/" class="nav-drawer-item">Install Guide</a>
+  <a href="/#faq" class="nav-drawer-item">FAQ</a>
+  <a href="mailto:abhishek.bhandari@zaftool.com" class="nav-drawer-item">Contact</a>
+  <a href="/start-trial.html" class="drawer-cta">Start Free Trial →</a>
+</div>
+
+<script>
+(function() {
+  // ── Desktop dropdowns ──────────────────────────────────────
+  var dropItems = document.querySelectorAll('.nav-item-drop');
+
+  dropItems.forEach(function(item) {
+    var btn = item.querySelector('button');
+    var dd  = item.querySelector('.nav-dropdown');
+    if (!btn || !dd) return;
+
+    // Open on mouseenter, close on mouseleave (desktop hover)
+    item.addEventListener('mouseenter', function() {
+      closeAll();
+      item.classList.add('nav-open');
+      btn.setAttribute('aria-expanded', 'true');
+    });
+    item.addEventListener('mouseleave', function() {
+      item.classList.remove('nav-open');
+      btn.setAttribute('aria-expanded', 'false');
+    });
+
+    // Also toggle on click (touch / keyboard)
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = item.classList.contains('nav-open');
+      closeAll();
+      if (!isOpen) {
+        item.classList.add('nav-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  function closeAll() {
+    dropItems.forEach(function(i) {
+      i.classList.remove('nav-open');
+      var b = i.querySelector('button');
+      if (b) b.setAttribute('aria-expanded', 'false');
+    });
+  }
+
+  // Close on click outside
+  document.addEventListener('click', closeAll);
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') { closeAll(); closeMobileDrawer(); }
+  });
+
+  // ── Mobile drawer ──────────────────────────────────────────
+  var hamburger = document.getElementById('navHamburger');
+  var drawer    = document.getElementById('navDrawer');
+
+  function openMobileDrawer() {
+    drawer.classList.add('open');
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileDrawer() {
+    drawer.classList.remove('open');
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  hamburger.addEventListener('click', function() {
+    drawer.classList.contains('open') ? closeMobileDrawer() : openMobileDrawer();
+  });
+
+  // Close drawer when a link is tapped
+  drawer.querySelectorAll('a').forEach(function(a) {
+    a.addEventListener('click', closeMobileDrawer);
+  });
+})();
+</script>
 
 <!-- HERO -->
 <header class="hero" role="banner">
@@ -1001,20 +1459,20 @@
 <section class="stats-bar" aria-label="Key statistics">
   <div class="stats-inner">
     <div class="stat">
+      <div class="stat-num">500<span>+</span></div>
+      <div class="stat-label">Finance Professionals</div>
+    </div>
+    <div class="stat">
       <div class="stat-num">25<span>+</span></div>
-      <div class="stat-label">Professional Tools</div>
+      <div class="stat-label">One-Click Tools</div>
     </div>
     <div class="stat">
-      <div class="stat-num">6</div>
-      <div class="stat-label">Tool Categories</div>
+      <div class="stat-num">4.9<span>★</span></div>
+      <div class="stat-label">Average Rating</div>
     </div>
     <div class="stat">
-      <div class="stat-num">1<span>x</span></div>
-      <div class="stat-label">Click Per Tool</div>
-    </div>
-    <div class="stat">
-      <div class="stat-num"><span>₹</span>2,999</div>
-      <div class="stat-label">Per User / Year</div>
+      <div class="stat-num">187<span>h</span></div>
+      <div class="stat-label">Hours Saved / Year</div>
     </div>
   </div>
 </section>
@@ -1081,6 +1539,70 @@
         <h3 class="h4">Dirty Data Nightmares</h3>
         <p>Invisible characters, text-formatted numbers, mixed DD/MM vs MM/DD dates, green triangles everywhere. VLOOKUPs break. SUMs show zero. Deadlines suffer.</p>
       </article>
+    </div>
+  </div>
+</section>
+
+<!-- BENTO FEATURES HIGHLIGHTS -->
+<section class="bento-section" aria-label="Key feature highlights">
+  <div class="container">
+    <div class="section-label">Why ZAFtool?</div>
+    <h2 class="section-title">Built for the way finance actually works.</h2>
+    <p class="section-sub">Every tool solves a real pain you've felt this week.</p>
+
+    <div class="bento-grid">
+
+      <!-- Wide feature: Model Audit -->
+      <article class="bento-card bento-wide bento-accent-bg">
+        <div class="bento-tag">🏆 Most Loved</div>
+        <div class="bento-icon">🔍</div>
+        <div class="bento-title">Model Audit Engine — catches what you always miss</div>
+        <div class="bento-desc">Run a 6-check audit in seconds. Formula consistency, hardcoded values, broken references, range validation — all flagged with clickable links to every issue.</div>
+        <ul class="bento-checklist" style="margin-top:1.25rem;">
+          <li>Row-level formula consistency check</li>
+          <li>Broken references: #REF!, #N/A, #VALUE!</li>
+          <li>SUM/AVERAGE range validation</li>
+          <li>Clickable scorecard to every issue</li>
+        </ul>
+      </article>
+
+      <!-- Stat card: time saved -->
+      <article class="bento-card">
+        <div class="bento-tag">ROI</div>
+        <div class="bento-stat">187h</div>
+        <div class="bento-title">Saved per analyst per year</div>
+        <div class="bento-desc">At just 45 minutes a day, ZAFtool pays back 31× your subscription in year one.</div>
+      </article>
+
+      <!-- Formatting -->
+      <article class="bento-card">
+        <div class="bento-icon">🎨</div>
+        <div class="bento-title">One-Click Formatting</div>
+        <div class="bento-desc">Apply professional fonts, headers, number formats, and Indian Lakhs/Crores styling — entire workbook in under 2 seconds.</div>
+      </article>
+
+      <!-- Data Cleaning -->
+      <article class="bento-card">
+        <div class="bento-icon">🧼</div>
+        <div class="bento-title">Data Cleaning Suite</div>
+        <div class="bento-desc">Clean Text, Text to Number, Fix Dates, Remove Blanks. Dirty import data turned client-ready in one click.</div>
+      </article>
+
+      <!-- Consolidation — Gold wide -->
+      <article class="bento-card bento-wide bento-gold-bg">
+        <div class="bento-icon">📁</div>
+        <div class="bento-title">Consolidate Files & Sheets — end the copy-paste marathon</div>
+        <div class="bento-desc">12 monthly P&amp;L files? Consolidate all sheets from all files into one master workbook in seconds. Handles different column orders, different formats — no manual work.</div>
+      </article>
+
+      <!-- India-first stat -->
+      <article class="bento-card">
+        <div class="bento-tag">India-First</div>
+        <div class="bento-stat">₹ 🇮🇳</div>
+        <div class="bento-title">Built for Indian finance</div>
+        <div class="bento-desc">Lakhs/Crores number format, INR pricing, ICAI-style workbook standards — not just a Western tool ported for India.</div>
+      </article>
+
     </div>
   </div>
 </section>
@@ -1312,53 +1834,118 @@
   </div>
 </section>
 
-  <!-- TESTIMONIALS - Trust Builder -->
-<section style="padding:5rem 2rem; background:var(--surface);">
-  <div class="container">
-    <div class="section-label">Real Results from Real Users</div>
-    <h2 class="section-title" style="text-align:center;">What finance pros are saying about ZAFtool</h2>
+<!-- TESTIMONIALS CAROUSEL -->
+<section class=”testi-section” aria-label=”User testimonials”>
+  <div class=”container”>
+    <div class=”section-label”>Real Results from Real Users</div>
+    <h2 class=”section-title”>What finance pros are saying</h2>
 
-    <div class="cat-grid" style="margin-top:3rem; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:2rem;">
+    <div class=”testi-wrap”>
+      <!-- Carousel track -->
+      <div class=”testi-track” id=”testiTrack”>
 
-      <div class=”cat-card” style=”padding:2rem;”>
-        <div class=”stars”>★★★★★</div>
-        <p style=”font-style:italic; color:var(--muted); margin-bottom:1.5rem;”>”Switched from Macabacus. ZAFtool’s Model Audit is faster and cleaner. Saved our team 4–5 hours every week. Best decision this year.”</p>
-        <div style=”display:flex; align-items:center; gap:12px;”>
-          <div style=”width:48px;height:48px;background:#3B82F6;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;”>RS</div>
-          <div>
-            <strong>CA Rohan Sharma</strong><br>
-            <span style=”color:var(--muted);font-size:0.85rem;”>Partner · CA Firm · 15-person team</span>
+        <div class=”testi-slide active”>
+          <div class=”testi-stars”>★★★★★</div>
+          <blockquote class=”testi-quote”>”Switched from Macabacus. ZAFtool’s Model Audit is faster and cleaner. Saved our team 4–5 hours every week. Best decision this year.”</blockquote>
+          <div class=”testi-author”>
+            <div class=”testi-avatar” style=”background:#2563EB;”>RS</div>
+            <div>
+              <div class=”testi-name”>CA Rohan Sharma</div>
+              <div class=”testi-role”>Partner · CA Firm · 15-person team · Mumbai</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class=”cat-card” style=”padding:2rem;”>
-        <div class=”stars”>★★★★★</div>
-        <p style=”font-style:italic; color:var(--muted); margin-bottom:1.5rem;”>”The formatting and consolidate tools are exactly what I needed. Models now look board-ready in minutes. Worth every rupee.”</p>
-        <div style=”display:flex; align-items:center; gap:12px;”>
-          <div style=”width:48px;height:48px;background:#F59E0B;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;”>AM</div>
-          <div>
-            <strong>Arjun Mehta</strong><br>
-            <span style=”color:var(--muted);font-size:0.85rem;”>VP Finance · IB Boutique · Mumbai</span>
+        <div class=”testi-slide”>
+          <div class=”testi-stars”>★★★★★</div>
+          <blockquote class=”testi-quote”>”The formatting and consolidate tools are exactly what I needed. Models now look board-ready in minutes. Worth every rupee.”</blockquote>
+          <div class=”testi-author”>
+            <div class=”testi-avatar” style=”background:#F59E0B;”>AM</div>
+            <div>
+              <div class=”testi-name”>Arjun Mehta</div>
+              <div class=”testi-role”>VP Finance · IB Boutique · Mumbai</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class=”cat-card” style=”padding:2rem;”>
-        <div class=”stars”>★★★★★</div>
-        <p style=”font-style:italic; color:var(--muted); margin-bottom:1.5rem;”>”Model Audit caught 3 critical errors in my DCF that I would have missed. Saved me embarrassment in front of the client. Must-have tool.”</p>
-        <div style=”display:flex; align-items:center; gap:12px;”>
-          <div style=”width:48px;height:48px;background:#22C55E;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;”>PN</div>
-          <div>
-            <strong>Priya Nair</strong><br>
-            <span style=”color:var(--muted);font-size:0.85rem;”>Senior Analyst · Big 4 Audit Firm</span>
+        <div class=”testi-slide”>
+          <div class=”testi-stars”>★★★★★</div>
+          <blockquote class=”testi-quote”>”Model Audit caught 3 critical errors in my DCF that I would have missed. Saved me from embarrassment in front of the client. This is a must-have tool.”</blockquote>
+          <div class=”testi-author”>
+            <div class=”testi-avatar” style=”background:#22C55E;”>PN</div>
+            <div>
+              <div class=”testi-name”>Priya Nair</div>
+              <div class=”testi-role”>Senior Analyst · Big 4 Audit Firm · Bangalore</div>
+            </div>
           </div>
         </div>
-      </div>
 
+        <div class=”testi-slide”>
+          <div class=”testi-stars”>★★★★★</div>
+          <blockquote class=”testi-quote”>”My team of 8 analysts uses ZAFtool every day. The time saved on formatting alone justified the cost in the first week. Highly recommend for any finance team.”</blockquote>
+          <div class=”testi-author”>
+            <div class=”testi-avatar” style=”background:#8B5CF6;”>SK</div>
+            <div>
+              <div class=”testi-name”>Sanjay Kumar</div>
+              <div class=”testi-role”>CFO · Mid-Market PE Fund · Delhi</div>
+            </div>
+          </div>
+        </div>
+
+        <div class=”testi-slide”>
+          <div class=”testi-stars”>★★★★★</div>
+          <blockquote class=”testi-quote”>”Data Cleaning tools are exceptional. What used to take 30 minutes now takes 30 seconds. Clean Text and Fix Dates alone are worth the entire subscription.”</blockquote>
+          <div class=”testi-author”>
+            <div class=”testi-avatar” style=”background:#EC4899;”>RG</div>
+            <div>
+              <div class=”testi-name”>Ritu Gupta</div>
+              <div class=”testi-role”>FP&A Manager · Corporate Finance · Pune</div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /track -->
+
+      <!-- Nav arrows -->
+      <div class=”testi-nav”>
+        <button class=”testi-btn” id=”testiPrev” aria-label=”Previous testimonial”>←</button>
+        <div class=”testi-dots” id=”testiDots”></div>
+        <button class=”testi-btn” id=”testiNext” aria-label=”Next testimonial”>→</button>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+(function(){
+  var slides = document.querySelectorAll(‘.testi-slide’);
+  var dotsEl = document.getElementById(‘testiDots’);
+  var cur = 0;
+
+  // Build dots
+  slides.forEach(function(_, i) {
+    var d = document.createElement(‘button’);
+    d.className = ‘testi-dot’ + (i===0?’ active’:’’);
+    d.setAttribute(‘aria-label’, ‘Go to testimonial ‘ + (i+1));
+    d.addEventListener(‘click’, function(){ goTo(i); });
+    dotsEl.appendChild(d);
+  });
+
+  function goTo(n) {
+    slides[cur].classList.remove(‘active’);
+    document.querySelectorAll(‘.testi-dot’)[cur].classList.remove(‘active’);
+    cur = (n + slides.length) % slides.length;
+    slides[cur].classList.add(‘active’);
+    document.querySelectorAll(‘.testi-dot’)[cur].classList.add(‘active’);
+  }
+
+  document.getElementById(‘testiPrev’).addEventListener(‘click’, function(){ goTo(cur-1); });
+  document.getElementById(‘testiNext’).addEventListener(‘click’, function(){ goTo(cur+1); });
+
+  // Auto-advance every 5 s
+  setInterval(function(){ goTo(cur+1); }, 5000);
+})();
+</script>
   
 <!-- AUDIT SPOTLIGHT -->
 <section class="spotlight" id="audit" aria-labelledby="audit-title">
@@ -1599,6 +2186,153 @@
     </p>
   </div>
 </section>
+
+<!-- FOR YOU / FOR YOUR TEAM SPLIT -->
+<section class="split-section" aria-label="Who ZAFtool is for">
+  <div class="container">
+    <div class="section-label">Built for</div>
+    <h2 class="section-title">Whether you work solo or lead a team.</h2>
+    <p class="section-sub" style="margin-bottom:0;">ZAFtool is designed for individual analysts and firm-wide deployments alike.</p>
+
+    <div class="split-tabs" role="tablist">
+      <button class="split-tab active" id="tabYou" role="tab" aria-selected="true" aria-controls="panelYou" onclick="switchSplit('You')">For Analysts</button>
+      <button class="split-tab" id="tabTeam" role="tab" aria-selected="false" aria-controls="panelTeam" onclick="switchSplit('Team')">For Firms & Teams</button>
+    </div>
+
+    <!-- Panel: Individual Analyst -->
+    <div class="split-panel active" id="panelYou" role="tabpanel" aria-labelledby="tabYou">
+      <div class="split-content">
+        <h3>Work faster.<br>Look more professional.</h3>
+        <p>You're an analyst, associate, or CA dealing with tight deadlines and zero margin for error. ZAFtool gives you a one-click toolkit that makes every model submission something you're proud of.</p>
+        <ul class="split-list">
+          <li>Audit any model in under 60 seconds</li>
+          <li>Format an entire workbook before a client call</li>
+          <li>Clean dirty data exports from any ERP or source</li>
+          <li>Never miss a broken formula or a ₹ format error again</li>
+          <li>Start free with ZAF Lite — no card, no commitment</li>
+        </ul>
+        <div class="split-cta">
+          <a href="/start-trial.html" class="btn-primary" style="display:inline-flex;align-items:center;gap:6px;">Start Free Trial →</a>
+          <a href="#features" class="btn-secondary" style="display:inline-flex;align-items:center;gap:6px;">See All 25 Tools</a>
+        </div>
+      </div>
+      <div class="split-visual" aria-hidden="true">
+        <div class="split-tool-row">
+          <div class="split-tool-icon">🔍</div>
+          <div>
+            <div class="split-tool-name">Model Audit</div>
+            <div class="split-tool-desc">6-check error scorecard in seconds</div>
+          </div>
+          <div class="split-tool-badge">Pro</div>
+        </div>
+        <div class="split-tool-row">
+          <div class="split-tool-icon">🎨</div>
+          <div>
+            <div class="split-tool-name">Apply Font + Num Format</div>
+            <div class="split-tool-desc">Workbook-wide formatting in 1 click</div>
+          </div>
+          <div class="split-tool-badge">Free</div>
+        </div>
+        <div class="split-tool-row">
+          <div class="split-tool-icon">🧼</div>
+          <div>
+            <div class="split-tool-name">Clean Text + Fix Dates</div>
+            <div class="split-tool-desc">Stop dirty data breaking your VLOOKUPs</div>
+          </div>
+          <div class="split-tool-badge">Pro</div>
+        </div>
+        <div class="split-tool-row">
+          <div class="split-tool-icon">📁</div>
+          <div>
+            <div class="split-tool-name">Consolidate Files</div>
+            <div class="split-tool-desc">Merge 12 monthly files in one shot</div>
+          </div>
+          <div class="split-tool-badge">Pro</div>
+        </div>
+        <div class="split-tool-row">
+          <div class="split-tool-icon">🗂️</div>
+          <div>
+            <div class="split-tool-name">Create Index</div>
+            <div class="split-tool-desc">Clickable workbook navigation</div>
+          </div>
+          <div class="split-tool-badge">Free</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Panel: Teams & Firms -->
+    <div class="split-panel" id="panelTeam" role="tabpanel" aria-labelledby="tabTeam">
+      <div class="split-content">
+        <h3>Standardise your<br>entire firm's Excel.</h3>
+        <p>CA firms, IB boutiques, and FP&A departments use ZAFtool to ensure every analyst produces consistent, audit-ready workbooks. One tool. One standard. No more asking "why does everyone's model look different?"</p>
+        <ul class="split-list">
+          <li>Multi-seat licensing for 5–50+ users</li>
+          <li>Volume discounts up to 15% off</li>
+          <li>Free onboarding and training session for your team</li>
+          <li>Custom invoicing for firm billing and GST compliance</li>
+          <li>Priority support directly from the founder</li>
+          <li>Custom tool requests for firm-specific workflows</li>
+        </ul>
+        <div class="split-cta">
+          <button onclick="openTeamModal()" class="btn-primary" style="display:inline-flex;align-items:center;gap:6px;border:none;cursor:pointer;font-family:inherit;font-size:inherit;">Get Team Quote →</button>
+          <a href="mailto:abhishek.bhandari@zaftool.com" class="btn-secondary" style="display:inline-flex;align-items:center;gap:6px;">Email Us</a>
+        </div>
+      </div>
+      <div class="split-visual" aria-hidden="true">
+        <div class="split-tool-row">
+          <div class="split-tool-icon">🏢</div>
+          <div>
+            <div class="split-tool-name">Multi-seat Team Licence</div>
+            <div class="split-tool-desc">5–50+ users under one invoice</div>
+          </div>
+          <div class="split-tool-badge">Enterprise</div>
+        </div>
+        <div class="split-tool-row">
+          <div class="split-tool-icon">🎓</div>
+          <div>
+            <div class="split-tool-name">Free Onboarding Session</div>
+            <div class="split-tool-desc">Live walkthrough for your team</div>
+          </div>
+          <div class="split-tool-badge">Enterprise</div>
+        </div>
+        <div class="split-tool-row">
+          <div class="split-tool-icon">🧾</div>
+          <div>
+            <div class="split-tool-name">Custom Invoicing + GST</div>
+            <div class="split-tool-desc">Firm-ready billing and receipts</div>
+          </div>
+          <div class="split-tool-badge">Enterprise</div>
+        </div>
+        <div class="split-tool-row">
+          <div class="split-tool-icon">⚡</div>
+          <div>
+            <div class="split-tool-name">Priority Founder Support</div>
+            <div class="split-tool-desc">Direct line — response within 4 hours</div>
+          </div>
+          <div class="split-tool-badge">Enterprise</div>
+        </div>
+        <div class="split-tool-row">
+          <div class="split-tool-icon">🔧</div>
+          <div>
+            <div class="split-tool-name">Custom Tool Requests</div>
+            <div class="split-tool-desc">We build what your workflow needs</div>
+          </div>
+          <div class="split-tool-badge">Enterprise</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<script>
+function switchSplit(which) {
+  ['You','Team'].forEach(function(k) {
+    document.getElementById('tab'+k).classList.toggle('active', k===which);
+    document.getElementById('tab'+k).setAttribute('aria-selected', k===which);
+    document.getElementById('panel'+k).classList.toggle('active', k===which);
+  });
+}
+</script>
 
 <!-- PRICING -->
 <section id="pricing" aria-labelledby="pricing-title">
