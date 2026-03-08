@@ -1351,6 +1351,9 @@
       </div>
     </li>
 
+    <!-- Install Guide -->
+    <li><a href="/docs/">Install</a></li>
+
     <!-- FAQ (direct link) -->
     <li><a href="/#faq">FAQ</a></li>
 
@@ -1860,117 +1863,85 @@
 </section>
 
 <!-- TESTIMONIALS CAROUSEL -->
-<section class=”testi-section” aria-label=”User testimonials”>
-  <div class=”container”>
-    <div class=”section-label”>Real Results from Real Users</div>
-    <h2 class=”section-title”>What finance pros are saying</h2>
+<section style=”padding:5rem 2rem; background:#070B14;” aria-label=”User testimonials”>
+  <div style=”max-width:1100px; margin:0 auto;”>
+    <div style=”text-align:center; text-transform:uppercase; letter-spacing:2px; font-size:0.75rem; color:#2563EB; font-weight:600; margin-bottom:0.75rem;”>Real Results from Real Users</div>
+    <h2 style=”text-align:center; font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; color:#F1F5F9; margin:0 0 2.5rem;”>What finance pros are saying</h2>
 
-    <div class=”testi-wrap”>
+    <!-- Card -->
+    <div style=”max-width:680px; margin:0 auto;”>
+      <div id=”testiCard” style=”background:#0D1829; border:1px solid #1E3A5F; border-radius:16px; padding:2rem; box-shadow:0 8px 32px rgba(0,0,0,0.5);”>
 
-      <!-- Single card — JS swaps content inside -->
-      <div class=”testi-card”>
-        <div class=”testi-top”>
-          <div class=”testi-stars” id=”testiStars”>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div class=”testi-arrows”>
-            <button class=”testi-btn” id=”testiPrev” aria-label=”Previous testimonial”>&larr;</button>
-            <button class=”testi-btn” id=”testiNext” aria-label=”Next testimonial”>&rarr;</button>
+        <!-- Top row: stars + arrows -->
+        <div style=”display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;”>
+          <div style=”color:#2563EB; font-size:1.1rem; letter-spacing:3px;”>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div style=”display:flex; gap:4px;”>
+            <button id=”testiPrev” onclick=”testiGo(testiCur-1)” aria-label=”Previous” style=”background:none; border:none; color:#2563EB; font-size:1.4rem; cursor:pointer; padding:4px 8px; line-height:1;”>&#8592;</button>
+            <button id=”testiNext” onclick=”testiGo(testiCur+1)” aria-label=”Next” style=”background:none; border:none; color:#2563EB; font-size:1.4rem; cursor:pointer; padding:4px 8px; line-height:1;”>&#8594;</button>
           </div>
         </div>
-        <blockquote class=”testi-quote” id=”testiQuote”>Switched from Macabacus. ZAFtool's Model Audit is faster and cleaner. Saved our team 4-5 hours every week. Best decision this year.</blockquote>
-        <div class=”testi-author”>
-          <div class=”testi-avatar” id=”testiAvatar” style=”background:#1D4ED8;”>RS</div>
+
+        <!-- Quote -->
+        <p id=”testiQuote” style=”font-size:1.05rem; line-height:1.75; color:#CBD5E1; margin:0 0 1.5rem; font-style:normal;”></p>
+
+        <!-- Author -->
+        <div style=”display:flex; align-items:center; gap:12px;”>
+          <div id=”testiAvatar” style=”width:42px; height:42px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem; color:#fff; flex-shrink:0;”></div>
           <div>
-            <div class=”testi-name” id=”testiName”>CA Rohan Sharma</div>
-            <div class=”testi-role” id=”testiRole”>Partner &middot; CA Firm &middot; 15-person team &middot; Mumbai</div>
+            <div id=”testiName” style=”font-weight:600; color:#F1F5F9; font-size:0.9rem;”></div>
+            <div id=”testiRole” style=”color:#64748B; font-size:0.78rem; margin-top:2px;”></div>
           </div>
         </div>
+
       </div>
 
-      <!-- Dots below card -->
-      <div class=”testi-dots” id=”testiDots”></div>
-
+      <!-- Dots -->
+      <div id=”testiDots” style=”display:flex; justify-content:center; gap:6px; margin-top:1.25rem;”></div>
     </div>
   </div>
 </section>
 
 <script>
-(function(){
-  var DATA = [
-    {
-      quote: 'Switched from Macabacus. ZAFtool\'s Model Audit is faster and cleaner. Saved our team 4-5 hours every week. Best decision this year.',
-      name: 'CA Rohan Sharma',
-      role: 'Partner · CA Firm · 15-person team · Mumbai',
-      initials: 'RS',
-      bg: '#1D4ED8'
-    },
-    {
-      quote: 'The formatting and consolidate tools are exactly what I needed. Models now look board-ready in minutes. Worth every rupee.',
-      name: 'Arjun Mehta',
-      role: 'VP Finance · IB Boutique · Mumbai',
-      initials: 'AM',
-      bg: '#D97706'
-    },
-    {
-      quote: 'Model Audit caught 3 critical errors in my DCF that I would have missed. Saved me from embarrassment in front of the client. This is a must-have tool.',
-      name: 'Priya Nair',
-      role: 'Senior Analyst · Big 4 Audit Firm · Bangalore',
-      initials: 'PN',
-      bg: '#16A34A'
-    },
-    {
-      quote: 'My team of 8 analysts uses ZAFtool every day. The time saved on formatting alone justified the cost in the first week. Highly recommend for any finance team.',
-      name: 'Sanjay Kumar',
-      role: 'CFO · Mid-Market PE Fund · Delhi',
-      initials: 'SK',
-      bg: '#7C3AED'
-    },
-    {
-      quote: 'Data Cleaning tools are exceptional. What used to take 30 minutes now takes 30 seconds. Clean Text and Fix Dates alone are worth the entire subscription.',
-      name: 'Ritu Gupta',
-      role: 'FP&A Manager · Corporate Finance · Pune',
-      initials: 'RG',
-      bg: '#DB2777'
-    }
-  ];
+var testiCur = 0;
+var TDATA = [
+  { quote: 'Switched from Macabacus. ZAFtool Model Audit is faster and cleaner. Saved our team 4-5 hours every week. Best decision this year.', name: 'CA Rohan Sharma', role: 'Partner - CA Firm - 15-person team - Mumbai', initials: 'RS', bg: '#1D4ED8' },
+  { quote: 'The formatting and consolidate tools are exactly what I needed. Models now look board-ready in minutes. Worth every rupee.', name: 'Arjun Mehta', role: 'VP Finance - IB Boutique - Mumbai', initials: 'AM', bg: '#D97706' },
+  { quote: 'Model Audit caught 3 critical errors in my DCF that I would have missed. Saved me from embarrassment in front of the client. This is a must-have tool.', name: 'Priya Nair', role: 'Senior Analyst - Big 4 Audit Firm - Bangalore', initials: 'PN', bg: '#16A34A' },
+  { quote: 'My team of 8 analysts uses ZAFtool every day. The time saved on formatting alone justified the cost in the first week. Highly recommend for any finance team.', name: 'Sanjay Kumar', role: 'CFO - Mid-Market PE Fund - Delhi', initials: 'SK', bg: '#7C3AED' },
+  { quote: 'Data Cleaning tools are exceptional. What used to take 30 minutes now takes 30 seconds. Clean Text and Fix Dates alone are worth the entire subscription.', name: 'Ritu Gupta', role: 'FP&A Manager - Corporate Finance - Pune', initials: 'RG', bg: '#DB2777' }
+];
 
-  var cur = 0;
+(function() {
   var dotsEl = document.getElementById('testiDots');
-
-  // Build dots
-  DATA.forEach(function(_, i) {
+  TDATA.forEach(function(_, i) {
     var d = document.createElement('button');
-    d.className = 'testi-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
-    d.addEventListener('click', function(){ goTo(i); });
+    d.id = 'testiDot' + i;
+    d.setAttribute('aria-label', 'Testimonial ' + (i+1));
+    d.style.cssText = 'width:8px; height:8px; border-radius:50%; border:none; cursor:pointer; padding:0; transition:all 0.2s; background:' + (i===0 ? '#2563EB' : '#1E2D45');
+    d.onclick = function() { testiGo(i); };
     dotsEl.appendChild(d);
   });
-
-  function render(t) {
-    document.getElementById('testiQuote').textContent = t.quote;
-    document.getElementById('testiName').textContent = t.name;
-    document.getElementById('testiRole').textContent = t.role;
-    var av = document.getElementById('testiAvatar');
-    av.textContent = t.initials;
-    av.style.background = t.bg;
-  }
-
-  function goTo(n) {
-    var dots = document.querySelectorAll('.testi-dot');
-    dots[cur].classList.remove('active');
-    cur = (n + DATA.length) % DATA.length;
-    dots[cur].classList.add('active');
-    render(DATA[cur]);
-  }
-
-  // Init first slide
-  render(DATA[0]);
-
-  document.getElementById('testiPrev').addEventListener('click', function(){ goTo(cur - 1); });
-  document.getElementById('testiNext').addEventListener('click', function(){ goTo(cur + 1); });
-
-  // Auto-advance every 6s
-  setInterval(function(){ goTo(cur + 1); }, 6000);
+  testiRender(TDATA[0]);
+  setInterval(function() { testiGo(testiCur + 1); }, 6000);
 })();
+
+function testiRender(t) {
+  document.getElementById('testiQuote').textContent = t.quote;
+  document.getElementById('testiName').textContent = t.name;
+  document.getElementById('testiRole').textContent = t.role;
+  var av = document.getElementById('testiAvatar');
+  av.textContent = t.initials;
+  av.style.background = t.bg;
+}
+
+function testiGo(n) {
+  var prevDot = document.getElementById('testiDot' + testiCur);
+  if (prevDot) { prevDot.style.background = '#1E2D45'; prevDot.style.width = '8px'; prevDot.style.borderRadius = '50%'; }
+  testiCur = (n + TDATA.length) % TDATA.length;
+  var newDot = document.getElementById('testiDot' + testiCur);
+  if (newDot) { newDot.style.background = '#2563EB'; newDot.style.width = '20px'; newDot.style.borderRadius = '4px'; }
+  testiRender(TDATA[testiCur]);
+}
 </script>
   
 <!-- AUDIT SPOTLIGHT -->
