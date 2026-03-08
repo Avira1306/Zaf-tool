@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Download is Ready — ZAFtool</title>
+  <meta name="robots" content="noindex"/>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-V4HB4171EY"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-V4HB4171EY');
+    // Fire conversion event
+    gtag('event', 'trial_download_page', { event_category: 'conversion', event_label: 'thank_you' });
+  </script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #070B14; --surface: #0D1320; --card: #111827;
+      --border: #1E2D45; --accent: #2563EB; --accent2: #3B82F6;
+      --gold: #F59E0B; --text: #F1F5F9; --muted: #94A3B8; --dim: #64748B;
+    }
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      padding: 2rem 1.5rem; line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    nav {
+      width: 100%; max-width: 700px;
+      display: flex; align-items: center; justify-content: space-between;
+      padding-bottom: 1.5rem; margin-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-size: 1.25rem; font-weight: 800; text-decoration: none; color: var(--text); }
+    .nav-logo span { color: var(--accent2); }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2.5rem 2rem;
+      max-width: 700px; width: 100%; text-align: center;
+    }
+    .success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    h1 { font-size: clamp(1.5rem, 4vw, 2rem); font-weight: 900; margin-bottom: 0.6rem; }
+    .subtitle { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; }
+
+    .download-box {
+      background: var(--bg); border: 2px solid var(--accent);
+      border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
+    }
+    .download-box h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.35rem; }
+    .download-box p { color: var(--muted); font-size: 0.82rem; margin-bottom: 1.25rem; }
+    .dl-btn {
+      display: inline-block; background: var(--accent); color: #fff;
+      padding: 0.875rem 2.5rem; border-radius: 8px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      box-shadow: 0 0 20px rgba(37,99,235,0.4);
+      transition: background 0.2s;
+    }
+    .dl-btn:hover { background: var(--accent2); }
+
+    .steps { text-align: left; margin: 1.5rem 0; }
+    .steps h3 { font-size: 0.95rem; font-weight: 700; margin-bottom: 1rem; text-align: center; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-size: 0.75rem; }
+    .step-row {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 0.75rem 0; border-bottom: 1px solid var(--border);
+    }
+    .step-row:last-child { border-bottom: none; }
+    .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(37,99,235,0.15); color: var(--accent2);
+      font-size: 0.8rem; font-weight: 700; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .step-text strong { display: block; font-size: 0.9rem; margin-bottom: 0.15rem; }
+    .step-text span { color: var(--muted); font-size: 0.82rem; }
+
+    .help-row {
+      margin-top: 1.5rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.875rem; color: var(--dim);
+    }
+    .help-row a { color: var(--accent2); text-decoration: none; }
+    .upsell {
+      margin-top: 1.5rem; background: rgba(245,158,11,0.07);
+      border: 1px solid rgba(245,158,11,0.25);
+      border-radius: 10px; padding: 1.25rem; font-size: 0.875rem;
+    }
+    .upsell strong { color: var(--gold); }
+    .upsell a {
+      display: inline-block; margin-top: 0.75rem;
+      color: var(--accent2); font-weight: 700; text-decoration: none; font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">ZAF<span>Tools</span></a>
+</nav>
+
+<div class="card">
+  <div class="success-icon">✅</div>
+  <h1>Your download is ready!</h1>
+  <p class="subtitle">You're one install away from 25 professional Excel tools.</p>
+
+  <div class="download-box">
+    <h3>📦 ZAFtool v3.0 — Full Trial (14 days, all 25 tools)</h3>
+    <p>File: <strong>ZAF_Pro.xlam</strong> · Expires 14 days from install · No card needed</p>
+    <a href="/ZAF_Pro.xlam"
+       class="dl-btn"
+       id="trialDownloadBtn">
+      ⬇ Download ZAFtool Now
+    </a>
+  </div>
+
+  <div class="steps">
+    <h3>Install in 3 steps — under 5 minutes</h3>
+    <div class="step-row">
+      <div class="step-num">1</div>
+      <div class="step-text">
+        <strong>Save the .xlam file</strong>
+        <span>Save it somewhere permanent (e.g. Documents/ZAFtool). Don't open it directly.</span>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">2</div>
+      <div class="step-text">
+        <strong>Open Excel → File → Options → Add-ins</strong>
+        <span>At the bottom, choose "Manage: Excel Add-ins" → click Go → Browse → select ZAF_Pro.xlam → OK</span>
+      </div>
+    </div>
+    <div class="step-row">
+      <div class="step-num">3</div>
+      <div class="step-text">
+        <strong>Look for the ZAFtool tab in your ribbon</strong>
+        <span>It appears automatically. Click any tool to get started. That's it!</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="upsell">
+    <strong>⏳ Trial lasts 14 days from today.</strong><br/>
+    If ZAFtool saves you time (it will), lock in the launch price of ₹2,999/yr before April 1 when it goes up.
+    <br/>
+    <a href="/#pricing">See pricing & upgrade →</a>
+  </div>
+
+  <div class="help-row">
+    Any install issues? Email <a href="mailto:abhishek.bhandari@zaftool.com">abhishek.bhandari@zaftool.com</a> — replies within a few hours.
+  </div>
+</div>
+
+<script>
+  // Fire GA download event when button is clicked
+  document.getElementById('trialDownloadBtn').addEventListener('click', function() {
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'file_download', { event_category: 'conversion', event_label: 'trial_xlam' });
+    }
+  });
+</script>
+
+</body>
+</html>
