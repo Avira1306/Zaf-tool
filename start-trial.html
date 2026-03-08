@@ -226,21 +226,50 @@
     <div class="tab-panel" id="lite-tab">
       <div class="form-card">
         <h2>🆓 ZAFtool Lite — Free Forever</h2>
-        <p class="form-sub">5 essential tools. No trial. No expiry. No credit card. Ever.</p>
+        <p class="form-sub">6 essential tools. No trial. No expiry. No credit card. Ever.</p>
+
         <div class="lite-features">
           <div class="lite-feat"><span>🎨</span><span>Apply Font</span></div>
           <div class="lite-feat"><span>🧭</span><span>Go to A1</span></div>
-          <div class="lite-feat"><span>🧹</span><span>Clean Text</span></div>
+          <div class="lite-feat"><span>🔖</span><span>Create Index</span></div>
           <div class="lite-feat"><span>🔍</span><span>Map Formulas</span></div>
           <div class="lite-feat"><span>🔁</span><span>Duplicates</span></div>
+          <div class="lite-feat"><span>🛡️</span><span>Wrap IFERROR</span></div>
         </div>
-        <a href="/ZAF_Lite.xlam"
-           class="download-btn"
-           id="liteDownloadBtn">
-          Download ZAFtool Lite — Free →
-        </a>
-        <div class="upgrade-nudge">
-          Want Model Audit, Consolidate Files, and 20 more tools?<br/>
+
+        <!-- Lite lead-capture form (shows first) -->
+        <div id="liteFormWrap">
+          <form method="POST" action="/api/submit?redirect=/thank-you.html?plan=lite" id="liteForm">
+            <input type="hidden" name="form_type" value="lite_download">
+            <div class="form-group" style="margin-top:1rem;">
+              <label for="lite-name">Your name</label>
+              <input type="text" id="lite-name" name="name" placeholder="Rohan Sharma" required/>
+            </div>
+            <div class="form-group">
+              <label for="lite-email">Email (we'll send the install guide too)</label>
+              <input type="email" id="lite-email" name="email" placeholder="rohan@firm.com" required/>
+            </div>
+            <div class="form-group">
+              <label for="lite-role">Your role</label>
+              <select id="lite-role" name="role">
+                <option value="">Select your role (optional)</option>
+                <option value="Investment Banker / Analyst">Investment Banker / Analyst</option>
+                <option value="CA / CPA / Auditor">CA / CPA / Auditor</option>
+                <option value="FP&A / Corporate Finance">FP&A / Corporate Finance</option>
+                <option value="Due Diligence / M&A">Due Diligence / M&A</option>
+                <option value="Finance Student / MBA">Finance Student / MBA</option>
+                <option value="Other Finance Professional">Other Finance Professional</option>
+              </select>
+            </div>
+            <button type="submit" class="submit-btn" style="background:transparent; border:2px solid var(--accent); color:var(--accent2);">
+              Get Free Download →
+            </button>
+            <p class="form-note">No spam ever · Unsubscribe anytime</p>
+          </form>
+        </div>
+
+        <div class="upgrade-nudge" style="margin-top:1rem;">
+          Want Model Audit, Consolidate Files, and 19 more tools?<br/>
           <a href="#trial" onclick="switchTab('trial-tab', document.querySelector('.tab-btn')); window.scrollTo(0,0);">Start the free 14-day full trial →</a>
         </div>
       </div>
@@ -262,17 +291,17 @@
     switchTab('lite-tab', document.getElementById('lite-tab-btn'));
   }
 
-  // GA event on form submit
+  // GA event — trial form
   document.getElementById('trialForm').addEventListener('submit', function() {
     if (typeof gtag !== 'undefined') {
       gtag('event', 'trial_form_submit', { event_category: 'conversion' });
     }
   });
 
-  // GA event on lite download click
-  document.getElementById('liteDownloadBtn').addEventListener('click', function() {
+  // GA event — lite form
+  document.getElementById('liteForm').addEventListener('submit', function() {
     if (typeof gtag !== 'undefined') {
-      gtag('event', 'lite_download', { event_category: 'conversion' });
+      gtag('event', 'lite_form_submit', { event_category: 'conversion' });
     }
   });
 </script>
