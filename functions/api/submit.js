@@ -1,4 +1,3 @@
-```javascript
 export async function onRequestPost(context) {
   try {
 
@@ -41,7 +40,7 @@ export async function onRequestPost(context) {
       iat: now
     }));
 
-   const unsignedToken = `${headerEncoded}.${claimEncoded}`;
+    const unsignedToken = `${headerEncoded}.${claimEncoded}`;
 
     const encoder = new TextEncoder();
 
@@ -212,4 +211,3 @@ function arrayBufferToBase64Url(buffer) {
     .replace(/\//g, "_");
 
 }
-```
