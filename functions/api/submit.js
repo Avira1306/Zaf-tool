@@ -40,7 +40,7 @@ export async function onRequestPost(context) {
       iat: now
     }));
 
-    const unsignedToken = `${headerEncoded}.${claimEncoded}`;
+   const unsignedToken = headerEncoded + "." + claimEncoded;
 
     const encoder = new TextEncoder();
 
