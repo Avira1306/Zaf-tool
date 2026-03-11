@@ -1,19 +1,13 @@
 export async function onRequestPost(context) {
   try {
 
-    const formData = await context.request.formData();
-    const url = new URL(context.request.url);
+    // -------- READ JSON BODY --------
+    const body     = await context.request.json();
 
-    // -------- READ FORM DATA --------
-    const formType  = formData.get("form_type") || "team_quote";
-    const name      = formData.get("name")      || "";
-    const email     = formData.get("email")     || "";
-    const role      = formData.get("role")      || "";
-    const phone     = formData.get("phone")     || "";
-    const industry  = formData.get("industry")  || "";
-    const teamSize  = formData.get("team_size") || "";
-    const company   = formData.get("company")   || "";
-    const message   = formData.get("message")   || "";
+    const formType = body.plan  || "trial";
+    const name     = body.name  || "";
+    const email    = body.email || "";
+    const role     = body.role  || "";
 
     if (!email) {
       throw new Error("Email is required");
@@ -40,7 +34,7 @@ export async function onRequestPost(context) {
       iat: now
     }));
 
-   const unsignedToken = headerEncoded + "." + claimEncoded;
+    const unsignedToken = headerEncoded + "." + claimEncoded;
 
     const encoder = new TextEncoder();
 
@@ -63,7 +57,7 @@ export async function onRequestPost(context) {
     const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=${signedToken}`
+      body: "grant_type=urn:ietf:params:oauth:grant-type:jwt-bearer&assertion=" + signedToken
     });
 
     const tokenData = await tokenResponse.json();
@@ -78,20 +72,15 @@ export async function onRequestPost(context) {
       formType,
       name,
       email,
-      role,
-      phone,
-      industry,
-      teamSize,
-      company,
-      message
+      role
     ];
 
     await fetch(
-      `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1:append?valueInputOption=USER_ENTERED`,
+      "https://sheets.googleapis.com/v4/spreadsheets/" + sheetId + "/values/Sheet1!A1:append?valueInputOption=USER_ENTERED",
       {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${tokenData.access_token}`,
+          Authorization: "Bearer " + tokenData.access_token,
           "Content-Type": "application/json"
         },
         body: JSON.stringify({ values: [row] })
@@ -99,66 +88,47 @@ export async function onRequestPost(context) {
     );
 
     // -------- SEND DOWNLOAD EMAIL --------
-    if (formType === "trial" || formType === "lite_download") {
+    const downloadLink = "https://zaftool.com/download.html";
 
-      const downloadLink = "https://zaftool.com/download.html";
-
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${context.env.RESEND_API_KEY}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          from: "ZAF Tool <download@zaftool.com>",
-          to: email,
-          subject: "Your ZAF Tool Download",
-          html: `
-            <h2>Your download is ready</h2>
-
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + context.env.RESEND_API_KEY,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        from: "ZAF Tool <download@zaftool.com>",
+        to: email,
+        subject: "Your ZAF Tool Download is Ready",
+        html: `
+          <div style="font-family:Arial;max-width:500px;margin:auto;padding:30px;background:#070B14;color:#fff;border-radius:10px">
+            <h2 style="color:#3B82F6">Your download is ready</h2>
             <p>Hi ${name || "there"},</p>
-
-            <p>Thanks for trying <strong>ZAF Tool</strong>.</p>
-
-            <p>Click the button below to download your Excel add-in.</p>
-
-            <p>
-              <a href="${downloadLink}" 
-              style="background:#2563EB;color:white;padding:12px 20px;border-radius:6px;text-decoration:none;">
+            <p>Thanks for trying <strong>ZAF Tool</strong>. Click below to download your Excel add-in.</p>
+            <p style="margin:30px 0">
+              <a href="${downloadLink}"
+              style="background:#2563EB;color:white;padding:14px 24px;border-radius:6px;text-decoration:none;font-weight:bold;">
               Download ZAF Tool
               </a>
             </p>
+            <p style="font-size:13px;color:#888">Role: ${role || "Not specified"}</p>
+            <p style="font-size:12px;color:#555">If you didn't request this, ignore this email.</p>
+          </div>
+        `
+      })
+    });
 
-            <p style="margin-top:20px;font-size:13px;color:#666;">
-              Role: ${role || "Not specified"}
-            </p>
-          `
-        })
-      });
-
-    }
-
-    // -------- REDIRECT USER --------
-    const redirectParam = url.searchParams.get("redirect");
-
-    let redirectTo;
-
-    if (redirectParam) {
-      redirectTo = `${url.origin}${redirectParam}`;
-    }
-    else if (formType === "trial" || formType === "lite_download") {
-      redirectTo = `${url.origin}/email-sent.html`;
-    }
-    else {
-      redirectTo = `${url.origin}/?success=true`;
-    }
-
-    return Response.redirect(redirectTo, 302);
+    // -------- RETURN SUCCESS --------
+    return new Response(JSON.stringify({ ok: true }), {
+      status: 200,
+      headers: { "Content-Type": "application/json" }
+    });
 
   } catch (error) {
 
-    return new Response("ERROR: " + error.message, {
-      status: 500
+    return new Response(JSON.stringify({ ok: false, error: error.message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json" }
     });
 
   }
@@ -167,14 +137,12 @@ export async function onRequestPost(context) {
 // -------- HELPER FUNCTIONS --------
 
 function pemToArrayBuffer(pem) {
-
   const base64 = pem
     .replace(/-----BEGIN PRIVATE KEY-----/, "")
     .replace(/-----END PRIVATE KEY-----/, "")
     .replace(/\s/g, "");
 
   const binary = atob(base64);
-
   const buffer = new ArrayBuffer(binary.length);
   const view = new Uint8Array(buffer);
 
@@ -183,22 +151,17 @@ function pemToArrayBuffer(pem) {
   }
 
   return buffer;
-
 }
 
 function base64UrlEncode(str) {
-
   return btoa(str)
     .replace(/=/g, "")
     .replace(/\+/g, "-")
     .replace(/\//g, "_");
-
 }
 
 function arrayBufferToBase64Url(buffer) {
-
   const bytes = new Uint8Array(buffer);
-
   let binary = "";
 
   for (let i = 0; i < bytes.byteLength; i++) {
@@ -209,5 +172,4 @@ function arrayBufferToBase64Url(buffer) {
     .replace(/=/g, "")
     .replace(/\+/g, "-")
     .replace(/\//g, "_");
-
 }
