@@ -1,220 +1,550 @@
-```html
 <!DOCTYPE html>
 <html lang="en-IN">
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Start Free Trial — ZAFtool Excel Add-in</title>
-
 <link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 
 <style>
-body{font-family:Arial;background:#070B14;color:#fff;margin:0}
-.container{max-width:900px;margin:auto;padding:40px}
-.card{background:#111827;padding:30px;border-radius:10px}
-input,select{width:100%;padding:10px;margin:10px 0;background:#070B14;color:#fff;border:1px solid #333;border-radius:5px}
-button{background:#2563EB;color:white;border:none;padding:12px;width:100%;border-radius:6px;font-weight:bold;cursor:pointer}
-button:hover{background:#3B82F6}
-.tab-buttons{display:flex;margin-bottom:20px}
-.tab-btn{flex:1;padding:10px;border:none;background:#111827;color:#aaa;cursor:pointer}
-.tab-btn.active{background:#2563EB;color:white}
-.tab-panel{display:none}
-.tab-panel.active{display:block}
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #070B14;
+    --surface: #0D1320;
+    --card:    #111827;
+    --border:  #1E2D45;
+    --accent:  #2563EB;
+    --accent2: #3B82F6;
+    --gold:    #F59E0B;
+    --text:    #F1F5F9;
+    --muted:   #94A3B8;
+    --dim:     #64748B;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── ANNOUNCEMENT BAR ── */
+  .announce-bar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 101;
+    background: linear-gradient(90deg, #1d4ed8, #2563EB, #1d4ed8);
+    color: #fff; text-align: center;
+    padding: 0.55rem 1rem;
+    font-size: 0.82rem; font-weight: 600; letter-spacing: 0.2px;
+  }
+  .announce-bar a { color: #FDE68A; text-decoration: underline; }
+  .announce-bar .ab-close {
+    position: absolute; right: 1rem; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: #fff; font-size: 1.1rem;
+    cursor: pointer; opacity: 0.7; line-height: 1;
+  }
+  .announce-bar .ab-close:hover { opacity: 1; }
+
+  /* ── NAV ── */
+  nav.main-nav {
+    position: fixed; top: 2.4rem; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center;
+    padding: 0 2.5rem; height: 56px;
+    background: rgba(7,11,20,0.96);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-size: 1.15rem; font-weight: 800; letter-spacing: -0.5px;
+    color: var(--text); text-decoration: none; flex-shrink: 0;
+    margin-right: 2.5rem;
+  }
+  .nav-logo span { color: var(--accent2); }
+  .nav-links {
+    display: flex; align-items: center; gap: 0.25rem;
+    list-style: none; flex: 1;
+  }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a,
+  .nav-links > li > button {
+    display: flex; align-items: center; gap: 0.3rem;
+    padding: 0 0.85rem; height: 56px;
+    color: var(--muted); text-decoration: none;
+    font-size: 0.9rem; font-weight: 500;
+    background: none; border: none; cursor: pointer;
+    font-family: inherit; transition: color 0.15s; white-space: nowrap;
+  }
+  .nav-links > li > a:hover,
+  .nav-links > li > button:hover,
+  .nav-links > li.nav-open > button { color: var(--text); }
+  .nav-chevron { width: 14px; height: 14px; flex-shrink: 0; transition: transform 0.2s; }
+  .nav-links > li.nav-open .nav-chevron { transform: rotate(180deg); }
+
+  /* Dropdown */
+  .nav-dropdown {
+    position: absolute; top: calc(100% + 1px); left: 50%;
+    min-width: 220px; background: #0d1117;
+    border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.6);
+    padding: 0.6rem 0;
+    opacity: 0; pointer-events: none;
+    transform: translateX(-50%) translateY(-6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    z-index: 200;
+  }
+  .nav-links > li.nav-open .nav-dropdown {
+    opacity: 1; pointer-events: all;
+    transform: translateX(-50%) translateY(0);
+  }
+  .nav-dropdown-label {
+    font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em;
+    text-transform: uppercase; color: var(--dim);
+    padding: 0.7rem 1.1rem 0.3rem;
+  }
+  .nav-dropdown a {
+    display: flex; flex-direction: column;
+    padding: 0.6rem 1.1rem; text-decoration: none;
+    border-radius: 6px; margin: 0 0.3rem;
+    transition: background 0.15s;
+  }
+  .nav-dropdown a:hover { background: rgba(255,255,255,0.06); }
+  .nav-dropdown a .dd-title { color: var(--text); font-size: 0.875rem; font-weight: 500; }
+  .nav-dropdown a .dd-sub  { color: var(--dim); font-size: 0.775rem; margin-top: 1px; }
+  .nav-dropdown hr { border: none; border-top: 1px solid var(--border); margin: 0.4rem 0; }
+
+  /* Right CTA */
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+  .nav-cta {
+    background: var(--accent); color: #fff;
+    padding: 0.5rem 1.2rem; border-radius: 7px;
+    text-decoration: none; font-size: 0.875rem; font-weight: 700;
+    transition: opacity 0.2s; white-space: nowrap;
+  }
+  .nav-cta:hover { opacity: 0.88; }
+
+  /* Hamburger */
+  .nav-hamburger {
+    display: none; flex-direction: column; justify-content: center;
+    gap: 5px; width: 32px; height: 32px;
+    background: none; border: none; cursor: pointer; padding: 4px; margin-left: auto;
+  }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px; transition: all 0.3s;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* Mobile drawer */
+  .nav-drawer {
+    display: none; position: fixed; top: calc(2.4rem + 56px); left: 0; right: 0;
+    background: #0d1117; border-bottom: 1px solid var(--border);
+    z-index: 99; flex-direction: column; max-height: calc(100vh - 100px); overflow-y: auto;
+  }
+  .nav-drawer.open { display: flex; }
+  .nav-drawer a, .nav-drawer button {
+    display: block; padding: 0.9rem 1.5rem;
+    color: var(--muted); text-decoration: none; font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    background: none; border-left: none; border-right: none; border-top: none;
+    text-align: left; width: 100%; font-family: inherit; cursor: pointer;
+  }
+  .nav-drawer a:hover, .nav-drawer button:hover { color: var(--text); background: rgba(255,255,255,0.03); }
+  .nav-drawer .drawer-cta {
+    margin: 1rem 1.5rem 1.25rem;
+    background: var(--accent); color: #fff;
+    padding: 0.85rem; border-radius: 8px;
+    text-align: center; font-weight: 700; border: none;
+    text-decoration: none; display: block;
+  }
+
+  @media (max-width: 860px) {
+    .nav-links, .nav-right { display: none; }
+    .nav-hamburger { display: flex; }
+  }
+
+  /* ── PAGE BODY (pushed below fixed nav) ── */
+  .page-wrap {
+    min-height: 100vh;
+    padding-top: calc(2.4rem + 56px + 40px);
+    padding-bottom: 60px;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ── TWO-COLUMN LAYOUT ── */
+  .wrapper {
+    max-width: 960px; width: 100%;
+    display: flex; gap: 48px; align-items: flex-start;
+    padding: 0 24px;
+  }
+
+  /* LEFT: BENEFITS */
+  .benefits { flex: 1; padding-top: 8px; }
+  .benefits h1 { font-size: 1.8rem; font-weight: 800; line-height: 1.3; margin-bottom: 10px; letter-spacing: -0.5px; }
+  .benefits h1 span { color: var(--accent2); }
+  .benefits p { color: var(--muted); font-size: 0.95rem; margin-bottom: 24px; line-height: 1.7; }
+  .benefit-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; }
+  .benefit-icon {
+    background: rgba(37,99,235,0.12); color: var(--accent2);
+    border-radius: 50%; width: 34px; height: 34px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .benefit-text strong { display: block; font-size: 0.92rem; color: var(--text); }
+  .benefit-text span { font-size: 0.8rem; color: var(--muted); }
+  .trust-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .badge {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 13px;
+    font-size: 0.76rem; color: var(--muted);
+  }
+  .badge span { color: #22C55E; margin-right: 4px; }
+
+  /* RIGHT: CARD */
+  .card-wrap { flex: 1; max-width: 420px; }
+  .tab-buttons {
+    display: flex; border-radius: 8px 8px 0 0;
+    overflow: hidden; border: 1px solid var(--border); border-bottom: none;
+  }
+  .tab-btn {
+    flex: 1; padding: 12px; border: none;
+    background: var(--surface); color: var(--muted);
+    cursor: pointer; font-size: 0.88rem; font-weight: 600;
+    font-family: inherit; transition: all 0.2s;
+  }
+  .tab-btn.active { background: var(--accent); color: #fff; }
+  .tab-btn:hover:not(.active) { background: #1a2540; color: var(--text); }
+  .card {
+    background: var(--card); padding: 28px;
+    border-radius: 0 0 12px 12px; border: 1px solid var(--border);
+  }
+  .card h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 4px; }
+  .card .subtitle { font-size: 0.8rem; color: var(--dim); margin-bottom: 20px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  label { display: block; font-size: 0.76rem; color: var(--muted); margin-bottom: 4px; margin-top: 14px; }
+  input, select {
+    width: 100%; padding: 10px 12px;
+    background: var(--bg); color: var(--text);
+    border: 1px solid var(--border); border-radius: 6px;
+    font-size: 0.875rem; outline: none; font-family: inherit;
+    transition: border 0.2s;
+  }
+  input:focus, select:focus { border-color: var(--accent); }
+  select option { background: var(--card); }
+  button[type=submit] {
+    background: var(--accent); color: #fff; border: none;
+    padding: 13px; width: 100%; border-radius: 6px;
+    font-weight: 700; cursor: pointer; font-size: 0.95rem;
+    margin-top: 20px; transition: background 0.2s; font-family: inherit;
+  }
+  button[type=submit]:hover { background: var(--accent2); }
+  button[type=submit]:disabled { background: #1e3a5f; cursor: not-allowed; }
+  .no-cc { text-align: center; font-size: 0.73rem; color: var(--dim); margin-top: 10px; }
+  .no-cc span { color: #22C55E; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border);
+    text-align: center; padding: 20px;
+    color: var(--dim); font-size: 0.8rem;
+  }
+  footer a { color: var(--muted); text-decoration: none; }
+  footer a:hover { color: var(--text); }
+
+  @media (max-width: 700px) {
+    .wrapper { flex-direction: column; }
+    .card-wrap { max-width: 100%; }
+    nav.main-nav { padding: 0 1.25rem; }
+  }
 </style>
-
 </head>
-
 <body>
 
-<div class="container">
-
-<div class="tab-buttons">
-<button class="tab-btn active" onclick="switchTab('trial-tab',this)">🚀 14 Day Trial</button>
-<button class="tab-btn" onclick="switchTab('lite-tab',this)">🆓 Free Lite</button>
+<!-- ANNOUNCEMENT BAR -->
+<div class="announce-bar" id="announceBar">
+  🔥 <strong>Launch pricing ends March 31</strong> — Lock in ₹2,999/yr before it goes up. &nbsp;
+  <a href="/start-trial.html">Start your free 14-day trial →</a>
+  <button class="ab-close" onclick="document.getElementById('announceBar').style.display='none'" aria-label="Close">×</button>
 </div>
 
-<!-- TRIAL -->
-<div class="tab-panel active" id="trial-tab">
+<!-- NAV -->
+<nav class="main-nav" role="navigation" aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="ZAFtool home">ZAF<span>tool</span></a>
 
-<div class="card">
+  <ul class="nav-links" role="list">
+    <li class="nav-item-drop" id="navProduct">
+      <button aria-haspopup="true" aria-expanded="false" aria-controls="ddProduct">
+        Product
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="nav-dropdown" id="ddProduct" role="menu">
+        <div class="nav-dropdown-label">Plans</div>
+        <a href="/start-trial.html#lite" role="menuitem">
+          <span class="dd-title">ZAF Lite</span>
+          <span class="dd-sub">Free — 6 core tools</span>
+        </a>
+        <a href="/start-trial.html" role="menuitem">
+          <span class="dd-title">ZAF Pro</span>
+          <span class="dd-sub">₹2,999/yr — all 25 tools</span>
+        </a>
+        <a href="/#pricing" role="menuitem">
+          <span class="dd-title">ZAF Enterprise</span>
+          <span class="dd-sub">Custom — team licensing</span>
+        </a>
+        <hr/>
+        <div class="nav-dropdown-label">Explore</div>
+        <a href="/#features" role="menuitem">
+          <span class="dd-title">All 25 Tools</span>
+          <span class="dd-sub">Full feature list</span>
+        </a>
+        <a href="/#roadmap" role="menuitem">
+          <span class="dd-title">Roadmap</span>
+          <span class="dd-sub">What's coming next</span>
+        </a>
+      </div>
+    </li>
+    <li><a href="/#pricing">Pricing</a></li>
+    <li class="nav-item-drop" id="navResources">
+      <button aria-haspopup="true" aria-expanded="false" aria-controls="ddResources">
+        Resources
+        <svg class="nav-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="nav-dropdown" id="ddResources" role="menu">
+        <a href="/blog/" role="menuitem">
+          <span class="dd-title">Blog</span>
+          <span class="dd-sub">Tips & finance insights</span>
+        </a>
+        <a href="/checklist" role="menuitem">
+          <span class="dd-title">Free Audit Checklist</span>
+          <span class="dd-sub">Download free resource</span>
+        </a>
+        <a href="/docs/" role="menuitem">
+          <span class="dd-title">Install Guide</span>
+          <span class="dd-sub">Get up & running in 2 mins</span>
+        </a>
+        <a href="/release-notes/" role="menuitem">
+          <span class="dd-title">Release Notes</span>
+          <span class="dd-sub">Latest updates & fixes</span>
+        </a>
+      </div>
+    </li>
+    <li><a href="/docs/">Install</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+  </ul>
 
-<h2>Start your free 14 day trial</h2>
+  <div class="nav-right">
+    <a href="/start-trial.html" class="nav-cta">Start Free Trial →</a>
+  </div>
 
-<form id="trialForm">
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-<input type="text" id="trial-name" placeholder="Your name" required>
-
-<input type="email" id="trial-email" placeholder="Work email" required>
-
-<select id="trial-role">
-<option value="">Select your role</option>
-<option>Investment Banker</option>
-<option>Auditor</option>
-<option>FP&A</option>
-<option>M&A / Due Diligence</option>
-<option>Student</option>
-<option>Other</option>
-</select>
-
-<button type="submit">Get Instant Download Link →</button>
-
-</form>
-
+<!-- Mobile Drawer -->
+<div class="nav-drawer" id="navDrawer" role="dialog" aria-label="Navigation menu">
+  <a href="/">Home</a>
+  <a href="/#features">All 25 Tools</a>
+  <a href="/#pricing">Pricing</a>
+  <a href="/blog/">Blog</a>
+  <a href="/checklist">Free Audit Checklist</a>
+  <a href="/docs/">Install Guide</a>
+  <a href="/#faq">FAQ</a>
+  <a href="mailto:abhishek.bhandari@zaftool.com">Contact</a>
+  <a href="/start-trial.html" class="drawer-cta">Start Free Trial →</a>
 </div>
+
+<!-- PAGE CONTENT -->
+<div class="page-wrap">
+  <div class="wrapper">
+
+    <!-- LEFT: BENEFITS -->
+    <div class="benefits">
+      <h1>The <span>Excel Add-in</span> built for Finance Professionals</h1>
+      <p>Used by Investment Bankers, M&A advisors, and FP&A teams to automate financial workflows — right inside Excel.</p>
+
+      <div class="benefit-item">
+        <div class="benefit-icon">⚡</div>
+        <div class="benefit-text">
+          <strong>Instant Download</strong>
+          <span>Get your link delivered to your inbox immediately</span>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">📊</div>
+        <div class="benefit-text">
+          <strong>Built for M&A & Due Diligence</strong>
+          <span>Financial models, checklists & comparison tools included</span>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🔒</div>
+        <div class="benefit-text">
+          <strong>100% Secure & Offline</strong>
+          <span>No data ever leaves your machine</span>
+        </div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon">🛠️</div>
+        <div class="benefit-text">
+          <strong>Full 14-Day Access</strong>
+          <span>All 25 tools, zero restrictions during trial</span>
+        </div>
+      </div>
+
+      <div class="trust-badges">
+        <div class="badge"><span>✓</span> No credit card required</div>
+        <div class="badge"><span>✓</span> Instant delivery</div>
+        <div class="badge"><span>✓</span> Works in Excel 2016+</div>
+        <div class="badge"><span>✓</span> Cancel anytime</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: FORM -->
+    <div class="card-wrap">
+      <div class="tab-buttons">
+        <button class="tab-btn active" onclick="switchTab('trial-tab',this)">🚀 14 Day Trial</button>
+        <button class="tab-btn" onclick="switchTab('lite-tab',this)">🆓 Free Lite</button>
+      </div>
+
+      <!-- TRIAL -->
+      <div class="tab-panel active" id="trial-tab">
+        <div class="card">
+          <h2>Start your free 14-day trial</h2>
+          <p class="subtitle">Full access · No credit card · Cancel anytime</p>
+          <form id="trialForm">
+            <label for="trial-name">Full Name</label>
+            <input type="text" id="trial-name" placeholder="e.g. Abhishek Bhandari" required>
+            <label for="trial-email">Work Email</label>
+            <input type="email" id="trial-email" placeholder="you@company.com" required>
+            <label for="trial-role">Your Role</label>
+            <select id="trial-role">
+              <option value="">Select your role</option>
+              <option>Investment Banker</option>
+              <option>Auditor</option>
+              <option>FP&A</option>
+              <option>M&A / Due Diligence</option>
+              <option>Student</option>
+              <option>Other</option>
+            </select>
+            <button type="submit">Get Instant Download Link →</button>
+          </form>
+          <p class="no-cc"><span>✓</span> No credit card required</p>
+        </div>
+      </div>
+
+      <!-- LITE -->
+      <div class="tab-panel" id="lite-tab">
+        <div class="card">
+          <h2>ZAFtool Lite — Free Forever</h2>
+          <p class="subtitle">Core features, always free · Upgrade anytime</p>
+          <form id="liteForm">
+            <label for="lite-name">Full Name</label>
+            <input type="text" id="lite-name" placeholder="e.g. Abhishek Bhandari" required>
+            <label for="lite-email">Email Address</label>
+            <input type="email" id="lite-email" placeholder="you@email.com" required>
+            <label for="lite-role">Your Role</label>
+            <select id="lite-role">
+              <option value="">Select your role</option>
+              <option>Investment Banker</option>
+              <option>Auditor</option>
+              <option>FP&A</option>
+              <option>M&A / Due Diligence</option>
+              <option>Student</option>
+              <option>Other</option>
+            </select>
+            <button type="submit">Get Free Download →</button>
+          </form>
+          <p class="no-cc"><span>✓</span> Free forever — no strings attached</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
 
-<!-- LITE -->
-<div class="tab-panel" id="lite-tab">
-
-<div class="card">
-
-<h2>ZAFtool Lite — Free Forever</h2>
-
-<form id="liteForm">
-
-<input type="text" id="lite-name" placeholder="Your name" required>
-
-<input type="email" id="lite-email" placeholder="Email" required>
-
-<select id="lite-role">
-<option value="">Select your role</option>
-<option>Investment Banker</option>
-<option>Auditor</option>
-<option>FP&A</option>
-<option>M&A / Due Diligence</option>
-<option>Student</option>
-<option>Other</option>
-</select>
-
-<button type="submit">Get Free Download →</button>
-
-</form>
-
-</div>
-</div>
-
-</div>
+<!-- FOOTER -->
+<footer>
+  © 2026 ZAFtool &nbsp;|&nbsp;
+  <a href="/privacy">Privacy Policy</a> &nbsp;|&nbsp;
+  <a href="mailto:support@zaftool.com">Contact</a> &nbsp;|&nbsp;
+  <a href="/">Home</a>
+</footer>
 
 <script>
+/* ── Nav dropdowns ── */
+(function() {
+  var dropItems = document.querySelectorAll('.nav-item-drop');
+  dropItems.forEach(function(item) {
+    var btn = item.querySelector('button');
+    item.addEventListener('mouseenter', function() { closeAll(); item.classList.add('nav-open'); btn.setAttribute('aria-expanded','true'); });
+    item.addEventListener('mouseleave', function() { item.classList.remove('nav-open'); btn.setAttribute('aria-expanded','false'); });
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = item.classList.contains('nav-open');
+      closeAll();
+      if (!isOpen) { item.classList.add('nav-open'); btn.setAttribute('aria-expanded','true'); }
+    });
+  });
+  function closeAll() {
+    dropItems.forEach(function(i) {
+      i.classList.remove('nav-open');
+      var b = i.querySelector('button');
+      if (b) b.setAttribute('aria-expanded','false');
+    });
+  }
+  document.addEventListener('click', closeAll);
+  document.addEventListener('keydown', function(e) { if (e.key==='Escape') { closeAll(); closeMobileDrawer(); } });
 
-function switchTab(tabId,btn){
+  /* ── Mobile drawer ── */
+  var hamburger = document.getElementById('navHamburger');
+  var drawer    = document.getElementById('navDrawer');
+  function openMobileDrawer()  { drawer.classList.add('open'); hamburger.classList.add('open'); hamburger.setAttribute('aria-expanded','true');  document.body.style.overflow='hidden'; }
+  function closeMobileDrawer() { drawer.classList.remove('open'); hamburger.classList.remove('open'); hamburger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+  hamburger.addEventListener('click', function() { drawer.classList.contains('open') ? closeMobileDrawer() : openMobileDrawer(); });
+  drawer.querySelectorAll('a').forEach(function(a) { a.addEventListener('click', closeMobileDrawer); });
+})();
 
-document.querySelectorAll(".tab-panel").forEach(p=>p.classList.remove("active"))
-document.querySelectorAll(".tab-btn").forEach(b=>b.classList.remove("active"))
-
-document.getElementById(tabId).classList.add("active")
-btn.classList.add("active")
-
+/* ── Tab switch ── */
+function switchTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  btn.classList.add('active');
 }
 
-/* TRIAL FORM */
-
-document.getElementById("trialForm").addEventListener("submit",async function(e){
-
-e.preventDefault()
-
-const button=e.target.querySelector("button")
-button.disabled=true
-button.innerText="Sending..."
-
-const name=document.getElementById("trial-name").value
-const email=document.getElementById("trial-email").value
-const role=document.getElementById("trial-role").value
-
-try{
-
-const res=await fetch("/api/send-download",{
-
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-name:name,
-email:email,
-role:role,
-plan:"trial"
-})
-
-})
-
-if(res.ok){
-
-alert("Download link sent to your email. Please check your inbox.")
-
-}else{
-
-alert("Something went wrong. Please try again.")
-
+/* ── Form handler ── */
+async function handleForm(formId, nameId, emailId, roleId, plan, btnText) {
+  document.getElementById(formId).addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const button = e.target.querySelector('button');
+    button.disabled = true; button.innerText = 'Sending...';
+    const name  = document.getElementById(nameId).value;
+    const email = document.getElementById(emailId).value;
+    const role  = document.getElementById(roleId).value;
+    try {
+      const res = await fetch('/api/send-download', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({name, email, role, plan})
+      });
+      alert(res.ok ? '✅ Download link sent! Please check your inbox.' : 'Something went wrong. Please try again.');
+    } catch(err) {
+      alert('Network error. Please try again.');
+    }
+    button.disabled = false; button.innerText = btnText;
+  });
 }
 
-}catch(err){
-
-alert("Network error. Please try again.")
-
-}
-
-button.disabled=false
-button.innerText="Get Instant Download Link →"
-
-})
-
-/* LITE FORM */
-
-document.getElementById("liteForm").addEventListener("submit",async function(e){
-
-e.preventDefault()
-
-const button=e.target.querySelector("button")
-button.disabled=true
-button.innerText="Sending..."
-
-const name=document.getElementById("lite-name").value
-const email=document.getElementById("lite-email").value
-const role=document.getElementById("lite-role").value
-
-try{
-
-const res=await fetch("/api/send-download",{
-
-method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-name:name,
-email:email,
-role:role,
-plan:"lite"
-})
-
-})
-
-if(res.ok){
-
-alert("Download link sent to your email. Please check your inbox.")
-
-}else{
-
-alert("Something went wrong. Please try again.")
-
-}
-
-}catch(err){
-
-alert("Network error. Please try again.")
-
-}
-
-button.disabled=false
-button.innerText="Get Free Download →"
-
-})
-
+handleForm('trialForm','trial-name','trial-email','trial-role','trial','Get Instant Download Link →');
+handleForm('liteForm','lite-name','lite-email','lite-role','lite','Get Free Download →');
 </script>
 
 </body>
 </html>
-```
