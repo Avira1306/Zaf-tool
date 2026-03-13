@@ -1078,7 +1078,46 @@
       font-family: monospace; font-size: 1rem; font-weight: 700;
       margin-bottom: 1.5rem;
     }
+     /* ── VS MACABACUS ── */
+ .vs-section { background: var(--surface); }
+.vs-table-wrap { margin-top: 2.5rem; overflow-x: auto; }
+.vs-compare-table {
+  width: 100%; border-collapse: collapse;
+  background: var(--card); border-radius: 16px; overflow: hidden;
+  font-size: 0.9rem;
+}
+.vs-compare-table th, .vs-compare-table td {
+  padding: 16px 24px; text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.vs-compare-table thead th {
+  background: #1E2D45; color: var(--accent2);
+  font-size: 0.8rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.vs-compare-table thead th:first-child { color: var(--muted); }
+.vs-compare-table tbody tr:hover { background: rgba(37,99,235,0.05); }
+.vs-compare-table tbody tr:last-child td { border-bottom: none; }
+.vs-check { color: #22C55E; font-weight: 700; }
+.vs-cross { color: #EF4444; font-weight: 700; }
+.vs-price-zaf { font-size: 1.2rem; font-weight: 800; color: var(--accent2); }
+.vs-price-mac { color: var(--muted); font-size: 0.85rem; }
+.vs-savings-box {
+  margin-top: 2.5rem;
+  background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(245,158,11,0.05));
+  border: 1px solid rgba(37,99,235,0.25);
+  border-radius: 16px; padding: 2.5rem;
+  text-align: center;
+}
+.vs-savings-box .vs-big {
+  font-size: 3rem; font-weight: 900;
+  color: var(--accent2); margin: 0.5rem 0;
+}
+.vs-savings-box p { color: var(--muted); font-size: 0.95rem; }
+.vs-savings-box .vs-cta-row { margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
+    
+    
     /* ── FAQ ── */
     .faq-list { max-width: 700px; margin-top: 2.5rem; }
     .faq-item {
@@ -1350,6 +1389,7 @@
     <!-- Install Guide -->
     <li><a href="/docs/">Install</a></li>
 
+  <li><a href="/#vs-macabacus" style="color:var(--accent2); font-weight:600;">vs Macabacus</a></li>
     <!-- FAQ (direct link) -->
     <li><a href="/#faq">FAQ</a></li>
 
@@ -2645,7 +2685,86 @@ document.querySelector("form").addEventListener("submit", function() {
 </script>
 
 </body>
+<!-- VS MACABACUS -->
+<section class="vs-section" id="vs-macabacus">
+  <div class="container">
+    <p class="section-label">ZAFtool vs Macabacus</p>
+    <h2 class="section-title">90% Cheaper. Built for India.</h2>
+    <p class="section-sub">Same professional Excel tools for financial modelling & model audit — at a fraction of the cost, with India-specific features built in.</p>
 
+    <div class="vs-table-wrap">
+      <table class="vs-compare-table">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>✅ ZAFtool</th>
+            <th>Macabacus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Price per user / year</strong></td>
+            <td><span class="vs-price-zaf">₹2,999</span></td>
+            <td><span class="vs-price-mac">$300–$600 (₹25,000+)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Model Audit Engine</strong></td>
+            <td><span class="vs-check">✓</span> 6-check + clickable log</td>
+            <td><span class="vs-check">✓</span> Yes</td>
+          </tr>
+          <tr>
+            <td><strong>Formatting Tools</strong></td>
+            <td><span class="vs-check">✓</span> 25 one-click tools</td>
+            <td><span class="vs-check">✓</span> Yes</td>
+          </tr>
+          <tr>
+            <td><strong>Consolidate Files / Folder</strong></td>
+            <td><span class="vs-check">✓</span> Full folder support</td>
+            <td><span class="vs-check">✓</span> Limited</td>
+          </tr>
+          <tr>
+            <td><strong>Indian Number Format (₹ Lakhs/Crores)</strong></td>
+            <td><span class="vs-check">✓</span> Built-in</td>
+            <td><span class="vs-cross">✗</span> Not supported</td>
+          </tr>
+          <tr>
+            <td><strong>Free Trial</strong></td>
+            <td><span class="vs-check">✓</span> 14 days, no card needed</td>
+            <td><span class="vs-cross">✗</span> No</td>
+          </tr>
+          <tr>
+            <td><strong>Money-Back Guarantee</strong></td>
+            <td><span class="vs-check">✓</span> 14 days</td>
+            <td><span class="vs-cross">✗</span> No</td>
+          </tr>
+          <tr>
+            <td><strong>Support</strong></td>
+            <td><span class="vs-check">✓</span> WhatsApp + Founder (India)</td>
+            <td><span class="vs-cross">✗</span> US timezone only</td>
+          </tr>
+          <tr>
+            <td><strong>Works Offline</strong></td>
+            <td><span class="vs-check">✓</span> 100% local, no internet</td>
+            <td><span class="vs-cross">✗</span> Requires connection</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="vs-savings-box">
+      <p>For a 10-person CA firm or IB team over 3 years</p>
+      <div class="vs-big">₹37+ Lakhs Saved</div>
+      <p>vs equivalent Macabacus licensing</p>
+      <div class="vs-cta-row">
+        <a href="/start-trial.html" class="btn-primary">Start Free 14-Day Trial →</a>
+        <a href="/compare/macabacus.html" class="btn-secondary">Full Comparison →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  
 <!-- FAQ -->
 <section id="faq" aria-labelledby="faq-title">
   <div class="container">
