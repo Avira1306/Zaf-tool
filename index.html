@@ -744,93 +744,55 @@
     }
 
     /* ── TESTIMONIAL CAROUSEL ── */
-    /* ── TESTIMONIALS ── */
-    .testi-section {
-      padding: 5rem 2rem;
-      background: var(--bg);
-    }
-    .testi-wrap {
-      max-width: 700px;
-      margin: 2.5rem auto 0;
-    }
-    /* The card */
-    .testi-card {
-      background: #0F1929;
-      border: 1px solid #2563EB40;
-      border-radius: 16px;
-      padding: 2rem 2rem 1.75rem;
-      position: relative;
-      box-shadow: 0 0 0 1px #1E2D45, 0 4px 24px rgba(0,0,0,0.4);
-    }
-    /* Top row: stars left, arrows right */
-    .testi-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1.1rem;
-    }
-    .testi-stars {
-      color: #2563EB;
-      font-size: 1rem;
-      letter-spacing: 2px;
-    }
-    .testi-arrows {
-      display: flex;
-      gap: 6px;
-    }
-    .testi-btn {
-      background: none;
-      border: none;
-      color: #2563EB;
-      font-size: 1.25rem;
-      cursor: pointer;
-      padding: 4px 6px;
-      line-height: 1;
-      transition: opacity 0.15s;
-    }
-    .testi-btn:hover { opacity: 0.65; }
-    /* Quote */
-    .testi-quote {
-      font-size: 1.08rem;
-      line-height: 1.7;
-      color: #E2E8F0;
-      font-style: normal;
-      font-weight: 400;
-      margin: 0 0 1.5rem;
-    }
-    /* Author row */
-    .testi-author {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .testi-avatar {
-      width: 44px; height: 44px;
-      border-radius: 8px;
-      display: flex; align-items: center; justify-content: center;
-      font-weight: 800; font-size: 0.85rem; color: #fff;
-      flex-shrink: 0;
-      letter-spacing: 0.5px;
-    }
-    .testi-name { font-weight: 600; color: #F1F5F9; font-size: 0.9rem; }
-    .testi-role { color: #64748B; font-size: 0.8rem; margin-top: 2px; }
-    /* Dots below card */
-    .testi-dots {
-      display: flex; gap: 6px; justify-content: center;
-      margin-top: 1.25rem;
-    }
-    .testi-dot {
-      width: 7px; height: 7px; border-radius: 50%;
-      background: #1E2D45; border: none; cursor: pointer;
-      transition: all 0.2s; padding: 0;
-    }
-    .testi-dot.active { background: #2563EB; width: 20px; border-radius: 4px; }
-    /* Slide fade */
-    @keyframes testiFadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    .testi-slide { animation: testiFadeIn 0.35s ease; }
+   /* ── TESTIMONIALS ── */
+.testi-section { padding: 5rem 2rem; background: var(--bg); }
+.testi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+.testi-card {
+  background: #0F1929;
+  border: 1px solid #1E2D45;
+  border-radius: 16px;
+  padding: 1.75rem;
+  display: flex; flex-direction: column;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.testi-card:hover { border-color: #2563EB; transform: translateY(-3px); }
+.testi-card.featured {
+  border-color: rgba(37,99,235,0.5);
+  background: linear-gradient(135deg, #0f1f3d, #0F1929);
+}
+.testi-stars { color: #F59E0B; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.testi-quote {
+  font-size: 0.92rem; line-height: 1.75;
+  color: #CBD5E1; flex: 1; margin-bottom: 1.25rem;
+  font-style: italic;
+}
+.testi-quote strong { color: #fff; font-style: normal; }
+.testi-author { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+.testi-avatar {
+  width: 42px; height: 42px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.85rem; color: #fff; flex-shrink: 0;
+}
+.av-blue   { background: linear-gradient(135deg, #1d4ed8, #2563EB); }
+.av-green  { background: linear-gradient(135deg, #065f46, #059669); }
+.av-purple { background: linear-gradient(135deg, #4c1d95, #7c3aed); }
+.av-orange { background: linear-gradient(135deg, #92400e, #d97706); }
+.av-red    { background: linear-gradient(135deg, #7f1d1d, #dc2626); }
+.testi-name { font-weight: 700; font-size: 0.9rem; color: #F1F5F9; }
+.testi-role { font-size: 0.78rem; color: #64748B; margin-top: 2px; }
+.testi-firm-badge {
+  display: inline-block; margin-top: 0.4rem;
+  background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.2);
+  color: #3B82F6; padding: 0.15rem 0.6rem;
+  border-radius: 4px; font-size: 0.7rem; font-weight: 700;
+}
+.testi-highlight-tag {
+  dis
 
     /* ── BENTO FEATURES ── */
     .bento-section {
@@ -1898,87 +1860,97 @@
   </div>
 </section>
 
-<!-- TESTIMONIALS CAROUSEL -->
-<section style=”padding:5rem 2rem; background:#070B14;” aria-label=”User testimonials”>
-  <div style=”max-width:1100px; margin:0 auto;”>
-    <div style=”text-align:center; text-transform:uppercase; letter-spacing:2px; font-size:0.75rem; color:#2563EB; font-weight:600; margin-bottom:0.75rem;”>Real Results from Real Users</div>
-    <h2 style=”text-align:center; font-size:clamp(1.6rem,3vw,2.2rem); font-weight:700; color:#F1F5F9; margin:0 0 2.5rem;”>What finance pros are saying</h2>
+<!-- TESTIMONIALS -->
+<section class="testi-section" id="testimonials" aria-label="User testimonials">
+  <div class="container">
+    <p class="section-label">Real Results from Real Users</p>
+    <h2 class="section-title">What finance pros are saying</h2>
+    <p class="section-sub">Used by analysts at India's top firms — Big 4, global consulting & rating agencies.</p>
 
-    <!-- Card -->
-    <div style=”max-width:680px; margin:0 auto;”>
-      <div id=”testiCard” style=”background:#0D1829; border:1px solid #1E3A5F; border-radius:16px; padding:2rem; box-shadow:0 8px 32px rgba(0,0,0,0.5);”>
+    <div class="testi-grid">
 
-        <!-- Top row: stars + arrows -->
-        <div style=”display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;”>
-          <div style=”color:#2563EB; font-size:1.1rem; letter-spacing:3px;”>&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-          <div style=”display:flex; gap:4px;”>
-            <button id=”testiPrev” onclick=”testiGo(testiCur-1)” aria-label=”Previous” style=”background:none; border:none; color:#2563EB; font-size:1.4rem; cursor:pointer; padding:4px 8px; line-height:1;”>&#8592;</button>
-            <button id=”testiNext” onclick=”testiGo(testiCur+1)” aria-label=”Next” style=”background:none; border:none; color:#2563EB; font-size:1.4rem; cursor:pointer; padding:4px 8px; line-height:1;”>&#8594;</button>
-          </div>
-        </div>
-
-        <!-- Quote -->
-        <p id=”testiQuote” style=”font-size:1.05rem; line-height:1.75; color:#CBD5E1; margin:0 0 1.5rem; font-style:normal;”></p>
-
-        <!-- Author -->
-        <div style=”display:flex; align-items:center; gap:12px;”>
-          <div id=”testiAvatar” style=”width:42px; height:42px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem; color:#fff; flex-shrink:0;”></div>
+      <div class="testi-card featured">
+        <div class="testi-highlight-tag">⭐ Model Audit</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"We were auditing models manually — checking hardcodes, circular refs, formula inconsistencies one by one. <strong>ZAFtool's audit engine runs all 6 checks in under 10 seconds</strong> and gives a clickable error log. What used to take 3 hours now takes 10 minutes. Standard step before every client submission now."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av-blue">PJ</div>
           <div>
-            <div id=”testiName” style=”font-weight:600; color:#F1F5F9; font-size:0.9rem;”></div>
-            <div id=”testiRole” style=”color:#64748B; font-size:0.78rem; margin-top:2px;”></div>
+            <div class="testi-name">Piyush Jain</div>
+            <div class="testi-role">Financial Modelling Team</div>
+            <span class="testi-firm-badge">EY GDS</span>
           </div>
         </div>
-
       </div>
 
-      <!-- Dots -->
-      <div id=”testiDots” style=”display:flex; justify-content:center; gap:6px; margin-top:1.25rem;”></div>
+      <div class="testi-card">
+        <div class="testi-highlight-tag">⭐ Model Audit</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"At ICRA we review external models submitted by clients regularly. <strong>The audit tool catches issues even experienced analysts miss</strong> — broken links, inconsistent row formulas, hardcoded values buried 40 rows deep. Saves significant review time on every engagement."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av-green">KS</div>
+          <div>
+            <div class="testi-name">Karandeep Singh</div>
+            <div class="testi-role">Credit Analyst</div>
+            <span class="testi-firm-badge">ICRA</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-highlight-tag">🎨 Formatting</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Client deliverables at EY need to be perfectly formatted every time. <strong>The one-click formatting tools save me at least 90 minutes per model</strong> — colour coding, number formats, print settings all done in seconds. Recommended it to my entire team."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av-purple">SA</div>
+          <div>
+            <div class="testi-name">Sachin Akhria</div>
+            <div class="testi-role">Financial Modelling Team</div>
+            <span class="testi-firm-badge">EY India</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-highlight-tag">⚡ Consolidation</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"At Bain we constantly consolidate data from multiple sources into one master model. <strong>The folder consolidation tool replaced a VBA script we'd used for years</strong> — faster, more reliable, and anyone on the team can run it without knowing a single line of code."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av-orange">HS</div>
+          <div>
+            <div class="testi-name">Himanshu Sharma</div>
+            <div class="testi-role">Analytics & Modelling</div>
+            <span class="testi-firm-badge">Bain Capability Centre</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card">
+        <div class="testi-highlight-tag">⭐ Model Audit</div>
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"<strong>The Indian number format — Lakhs and Crores — is something no other add-in offers.</strong> Combined with the model audit engine, ZAFtool has changed how our team prepares and reviews models for Indian clients. Worth every rupee."</p>
+        <div class="testi-author">
+          <div class="testi-avatar av-red">HS</div>
+          <div>
+            <div class="testi-name">Himanshu Sabharwal</div>
+            <div class="testi-role">Transaction Advisory</div>
+            <span class="testi-firm-badge">Grant Thornton</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card" style="background:linear-gradient(135deg,rgba(37,99,235,0.12),#0F1929);border-color:rgba(37,99,235,0.3);justify-content:center;align-items:center;text-align:center;gap:1rem;">
+        <div style="font-size:2rem;">🚀</div>
+        <h3 style="font-size:1.1rem;font-weight:700;color:var(--text);">Join these professionals</h3>
+        <p style="font-size:0.875rem;color:var(--muted);line-height:1.6;">Used by analysts at EY, ICRA, Bain & Grant Thornton.<br>Start free — no card needed.</p>
+        <a href="/start-trial.html" class="btn-primary" style="margin-top:0.5rem;display:inline-block;">Start Free Trial →</a>
+        <p style="font-size:0.75rem;color:var(--dim);margin-top:0.5rem;">✓ Instant download &nbsp;·&nbsp; ✓ Works in Excel 2016+</p>
+      </div>
+
     </div>
   </div>
 </section>
 
-<script>
-var testiCur = 0;
-var TDATA = [
-  { quote: 'Switched from Macabacus. ZAFtool Model Audit is faster and cleaner. Saved our team 4-5 hours every week. Best decision this year.', name: 'CA Rohan Sharma', role: 'Partner - CA Firm - 15-person team - Mumbai', initials: 'RS', bg: '#1D4ED8' },
-  { quote: 'The formatting and consolidate tools are exactly what I needed. Models now look board-ready in minutes. Worth every rupee.', name: 'Arjun Mehta', role: 'VP Finance - IB Boutique - Mumbai', initials: 'AM', bg: '#D97706' },
-  { quote: 'Model Audit caught 3 critical errors in my DCF that I would have missed. Saved me from embarrassment in front of the client. This is a must-have tool.', name: 'Priya Nair', role: 'Senior Analyst - Big 4 Audit Firm - Bangalore', initials: 'PN', bg: '#16A34A' },
-  { quote: 'My team of 8 analysts uses ZAFtool every day. The time saved on formatting alone justified the cost in the first week. Highly recommend for any finance team.', name: 'Sanjay Kumar', role: 'CFO - Mid-Market PE Fund - Delhi', initials: 'SK', bg: '#7C3AED' },
-  { quote: 'Data Cleaning tools are exceptional. What used to take 30 minutes now takes 30 seconds. Clean Text and Fix Dates alone are worth the entire subscription.', name: 'Ritu Gupta', role: 'FP&A Manager - Corporate Finance - Pune', initials: 'RG', bg: '#DB2777' }
-];
-
-(function() {
-  var dotsEl = document.getElementById('testiDots');
-  TDATA.forEach(function(_, i) {
-    var d = document.createElement('button');
-    d.id = 'testiDot' + i;
-    d.setAttribute('aria-label', 'Testimonial ' + (i+1));
-    d.style.cssText = 'width:8px; height:8px; border-radius:50%; border:none; cursor:pointer; padding:0; transition:all 0.2s; background:' + (i===0 ? '#2563EB' : '#1E2D45');
-    d.onclick = function() { testiGo(i); };
-    dotsEl.appendChild(d);
-  });
-  testiRender(TDATA[0]);
-  setInterval(function() { testiGo(testiCur + 1); }, 6000);
-})();
-
-function testiRender(t) {
-  document.getElementById('testiQuote').textContent = t.quote;
-  document.getElementById('testiName').textContent = t.name;
-  document.getElementById('testiRole').textContent = t.role;
-  var av = document.getElementById('testiAvatar');
-  av.textContent = t.initials;
-  av.style.background = t.bg;
-}
-
-function testiGo(n) {
-  var prevDot = document.getElementById('testiDot' + testiCur);
-  if (prevDot) { prevDot.style.background = '#1E2D45'; prevDot.style.width = '8px'; prevDot.style.borderRadius = '50%'; }
-  testiCur = (n + TDATA.length) % TDATA.length;
-  var newDot = document.getElementById('testiDot' + testiCur);
-  if (newDot) { newDot.style.background = '#2563EB'; newDot.style.width = '20px'; newDot.style.borderRadius = '4px'; }
-  testiRender(TDATA[testiCur]);
-}
-</script>
   
 <!-- AUDIT SPOTLIGHT -->
 <section class="spotlight" id="audit" aria-labelledby="audit-title">
