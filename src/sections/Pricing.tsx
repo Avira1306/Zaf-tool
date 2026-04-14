@@ -141,7 +141,7 @@ const Pricing = () => {
                   Start Free Trial
                 </a>
                 <a
-                  href={`https://rzp.io/rzp/zaftool${price ? `?amount=${price}00` : ''}`}
+                  href={`https://rzp.io/rzp/zafsuite${price ? `?amount=${price}00` : ''}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-gold inline-flex items-center gap-2 text-lg px-8 py-4"
