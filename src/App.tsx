@@ -6,6 +6,7 @@ import Hero from './sections/Hero';
 import Problem from './sections/Problem';
 import Solution from './sections/Solution';
 import FlagshipFeature from './sections/FlagshipFeature';
+import VideoDemo from './sections/VideoDemo';
 import UseCases from './sections/UseCases';
 import Pricing from './sections/Pricing';
 import FAQ from './sections/FAQ';
@@ -61,7 +62,10 @@ function App() {
         {/* Section 3: Solution */}
         <Solution />
         
-        {/* Section 4: Flagship Feature */}
+        {/* Section 4: Video Demo */}
+        <VideoDemo />
+
+        {/* Section 5: Flagship Feature */}
         <FlagshipFeature />
         
         {/* Section 5: Use Cases */}
