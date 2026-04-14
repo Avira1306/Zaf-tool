@@ -68,12 +68,34 @@ const Hero = () => {
     return () => ctx.revert();
   }, []);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
+      try {
+        await fetch('https://formspree.io/f/xeerbjek', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+      } catch (err) {
+        console.error('Formspree error:', err);
+      }
       setIsSubmitted(true);
+      const link = document.createElement('a');
+      link.href = '/ZAF_tools_Suite.xlam';
+      link.download = 'ZAF_tools_Suite.xlam';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
       setTimeout(() => setIsSubmitted(false), 3000);
       setEmail('');
+    }
+  };
+
+  const handleWatchDemo = () => {
+    const demoSection = document.getElementById('demo');
+    if (demoSection) {
+      demoSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -205,7 +227,7 @@ const Hero = () => {
 
             {/* Secondary CTA */}
             <div className="animate-item mb-8">
-              <button className="flex items-center gap-2 text-zaf-text-muted hover:text-zaf-gold transition-colors">
+              <button onClick={handleWatchDemo} className="flex items-center gap-2 text-zaf-text-muted hover:text-zaf-gold transition-colors">
                 <div className="w-10 h-10 rounded-full bg-zaf-navy/50 flex items-center justify-center border border-white/10">
                   <Play className="w-4 h-4 ml-0.5" />
                 </div>
