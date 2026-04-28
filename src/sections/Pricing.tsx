@@ -8,6 +8,14 @@ gsap.registerPlugin(ScrollTrigger);
 const Pricing = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
+  const handleContactSales = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const email = "Abhishek.bhandari@zaftool.com";
+    const subject = encodeURIComponent("Enterprise Inquiry for ZAF Tools");
+    const body = encodeURIComponent("Hi Abhishek,\n\nI'm interested in learning more about the Enterprise plan for ZAF Tools. We have a team of [Number] people and would like to discuss volume licensing.\n\nBest regards,\n[Your Name]");
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  };
+
   const tiers = [
     {
       name: 'Monthly',
@@ -152,13 +160,13 @@ const Pricing = () => {
                 </div>
 
                 {tier.name === 'Enterprise' ? (
-                  <a
-                    href="mailto:Abhishek.bhandari@zaftool.com?subject=Enterprise Inquiry for ZAF Tools"
+                  <button
+                    onClick={handleContactSales}
                     className="btn-outline w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold border border-zaf-gold text-zaf-gold hover:bg-zaf-gold hover:text-zaf-navy-darker transition-all duration-300"
                   >
                     <Mail className="w-4 h-4" />
                     {tier.cta}
-                  </a>
+                  </button>
                 ) : (
                   <a
                     href="/ZAF_tools_Suite.xlam"

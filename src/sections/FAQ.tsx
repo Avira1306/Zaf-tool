@@ -9,6 +9,14 @@ const FAQ = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const handleContactSupport = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const email = "Abhishek.bhandari@zaftool.com";
+    const subject = encodeURIComponent("Support Inquiry for ZAF Tools");
+    const body = encodeURIComponent("Hi Abhishek,\n\nI have a question regarding ZAF Tools:\n\n[Your Question Here]\n\nBest regards,\n[Your Name]");
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  };
+
   const faqs = [
     {
       question: 'Which Excel versions does ZAF Tools support?',
@@ -153,12 +161,12 @@ const FAQ = () => {
               </div>
               <div className="text-left">
                 <p className="text-sm font-medium text-zaf-text">Still have questions?</p>
-                <a 
-                  href="mailto:Abhishek.bhandari@zaftool.com?subject=Support Inquiry for ZAF Tools"
+                <button 
+                  onClick={handleContactSupport}
                   className="text-sm text-zaf-gold hover:underline font-semibold"
                 >
                   Contact our team
-                </a>
+                </button>
               </div>
             </div>
           </div>
