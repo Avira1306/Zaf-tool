@@ -14,7 +14,24 @@ const FAQ = () => {
     const email = "Abhishek.bhandari@zaftool.com";
     const subject = encodeURIComponent("Support Inquiry for ZAF Tools");
     const body = encodeURIComponent("Hi Abhishek,\n\nI have a question regarding ZAF Tools:\n\n[Your Question Here]\n\nBest regards,\n[Your Name]");
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    
+    const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
+    
+    // Method 1: Create a hidden anchor and click it
+    const link = document.createElement('a');
+    link.href = mailtoUrl;
+    link.target = '_blank';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    // Method 2: Fallback if nothing happens after 500ms
+    setTimeout(() => {
+      if (document.hasFocus()) {
+        console.log("Mail client might not have opened, trying direct location change...");
+        window.location.href = mailtoUrl;
+      }
+    }, 500);
   };
 
   const faqs = [
