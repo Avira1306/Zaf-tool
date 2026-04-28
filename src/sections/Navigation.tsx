@@ -18,12 +18,16 @@ const Navigation = () => {
     { label: 'Features', href: '#features' },
     { label: 'Solutions', href: '#solutions' },
     { label: 'Pricing', href: '#pricing' },
-    { label: 'Download', href: '#download' },
+    { label: 'Blog', href: '/blog' },
     { label: 'Resources', href: '#faq' },
     { label: 'Contact', href: '#contact' },
   ];
 
   const scrollToSection = (href: string) => {
+    if (href.startsWith('/')) {
+      window.location.href = href;
+      return;
+    }
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
