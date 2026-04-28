@@ -8,18 +8,6 @@ gsap.registerPlugin(ScrollTrigger);
 const Pricing = () => {
   const sectionRef = useRef<HTMLElement>(null);
 
-  const handleContactSales = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const email = "Abhishek.bhandari@zaftool.com";
-    const subject = encodeURIComponent("Enterprise Inquiry for ZAF Tools");
-    const body = encodeURIComponent("Hi Abhishek,\n\nI'm interested in learning more about the Enterprise plan for ZAF Tools. We have a team of [Number] people and would like to discuss volume licensing.\n\nBest regards,\n[Your Name]");
-    
-    const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
-    
-    // Direct trigger without opening a new tab
-    window.location.href = mailtoUrl;
-  };
-
   const tiers = [
     {
       name: 'Monthly',
@@ -164,13 +152,13 @@ const Pricing = () => {
                 </div>
 
                 {tier.name === 'Enterprise' ? (
-                  <button
-                    onClick={handleContactSales}
+                  <a
+                    href="mailto:Abhishek.bhandari@zaftool.com?subject=Enterprise%20Inquiry%20for%20ZAF%20Tools&body=Hi%20Abhishek%2C%0A%0AI'm%20interested%20in%20learning%20more%20about%20the%20Enterprise%20plan%20for%20ZAF%20Tools.%20We%20have%20a%20team%20of%20%5BNumber%5D%20people%20and%20would%20like%20to%20discuss%20volume%20licensing.%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D"
                     className="btn-outline w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold border border-zaf-gold text-zaf-gold hover:bg-zaf-gold hover:text-zaf-navy-darker transition-all duration-300"
                   >
                     <Mail className="w-4 h-4" />
                     {tier.cta}
-                  </button>
+                  </a>
                 ) : (
                   <a
                     href="/ZAF_tools_Suite.xlam"

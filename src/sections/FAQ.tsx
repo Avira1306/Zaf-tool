@@ -9,18 +9,6 @@ const FAQ = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const handleContactSupport = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const email = "Abhishek.bhandari@zaftool.com";
-    const subject = encodeURIComponent("Support Inquiry for ZAF Tools");
-    const body = encodeURIComponent("Hi Abhishek,\n\nI have a question regarding ZAF Tools:\n\n[Your Question Here]\n\nBest regards,\n[Your Name]");
-    
-    const mailtoUrl = `mailto:${email}?subject=${subject}&body=${body}`;
-    
-    // Direct trigger without opening a new tab
-    window.location.href = mailtoUrl;
-  };
-
   const faqs = [
     {
       question: 'Which Excel versions does ZAF Tools support?',
@@ -165,12 +153,12 @@ const FAQ = () => {
               </div>
               <div className="text-left">
                 <p className="text-sm font-medium text-zaf-text">Still have questions?</p>
-                <button 
-                  onClick={handleContactSupport}
+                <a 
+                  href="mailto:Abhishek.bhandari@zaftool.com?subject=Support%20Inquiry%20for%20ZAF%20Tools&body=Hi%20Abhishek%2C%0A%0AI%20have%20a%20question%20regarding%20ZAF%20Tools%3A%0A%0A%5BYour%20Question%20Here%5D%0A%0ABest%20regards%2C%0A%5BYour%20Name%5D"
                   className="text-sm text-zaf-gold hover:underline font-semibold"
                 >
                   Contact our team
-                </button>
+                </a>
               </div>
             </div>
           </div>
