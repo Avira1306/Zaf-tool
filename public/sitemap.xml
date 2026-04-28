@@ -40,4 +40,14 @@
 <priority>0.7</priority>
 <changefreq>monthly</changefreq>
 </url>
+<url>
+<loc>https://www.zaftool.com/blog/how-to-automate-fdd-excel-ai</loc>
+<priority>0.7</priority>
+<changefreq>monthly</changefreq>
+</url>
+<url>
+<loc>https://www.zaftool.com/blog/top-5-ai-excel-addins-finance</loc>
+<priority>0.7</priority>
+<changefreq>monthly</changefreq>
+</url>
 </urlset>
