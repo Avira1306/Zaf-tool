@@ -66,11 +66,14 @@ const Navigation = () => {
                 }
               }}
             >
-              <img 
-                src="/logo.png" 
-                alt="ZAF Tools" 
-                className="h-8 w-auto rounded-sm"
-              />
+              <picture>
+                <source srcSet="/logo.webp" type="image/webp" />
+                <img 
+                  src="/logo.png" 
+                  alt="ZAF Tools" 
+                  className="h-8 w-auto rounded-sm"
+                />
+              </picture>
               <span className="hidden sm:block text-lg font-semibold text-zaf-text">
                 ZAF Tools <span className="text-zaf-gold">AI Suite</span>
               </span>

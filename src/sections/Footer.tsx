@@ -63,11 +63,14 @@ const Footer = () => {
             {/* Brand Column */}
             <div className="lg:col-span-2">
               <a href="#" className="flex items-center gap-3 mb-6">
-                <img 
-                  src="/logo.png" 
-                  alt="ZAF Tools" 
-                  className="h-12 w-auto"
-                />
+                <picture>
+                  <source srcSet="/logo.webp" type="image/webp" />
+                  <img 
+                    src="/logo.png" 
+                    alt="ZAF Tools" 
+                    className="h-12 w-auto"
+                  />
+                </picture>
               </a>
               <p className="text-sm text-zaf-text-muted mb-6 max-w-sm leading-relaxed">
                 The Excel add-in built for finance professionals. 
