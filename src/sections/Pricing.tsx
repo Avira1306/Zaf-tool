@@ -153,8 +153,8 @@ const Pricing = () => {
 
                 {tier.name === 'Enterprise' ? (
                   <a
-                    href="mailto:abhishek.bhandari@zaftool.com"
-                    className="btn-outline w-full flex items-center justify-center gap-2"
+                    href="mailto:Abhishek.bhandari@zaftool.com?subject=Enterprise Inquiry for ZAF Tools"
+                    className="btn-outline w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold border border-zaf-gold text-zaf-gold hover:bg-zaf-gold hover:text-zaf-navy-darker transition-all duration-300"
                   >
                     <Mail className="w-4 h-4" />
                     {tier.cta}

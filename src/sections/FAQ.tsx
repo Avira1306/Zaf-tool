@@ -36,7 +36,7 @@ const FAQ = () => {
     },
     {
       question: 'Can I use ZAF Tools on multiple devices?',
-      answer: 'Each license allows installation on 1 device. Contact us at abhishek.bhandari@zaftool.com if you need multi-device access.',
+      answer: 'Each license allows installation on 1 device. Contact us at Abhishek.bhandari@zaftool.com if you need multi-device access.',
     },
     {
       question: 'How do I get support if I need help?',
@@ -154,8 +154,8 @@ const FAQ = () => {
               <div className="text-left">
                 <p className="text-sm font-medium text-zaf-text">Still have questions?</p>
                 <a 
-                  href="mailto:Abhishek.bhandari@zaftool.com"
-                  className="text-sm text-zaf-gold hover:underline"
+                  href="mailto:Abhishek.bhandari@zaftool.com?subject=Support Inquiry for ZAF Tools"
+                  className="text-sm text-zaf-gold hover:underline font-semibold"
                 >
                   Contact our team
                 </a>
