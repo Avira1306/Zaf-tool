@@ -77,11 +77,11 @@ const Footer = () => {
               {/* Contact Info */}
               <div className="space-y-3">
                 <a 
-                  href="mailto:abhishek.bhandari@zaftool.com"
+                  href="mailto:Abhishek.bhandari@zaftool.com"
                   className="flex items-center gap-3 text-sm text-zaf-text-muted hover:text-zaf-gold transition-colors"
                 >
                   <Mail className="w-4 h-4" />
-                  abhishek.bhandari@zaftool.com
+                  Abhishek.bhandari@zaftool.com
                 </a>
                 <a 
                   href="https://wa.me/919999999999"
@@ -141,7 +141,7 @@ const Footer = () => {
             <div>
               <h4 className="text-sm font-semibold text-zaf-text mb-4">Contact</h4>
               <ul className="space-y-3">
-                <li><a href="mailto:abhishek.bhandari@zaftool.com" className="text-sm text-zaf-text-muted hover:text-zaf-gold transition-colors">abhishek.bhandari@zaftool.com</a></li>
+                <li><a href="mailto:Abhishek.bhandari@zaftool.com" className="text-sm text-zaf-text-muted hover:text-zaf-gold transition-colors">Abhishek.bhandari@zaftool.com</a></li>
                 <li><a href="https://linkedin.com/in/abhishek-bhandari" target="_blank" rel="noopener noreferrer" className="text-sm text-zaf-text-muted hover:text-zaf-gold transition-colors">LinkedIn</a></li>
               </ul>
             </div>

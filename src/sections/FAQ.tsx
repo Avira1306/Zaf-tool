@@ -154,7 +154,7 @@ const FAQ = () => {
               <div className="text-left">
                 <p className="text-sm font-medium text-zaf-text">Still have questions?</p>
                 <a 
-                  href="mailto:abhishek.bhandari@zaftool.com"
+                  href="mailto:Abhishek.bhandari@zaftool.com"
                   className="text-sm text-zaf-gold hover:underline"
                 >
                   Contact our team
