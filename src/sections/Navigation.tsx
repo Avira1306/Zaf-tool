@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Download } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,24 +18,33 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { label: 'Features', href: '#features' },
-    { label: 'Solutions', href: '#solutions' },
-    { label: 'Pricing', href: '#pricing' },
+    { label: 'Features', href: '/#features' },
+    { label: 'Solutions', href: '/#solutions' },
+    { label: 'Pricing', href: '/#pricing' },
     { label: 'Blog', href: '/blog' },
-    { label: 'Resources', href: '#faq' },
-    { label: 'Contact', href: '#contact' },
+    { label: 'Resources', href: '/#faq' },
+    { label: 'Contact', href: '/#contact' },
   ];
 
-  const scrollToSection = (href: string) => {
-    if (href.startsWith('/')) {
-      window.location.href = href;
-      return;
-    }
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleNavClick = (href: string) => {
     setIsMobileMenuOpen(false);
+    
+    if (href.startsWith('/#')) {
+      const targetId = href.replace('/#', '');
+      if (location.pathname === '/') {
+        // Already on homepage, just scroll
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // On another page, navigate to homepage with hash
+        navigate(href);
+      }
+    } else {
+      // Regular route navigation
+      navigate(href);
+    }
   };
 
   return (
@@ -45,12 +57,13 @@ const Navigation = () => {
         <div className="w-full section-padding">
           <div className="flex items-center justify-between">
             {/* Logo */}
-            <a 
-              href="#" 
+            <Link 
+              to="/" 
               className="flex items-center gap-3 group"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+              onClick={() => {
+                if (location.pathname === '/') {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
               }}
             >
               <img 
@@ -61,14 +74,14 @@ const Navigation = () => {
               <span className="hidden sm:block text-lg font-semibold text-zaf-text">
                 ZAF Tools <span className="text-zaf-gold">AI Suite</span>
               </span>
-            </a>
+            </Link>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-8">
               {navLinks.map((link) => (
                 <button
                   key={link.label}
-                  onClick={() => scrollToSection(link.href)}
+                  onClick={() => handleNavClick(link.href)}
                   className="text-sm font-medium text-zaf-text-muted hover:text-zaf-text transition-colors duration-200"
                 >
                   {link.label}
@@ -79,7 +92,7 @@ const Navigation = () => {
             {/* CTA Button */}
             <div className="flex items-center gap-4">
               <button 
-                onClick={() => scrollToSection('#pricing')}
+                onClick={() => handleNavClick('/#pricing')}
                 className="hidden sm:flex btn-primary items-center gap-2 text-sm"
               >
                 <Download className="w-4 h-4" />
@@ -119,14 +132,14 @@ const Navigation = () => {
               {navLinks.map((link) => (
                 <button
                   key={link.label}
-                  onClick={() => scrollToSection(link.href)}
+                  onClick={() => handleNavClick(link.href)}
                   className="text-left text-lg font-medium text-zaf-text-muted hover:text-zaf-text transition-colors py-3 border-b border-white/5"
                 >
                   {link.label}
                 </button>
               ))}
               <button 
-                onClick={() => scrollToSection('#pricing')}
+                onClick={() => handleNavClick('/#pricing')}
                 className="btn-gold mt-4 flex items-center justify-center gap-2"
               >
                 <Download className="w-5 h-5" />

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from './sections/Navigation';
@@ -19,9 +19,29 @@ import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// ScrollToTop component to handle scroll reset on route change
+function ScrollToTop() {
+  const { pathname, hash } = useLocation();
+  
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+    } else {
+      const id = hash.replace('#', '');
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [pathname, hash]);
+  
+  return null;
+}
+
 function MainSite() {
   const [isLoaded, setIsLoaded] = useState(false);
   const mainRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,11 +52,18 @@ function MainSite() {
 
   useEffect(() => {
     if (!isLoaded) return;
+    
+    // Refresh ScrollTrigger when entering the main site
     const ctx = gsap.context(() => {
       ScrollTrigger.refresh();
     }, mainRef);
-    return () => ctx.revert();
-  }, [isLoaded]);
+    
+    return () => {
+      ctx.revert();
+      // Kill all ScrollTriggers when leaving the main site to prevent memory leaks and freezes
+      ScrollTrigger.getAll().forEach(t => t.kill());
+    };
+  }, [isLoaded, location.pathname]);
 
   return (
     <div 
@@ -182,6 +209,7 @@ function MainSite() {
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<MainSite />} />
         <Route path="/blog" element={<BlogIndex />} />
