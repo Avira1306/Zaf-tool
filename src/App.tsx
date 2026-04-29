@@ -15,6 +15,7 @@ import FAQ from './sections/FAQ';
 import Footer from './sections/Footer';
 import BlogIndex from './pages/Blog/index';
 import BlogPost from './pages/Blog/BlogPost';
+import ROICalculator from './components/ROICalculator';
 import './App.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -198,6 +199,7 @@ function MainSite() {
         <VideoDemo />
         <FlagshipFeature />
         <UseCases />
+        <ROICalculator />
         <Pricing />
         <FAQ />
         <Footer />
