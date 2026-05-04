@@ -1,0 +1,54 @@
+{
+  "version": "1.0",
+  "updated": "2026-05-04",
+  "providers": {
+    "OpenAI": {
+      "models": [
+        { "id": "gpt-4.1", "label": "GPT-4.1", "description": "Best for complex QoE and multi-section FDD commentary. Slower but most thorough.", "tier": "premium" },
+        { "id": "gpt-4.1-mini", "label": "GPT-4.1 Mini", "description": "Fast and cost-effective. Good for anomaly detection and single-sheet analysis.", "tier": "mid" },
+        { "id": "gpt-4.1-nano", "label": "GPT-4.1 Nano", "description": "Lightest model. Use for formula explanation and quick summarisation.", "tier": "free" }
+      ]
+    },
+    "Anthropic": {
+      "models": [
+        { "id": "claude-opus-4-6", "label": "Claude Opus 4.6", "description": "Highest reasoning quality. Best for nuanced EBITDA normalisation and deal commentary.", "tier": "premium" },
+        { "id": "claude-sonnet-4-6", "label": "Claude Sonnet 4.6", "description": "Strong balance of speed and depth. Recommended for most FDD workflows.", "tier": "mid" },
+        { "id": "claude-haiku-4-5-20251001", "label": "Claude Haiku 4.5", "description": "Fast and lean. Good for quick checks and formula explanations.", "tier": "free" }
+      ]
+    },
+    "Gemini": {
+      "models": [
+        { "id": "gemini-2.5-pro", "label": "Gemini 2.5 Pro", "description": "Google's most capable model. Excellent for large financial datasets and long-context analysis.", "tier": "premium" },
+        { "id": "gemini-2.5-flash", "label": "Gemini 2.5 Flash", "description": "Fast and free. Solid for P&L and balance sheet commentary.", "tier": "free" }
+      ]
+    },
+    "Kimi": {
+      "models": [
+        { "id": "kimi-k2-0528", "label": "Kimi K2", "description": "Strong on structured financial data. Good for working capital and net debt analysis.", "tier": "mid" }
+      ]
+    },
+    "DeepSeek": {
+      "models": [
+        { "id": "deepseek-chat", "label": "DeepSeek V3", "description": "Cost-effective with solid financial reasoning. Good for EBITDA normalisation.", "tier": "mid" },
+        { "id": "deepseek-reasoner", "label": "DeepSeek R1", "description": "Reasoning-focused. Use for complex valuation checks and multi-step analysis.", "tier": "premium" }
+      ]
+    },
+    "MiniMax": {
+      "models": [
+        { "id": "MiniMax-Text-01", "label": "MiniMax Text-01", "description": "Long context window. Useful for full databook analysis in one pass.", "tier": "mid" }
+      ]
+    },
+    "Groq": {
+      "models": [
+        { "id": "llama-3.1-8b-instant", "label": "Llama 3.1 8B Instant", "description": "Ultra-fast free tier model. Good for quick summaries and formula checks.", "tier": "free" },
+        { "id": "llama-3.3-70b-versatile", "label": "Llama 3.3 70B Versatile", "description": "Mid-tier Groq model with strong reasoning. Good for standard FDD workflows.", "tier": "mid" }
+      ]
+    },
+    "OpenRouter": {
+      "models": [
+        { "id": "meta-llama/llama-4-maverick:free", "label": "Llama 4 Maverick (Free)", "description": "Free tier. Reasonable for basic financial summaries.", "tier": "free" },
+        { "id": "google/gemini-2.5-pro", "label": "Gemini 2.5 Pro via OpenRouter", "description": "Same model as direct Gemini but routed via OpenRouter.", "tier": "premium" }
+      ]
+    }
+  }
+}
