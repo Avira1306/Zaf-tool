@@ -1,25 +1,26 @@
 {
-  "version": "1.0",
+  "version": "1.3",
   "updated": "2026-05-04",
   "providers": {
     "OpenAI": {
       "models": [
-        { "id": "gpt-4.1", "label": "GPT-4.1", "description": "Best for complex QoE and multi-section FDD commentary. Slower but most thorough.", "tier": "premium" },
-        { "id": "gpt-4.1-mini", "label": "GPT-4.1 Mini", "description": "Fast and cost-effective. Good for anomaly detection and single-sheet analysis.", "tier": "mid" },
-        { "id": "gpt-4.1-nano", "label": "GPT-4.1 Nano", "description": "Lightest model. Use for formula explanation and quick summarisation.", "tier": "free" }
+        { "id": "gpt-5.5", "label": "GPT-5.5", "description": "Flagship model. Maximum reasoning for complex QoE, multi-section FDD, and deal commentary.", "tier": "premium" },
+        { "id": "gpt-5.4", "label": "GPT-5.4", "description": "Best for complex QoE and multi-section FDD commentary. Slower but most thorough.", "tier": "premium" },
+        { "id": "gpt-5.4-nano", "label": "GPT-5.4 Nano", "description": "Lightest model. Use for formula explanation and quick summarisation.", "tier": "mid" }
       ]
     },
     "Anthropic": {
       "models": [
-        { "id": "claude-opus-4-6", "label": "Claude Opus 4.6", "description": "Highest reasoning quality. Best for nuanced EBITDA normalisation and deal commentary.", "tier": "premium" },
+        { "id": "claude-opus-4-7", "label": "Claude Opus 4.7", "description": "Highest reasoning quality. Best for nuanced EBITDA normalisation and deal commentary.", "tier": "premium" },
         { "id": "claude-sonnet-4-6", "label": "Claude Sonnet 4.6", "description": "Strong balance of speed and depth. Recommended for most FDD workflows.", "tier": "mid" },
         { "id": "claude-haiku-4-5-20251001", "label": "Claude Haiku 4.5", "description": "Fast and lean. Good for quick checks and formula explanations.", "tier": "free" }
       ]
     },
     "Gemini": {
       "models": [
-        { "id": "gemini-2.5-pro", "label": "Gemini 2.5 Pro", "description": "Google's most capable model. Excellent for large financial datasets and long-context analysis.", "tier": "premium" },
-        { "id": "gemini-2.5-flash", "label": "Gemini 2.5 Flash", "description": "Fast and free. Solid for P&L and balance sheet commentary.", "tier": "free" }
+        { "id": "gemini-3.1-pro-preview", "label": "Gemini 3.1 Pro Preview", "description": "Google's most capable model. Excellent for large financial datasets and long-context analysis.", "tier": "premium" },
+        { "id": "gemini-3-flash-preview", "label": "Gemini 3 Flash Preview", "description": "Fast and cost-effective. Solid for P&L and balance sheet commentary.", "tier": "premium" },
+        { "id": "gemini-3.1-flash-lite-preview", "label": "Gemini 3.1 Flash Lite Preview", "description": "Fastest and lightest. Good for quick scans and basic summaries.", "tier": "premium" }
       ]
     },
     "Kimi": {
