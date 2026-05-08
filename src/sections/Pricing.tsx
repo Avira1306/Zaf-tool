@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Check, Download, Mail } from 'lucide-react';
+import BuyNowButton from '../components/BuyNowButton';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -132,6 +133,11 @@ const Pricing = () => {
     return isAnnual ? tier.annualSavings : '';
   };
 
+  const getPlanKey = (tierName: string): string => {
+    const baseKey = tierName.toLowerCase();
+    return isAnnual ? `${baseKey}_annual` : `${baseKey}_monthly`;
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -231,18 +237,21 @@ const Pricing = () => {
                     {tier.cta}
                   </a>
                 ) : (
-                  <a
-                    href="/ZAF_tools_Suite.xlam"
-                    download
-                    className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                      tier.highlight
-                        ? 'bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90'
-                        : 'bg-white/10 text-zaf-text hover:bg-white/20'
-                    }`}
-                  >
-                    <Download className="w-4 h-4" />
-                    {tier.cta}
-                  </a>
+                  <div className="space-y-3">
+                    <a
+                      href="/ZAF_tools_Suite.xlam"
+                      download
+                      className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                        tier.highlight
+                          ? 'bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90'
+                          : 'bg-white/10 text-zaf-text hover:bg-white/20'
+                      }`}
+                    >
+                      <Download className="w-4 h-4" />
+                      {tier.cta}
+                    </a>
+                    <BuyNowButton planKey={getPlanKey(tier.name)} />
+                  </div>
                 )}
               </div>
             ))}
