@@ -181,7 +181,8 @@ const Changelog = () => {
                     </ul>
 
                     <a 
-                      href="/download" 
+                      href="https://github.com/Avira1306/Zaf-tool/releases/download/v4.1.0/ZAF_Tools_v4.1.0.msi"
+                      download
                       className="inline-flex items-center gap-2 text-sm font-semibold text-zaf-gold hover:text-white transition-colors group/btn"
                     >
                       <Download className="w-4 h-4" />
