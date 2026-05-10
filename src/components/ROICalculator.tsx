@@ -164,7 +164,7 @@ const ROICalculator = () => {
           {/* CTA */}
           <div className="mt-12">
             <a 
-              href="https://github.com/Avira1306/Zaf-tool/releases/download/v4.1.0/ZAF%20Tools%20v4.1.0.msi" 
+              href="https://github.com/Avira1306/Zaf-tool/releases/download/v4.1.0/ZAF_Tools_v4.1.0.msi" 
               download
               target="_blank"
               rel="noopener noreferrer"
