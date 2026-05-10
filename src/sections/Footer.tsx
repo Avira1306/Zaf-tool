@@ -2,24 +2,36 @@ import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Mail, MessageCircle, Linkedin, Twitter, Github } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Footer = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   const productLinks = [
-    { label: 'Features', href: '#features' },
-    { label: 'Pricing', href: '#pricing' },
-    { label: 'Changelog', href: '#' },
+    { label: 'Features', href: '/#features' },
+    { label: 'Pricing', href: '/#pricing' },
+    { label: 'Changelog', href: '/changelog' },
     { label: 'Roadmap', href: '#' },
   ];
 
-  const scrollToSection = (href: string) => {
+  const handleLinkClick = (href: string) => {
     if (href === '#') return;
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    
+    if (href.startsWith('/#')) {
+      const targetId = href.replace('/#', '');
+      if (window.location.pathname === '/') {
+        const element = document.getElementById(targetId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        navigate(href);
+      }
+    } else {
+      navigate(href);
     }
   };
 
@@ -62,7 +74,7 @@ const Footer = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
             {/* Brand Column */}
             <div className="lg:col-span-2">
-              <a href="#" className="flex items-center gap-3 mb-6">
+              <Link to="/" className="flex items-center gap-3 mb-6">
                 <picture>
                   <source srcSet="/logo.webp" type="image/webp" />
                   <img 
@@ -71,7 +83,7 @@ const Footer = () => {
                     className="h-12 w-auto"
                   />
                 </picture>
-              </a>
+              </Link>
               <p className="text-sm text-zaf-text-muted mb-6 max-w-sm leading-relaxed">
                 The Excel add-in built for finance professionals. 
                 30+ tools + AI that builds your financial models.
@@ -93,7 +105,7 @@ const Footer = () => {
                   className="flex items-center gap-3 text-sm text-zaf-text-muted hover:text-zaf-gold transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  
+                  WhatsApp Support
                 </a>
               </div>
 
@@ -130,7 +142,7 @@ const Footer = () => {
                 {productLinks.map((link, index) => (
                   <li key={index}>
                     <button
-                      onClick={() => scrollToSection(link.href)}
+                      onClick={() => handleLinkClick(link.href)}
                       className="text-sm text-zaf-text-muted hover:text-zaf-gold transition-colors"
                     >
                       {link.label}
@@ -147,22 +159,6 @@ const Footer = () => {
                 <li><a href="mailto:Abhishek.bhandari@zaftool.com" className="text-sm text-zaf-text-muted hover:text-zaf-gold transition-colors">Abhishek.bhandari@zaftool.com</a></li>
                 <li><a href="https://linkedin.com/in/abhishek-bhandari" target="_blank" rel="noopener noreferrer" className="text-sm text-zaf-text-muted hover:text-zaf-gold transition-colors">LinkedIn</a></li>
               </ul>
-            </div>
-          </div>
-
-          {/* Office Locations - Hidden */}
-          <div className="hidden">
-            <div className="flex items-center gap-2 text-sm text-zaf-text-muted">
-              <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              New York
-            </div>
-            <div className="flex items-center gap-2 text-sm text-zaf-text-muted">
-              <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              London
-            </div>
-            <div className="flex items-center gap-2 text-sm text-zaf-text-muted">
-              <div className="w-2 h-2 rounded-full bg-emerald-400" />
-              Remote
             </div>
           </div>
 

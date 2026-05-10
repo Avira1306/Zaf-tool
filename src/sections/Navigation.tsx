@@ -21,6 +21,7 @@ const Navigation = () => {
     { label: 'Features', href: '/#features' },
     { label: 'Solutions', href: '/#solutions' },
     { label: 'Pricing', href: '/#pricing' },
+    { label: 'What\'s New', href: '/changelog' },
     { label: 'Blog', href: '/blog' },
     { label: 'Resources', href: '/#faq' },
     { label: 'Contact', href: '/#contact' },

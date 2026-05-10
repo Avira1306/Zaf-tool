@@ -16,6 +16,7 @@ import Footer from './sections/Footer';
 import BlogIndex from './pages/Blog/index';
 import BlogPost from './pages/Blog/BlogPost';
 import ThankYou from './pages/ThankYou';
+import Changelog from './pages/Changelog';
 import ROICalculator from './components/ROICalculator';
 import './App.css';
 
@@ -217,6 +218,7 @@ function App() {
         <Route path="/" element={<MainSite />} />
         <Route path="/blog" element={<BlogIndex />} />
         <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/changelog" element={<Changelog />} />
         <Route path="/thank-you" element={<ThankYou />} />
         {/* Fallback for other routes mentioned in brief to homepage for now */}
         <Route path="/features" element={<MainSite />} />

@@ -1,0 +1,55 @@
+{
+  "version": "1.4",
+  "updated": "2026-05-04",
+  "providers": {
+    "OpenAI": {
+      "models": [
+        { "id": "gpt-5.5", "label": "GPT-5.5", "context": "1M", "speed": "Flagship", "price": "$5/M", "description": "Maximum capability — complex deals", "tier": "premium" },
+        { "id": "gpt-5.4", "label": "GPT-5.4", "context": "1M", "speed": "Standard", "price": "$2.50/M", "description": "Deep QoE & multi-section", "tier": "premium" },
+        { "id": "gpt-5.4-nano", "label": "GPT-5.4 Nano", "context": "1M", "speed": "Fastest", "price": "$", "description": "Lightweight tasks & formula explain", "tier": "mid" }
+      ]
+    },
+    "Anthropic": {
+      "models": [
+        { "id": "claude-opus-4-7", "label": "Claude Opus 4.7", "context": "200k", "speed": "Best", "price": "$5/M", "description": "Deep diligence & revenue quality", "tier": "premium" },
+        { "id": "claude-sonnet-4-6", "label": "Claude Sonnet 4.6", "context": "200k", "speed": "Fast", "price": "$3/M", "description": "Best for everything — QoE, BS, CF", "tier": "mid" },
+        { "id": "claude-haiku-4-5-20251001", "label": "Claude Haiku 4.5", "context": "200k", "speed": "Fast", "price": "$0.80/M", "description": "Quick answers & formula explain", "tier": "free" }
+      ]
+    },
+    "Gemini": {
+      "models": [
+        { "id": "gemini-3.1-pro-preview", "label": "Gemini 3.1 Pro Preview", "context": "1M", "speed": "Best", "price": "$1.25/M", "description": "Large data & anomaly detection", "tier": "premium" },
+        { "id": "gemini-3-flash-preview", "label": "Gemini 3 Flash Preview", "context": "1M", "speed": "Fast", "price": "$0.15/M", "description": "General analysis & speed", "tier": "premium" },
+        { "id": "gemini-3.1-flash-lite-preview", "label": "Gemini 3.1 Flash Lite Preview", "context": "1M", "speed": "Fastest", "price": "$", "description": "Fastest — 1M context, near-Pro", "tier": "premium" }
+      ]
+    },
+    "Kimi": {
+      "models": [
+        { "id": "kimi-k2-0528", "label": "Kimi K2", "context": "262k", "speed": "Latest", "price": "$0.38/M", "description": "General FDD work", "tier": "mid" }
+      ]
+    },
+    "DeepSeek": {
+      "models": [
+        { "id": "deepseek-chat", "label": "DeepSeek V3", "context": "1M", "speed": "Fast", "price": "$0.14/M", "description": "Best for everything — 1M context, cheap & fast", "tier": "mid" },
+        { "id": "deepseek-reasoner", "label": "DeepSeek R1", "context": "1M", "speed": "Best", "price": "$1.74/M", "description": "Deep reasoning — QoE & complex deals", "tier": "premium" }
+      ]
+    },
+    "MiniMax": {
+      "models": [
+        { "id": "MiniMax-Text-01", "label": "MiniMax Text-01", "context": "205k", "speed": "3.5s", "price": "$0.30/M", "description": "Commentary writing", "tier": "mid" }
+      ]
+    },
+    "Groq": {
+      "models": [
+        { "id": "llama-3.1-8b-instant", "label": "Llama 3.1 8B Instant", "context": "128k", "speed": "Ultra", "price": "Free", "description": "Free tier — fastest", "tier": "free" },
+        { "id": "llama-3.3-70b-versatile", "label": "Llama 3.3 70B Versatile", "context": "128k", "speed": "Fast", "price": "Free", "description": "Free tier — reliable", "tier": "mid" }
+      ]
+    },
+    "OpenRouter": {
+      "models": [
+        { "id": "meta-llama/llama-4-maverick:free", "label": "Llama 4 Maverick (Free)", "context": "128k", "speed": "Standard", "price": "Free", "description": "Free tier — standard", "tier": "free" },
+        { "id": "google/gemini-2.5-pro", "label": "Gemini 2.5 Pro via OpenRouter", "context": "1M", "speed": "Best", "price": "Premium", "description": "Large data & anomaly detection", "tier": "premium" }
+      ]
+    }
+  }
+}
