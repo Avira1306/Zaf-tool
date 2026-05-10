@@ -239,8 +239,10 @@ const Pricing = () => {
                 ) : (
                   <div className="space-y-3">
                     <a
-                      href="/ZAF_tools_Suite.xlam"
+                      href="https://github.com/Avira1306/Zaf-tool/releases/download/v4.1.0/ZAF%20Tools%20v4.1.0.msi"
                       download
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-300 ${
                         tier.highlight
                           ? 'bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90'

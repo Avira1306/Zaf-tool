@@ -82,8 +82,9 @@ const Hero = () => {
       }
       setIsSubmitted(true);
       const link = document.createElement('a');
-      link.href = '/ZAF_tools_Suite.xlam';
-      link.download = 'ZAF_tools_Suite.xlam';
+      link.href = 'https://github.com/Avira1306/Zaf-tool/releases/download/v4.1.0/ZAF%20Tools%20v4.1.0.msi';
+      link.download = 'ZAF Tools v4.1.0.msi';
+      link.target = '_blank';
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
