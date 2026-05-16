@@ -1,5 +1,5 @@
 {
-  "version": "1.7",
+  "version": "1.8",
   "updated": "2026-05-16",
   "providers": {
     "OpenAI": {
@@ -51,7 +51,6 @@
         { "id": "minimax/minimax-m2.5:free", "label": "MiniMax M2.5 (Free)", "context": "197k", "speed": "Standard", "price": "Free", "description": "Office-trained - Excel & Word fluent", "tier": "Free" },
         { "id": "arcee-ai/trinity-large-thinking:free", "label": "Trinity Large Thinking (Free)", "context": "262k", "speed": "Reasoning", "price": "Free", "description": "Reasoning - QoE & anomaly checks", "tier": "Free" },
         { "id": "openai/gpt-oss-120b:free", "label": "GPT-OSS 120B (Free)", "context": "131k", "speed": "Standard", "price": "Free", "description": "OpenAI open-weight - general FDD", "tier": "Free" },
-        { "id": "nousresearch/hermes-3-llama-3.1-405b:free", "label": "Hermes 3 405B (Free)", "context": "131k", "speed": "Standard", "price": "Free", "description": "Strong function calling & tools", "tier": "Free" },
         { "id": "openrouter/auto", "label": "Auto Router (Smart)", "context": "Auto", "speed": "Smart", "price": "Pay-per-use", "description": "Routes to best model for the task", "tier": "Mid Tier" },
         { "id": "anthropic/claude-sonnet-4-6", "label": "Claude Sonnet 4.6 via OpenRouter", "context": "200k", "speed": "Best", "price": "$3/M", "description": "Best for everything - QoE, BS, CF", "tier": "Mid Tier" },
         { "id": "google/gemini-2.5-pro", "label": "Gemini 2.5 Pro via OpenRouter", "context": "1M", "speed": "Best", "price": "$1.25/M", "description": "Large data & anomaly detection", "tier": "Premium" }
