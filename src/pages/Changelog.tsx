@@ -10,6 +10,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const changelogData = [
   {
+    version: 'v4.2',
+    date: 'May 2026',
+    headline: 'Intelligence, privacy and output — biggest release yet',
+    features: [
+      'Sector Expertise — select your sector before analysis; AI uses sector-specific benchmarks and language',
+      'Data Masking — mask sensitive client data before sharing or running AI analysis; unmask in one click',
+      'LBO Model — AI-assisted leveraged buyout model builder',
+      'Export to Word — push FDD commentary and AI analysis into a formatted .docx instantly',
+      'Financial Statements overhaul — BS, NWC, ND and CF rebuilt with FDD-grade quality and correct KPI formulas',
+      'Image to Table — drop a screenshot of financials, AI extracts data directly into Excel cells',
+      'Model Check upgraded — Audit Log now tracks by sheet'
+    ]
+  },
+  {
     version: 'v4.1',
     date: 'May 2026',
     headline: 'Payments, licensing & installer — fully automated',
@@ -53,9 +67,9 @@ const changelogData = [
 ];
 
 const upcomingFeatures = [
-  { title: 'PDF & Image Ingestion', description: 'Drop a PDF of financials, AI extracts data into Excel' },
-  { title: 'Run Full FDD', description: 'One button chains all FDD sheets and exports Word report' },
-  { title: 'Trial Balance → Financial Statements', description: 'Map accounts, AI builds all 4 statements' }
+  { title: 'Auto-mapping TB', description: 'AI automatically maps trial balance to standard financial statement lines' },
+  { title: 'Scenario Analysis', description: 'Build complex financial scenarios and sensitivity tables with AI' },
+  { title: 'Custom Report Templates', description: 'Upload your firm\'s Word template and AI will populate it directly' }
 ];
 
 const Changelog = () => {
@@ -181,7 +195,7 @@ const Changelog = () => {
                     </ul>
 
                     <a 
-                      href="https://github.com/Avira1306/Zaf-tool/releases/download/v4.1.0/ZAF_Tools_v4.1.0.msi"
+                      href={`https://github.com/Avira1306/Zaf-tool/releases/download/${item.version}.0/ZAF_Tools_${item.version}.0.msi`}
                       download
                       className="inline-flex items-center gap-2 text-sm font-semibold text-zaf-gold hover:text-white transition-colors group/btn"
                     >
@@ -200,7 +214,7 @@ const Changelog = () => {
         <div className="section-padding mt-32 coming-soon-section">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Coming soon — <span className="text-zaf-gold">v4.2</span></h2>
+              <h2 className="text-3xl font-bold mb-4">Coming soon — <span className="text-zaf-gold">v4.3</span></h2>
               <p className="text-zaf-text-muted">What we're currently building for the next major release.</p>
             </div>
             
