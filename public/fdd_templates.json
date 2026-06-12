@@ -1,0 +1,9 @@
+[
+  {
+    "id": "ev_equity_bridge",
+    "name": "EV -> Equity Bridge",
+    "description": "Reconciles headline EV to the cash payable to the seller for the equity.",
+    "category": "Valuation",
+    "file": "ev_equity_bridge.xlsx"
+  }
+]
