@@ -26,12 +26,12 @@
     "description": "Decomposes the revenue variance between two periods into price, volume, mix and interaction effects, by product.",
     "category": "Revenue Analysis",
     "file": "price_volume_mix.xlsx"
+  },
+  {
+    "id": "price_volume_mix_3yr",
+    "name": "Price-Volume-Mix Analysis (3-Year Trend)",
+    "description": "Decomposes the revenue variance across three consecutive periods into price, volume, mix and interaction effects, by product, with a chained 3-period revenue bridge.",
+    "category": "Revenue Analysis",
+    "file": "price_volume_mix_3yr.xlsx"
   }
 ]
-{
-  "id": "price_volume_mix_3yr",
-  "name": "Price-Volume-Mix Analysis (3-Year Trend)",
-  "description": "Decomposes the revenue variance across three consecutive periods into price, volume, mix and interaction effects, by product, with a chained 3-period revenue bridge.",
-  "category": "Revenue Analysis",
-  "file": "price_volume_mix_3yr.xlsx"
-}
