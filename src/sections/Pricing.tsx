@@ -239,7 +239,7 @@ const Pricing = () => {
                 ) : (
                   <div className="space-y-3">
                     <a
-                      href="https://github.com/Avira1306/Zaf-tool/releases/latest/download/ZAF_Tools_v4.2.0.msi"
+                      href="https://github.com/Avira1306/Zaf-tool/releases/download/v4.2.0/ZAF_Tools_v4.2.0.msi"
                       download
                       target="_blank"
                       rel="noopener noreferrer"

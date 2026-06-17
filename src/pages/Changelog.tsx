@@ -10,6 +10,22 @@ gsap.registerPlugin(ScrollTrigger);
 
 const changelogData = [
   {
+    version: "v4.3",
+    date: "June 2026",
+    headline: "FDD automation, AI adjustments & three new frontier models",
+    features: [
+      "Run Full FDD in one click — chain commentary and management questions across P&L, BS, NWC and Net Debt in a single button press. 8 AI calls, fully unattended, 3–8 minutes",
+      "AI Find Adjustments — AI scans your mapped Trial Balance and surfaces candidate EBITDA adjustments with confidence ratings, P&L / NWC / Net Debt impact classification and suggested management questions",
+      "Export to PowerPoint — select any range or chart, export directly to an editable PPT table or PNG image. Respects hidden rows and columns, inherits Excel formatting",
+      "Import PDF — extract financial tables from text or scanned PDFs into Excel cells. Batch import for multiple files. AI vision pipeline for scanned documents",
+      "Smart Charts — select any data range, AI recommends the right chart type and generates a formatted FDD-grade chart in one click",
+      "Deal Brief — set deal context once (target company, buyer, deal type, key concerns); auto-injected into every AI call across the suite. Company names auto-masked before any data leaves Excel",
+      "Bulk TB Hierarchy Mapping — export your account list to Excel, fill L2/L3/L4 groupings offline, import back in one click. Handles 400+ accounts",
+      "Map Formula — 4 colours: green (same-sheet formula), yellow (cross-sheet link), red (external file link), grey (hardcoded input). Clear Map removes only ZAF colours, your formatting untouched",
+      "3 new AI providers added: Claude Opus 4.8 (Anthropic, faster and sharper on agentic tasks), MiniMax M3 (1M token context window, $0.30/M tokens), Stepfun Step 3.7 Flash (256K context, $0.20/M tokens — lowest cost option)"
+    ]
+  },
+  {
     version: 'v4.2',
     date: 'May 2026',
     headline: 'Intelligence, privacy and output — biggest release yet',
@@ -195,7 +211,10 @@ const Changelog = () => {
                     </ul>
 
                     <a 
-                      href={`https://github.com/Avira1306/Zaf-tool/releases/download/${item.version}.0/ZAF_Tools_${item.version}.0.msi`}
+                      href={item.version === 'v4.3' 
+                        ? 'https://github.com/Avira1306/Zaf-tool/releases/download/v4.2.0/ZAF_Tools_v4.2.0.msi'
+                        : `https://github.com/Avira1306/Zaf-tool/releases/download/${item.version}.0/ZAF_Tools_${item.version}.0.msi`
+                      }
                       download
                       className="inline-flex items-center gap-2 text-sm font-semibold text-zaf-gold hover:text-white transition-colors group/btn"
                     >
@@ -214,7 +233,7 @@ const Changelog = () => {
         <div className="section-padding mt-32 coming-soon-section">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Coming soon — <span className="text-zaf-gold">v4.3</span></h2>
+              <h2 className="text-3xl font-bold mb-4">Coming soon — <span className="text-zaf-gold">v4.4</span></h2>
               <p className="text-zaf-text-muted">What we're currently building for the next major release.</p>
             </div>
             
