@@ -1,6 +1,6 @@
 {
-  "version": "1.11",
-  "updated": "2026-06-17",
+  "version": "1.12",
+  "updated": "2026-06-21",
   "providers": {
     "OpenAI": {
       "models": [
@@ -61,6 +61,7 @@
         {"id": "minimax/minimax-m3", "label": "MiniMax M3", "context": "1M", "speed": "Fast", "price": "$0.30/M", "description": "1M context multimodal - long agentic FDD tasks (launch promo price)", "tier": "Mid Tier"},
         {"id": "qwen/qwen3.7-plus", "label": "Qwen3.7 Plus", "context": "1M", "speed": "Fast", "price": "$0.40/M", "description": "Vision-language agent - GUI/screen reading & coding", "tier": "Mid Tier"},
         {"id": "anthropic/claude-haiku-4.5", "label": "Claude Haiku 4.5 (OpenRouter)", "context": "200k", "speed": "Fast", "price": "$1/M", "description": "Fast & cost-effective Claude - quick answers & formula explain", "tier": "Mid Tier"},
+        {"id": "z-ai/glm-5.2", "label": "GLM 5.2", "context": "1M", "speed": "Reasoning", "price": "$1.20/M", "description": "BYOK test - Pro/Team tier candidate, pending real-output validation", "tier": "Mid Tier"},
         {"id": "moonshotai/kimi-k2.6", "label": "Kimi K2.6 (OpenRouter)", "context": "262k", "speed": "Latest", "price": "$0.68/M", "description": "Latest Kimi - best for FDD analysis via OpenRouter", "tier": "Mid Tier"}
       ]
     },
