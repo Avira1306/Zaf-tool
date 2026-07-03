@@ -147,7 +147,7 @@ const Pricing = () => {
       });
       const data = await response.json();
       if (data.subscriptionUrl) {
-        window.open(data.subscriptionUrl, '_blank');
+        window.location.href = data.subscriptionUrl;
       } else {
         alert('Something went wrong. Please try again.');
       }
