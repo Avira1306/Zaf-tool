@@ -1,8 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Check, Download, Mail } from 'lucide-react';
-import BuyNowButton from '../components/BuyNowButton';
+import { Check, Mail } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,60 +11,64 @@ const Pricing = () => {
 
   const tiers = [
     {
-      name: 'Solo',
-      monthlyPrice: '$19',
-      annualPrice: '$149',
-      annualSavings: '35% off',
+      name: 'Starter',
+      monthlyPrice: '$8',
+      annualPrice: '$77',
+      annualSavings: 'Save 20%',
       seats: '1 user',
-      description: 'Perfect for individual analysts.',
+      description: 'For consultants running occasional deals.',
       features: [
-        'ZAF Core (30+ tools)',
-        'ZAF AI (all features)',
+        'Full ZAF Tools suite — 30+ built-in FDD productivity tools',
+        'Auto-generate P&L, Balance Sheet, Cash Flow & NWC from trial balance',
+        'AI-written FDD commentary with observations and watch items',
+        'Management Questions generator',
         '1 device per user',
-        'All future updates',
         'Email support',
       ],
-      cta: 'Start Free Trial',
+      cta: 'Buy Now',
       highlight: false,
+      planId: 'plan_T6uf7mQTXBT1yh',
+      annualPlanId: 'plan_T6uhZ95zmWBP8C',
     },
     {
-      name: 'Team',
-      monthlyPrice: '$49',
-      annualPrice: '$399',
-      annualSavings: '32% off',
-      seats: '3 seats',
-      description: 'Ideal for small deal teams.',
+      name: 'Solo',
+      monthlyPrice: '$19',
+      annualPrice: '$182',
+      annualSavings: 'Save 20%',
+      seats: '1 user',
+      description: 'For active practitioners on 2-4 live deals.',
       features: [
-        'ZAF Core (30+ tools)',
-        'ZAF AI (all features)',
-        '3 user seats',
-        'Multi-device access',
-        'All future updates',
-        'Priority email support',
-        '14-day money-back',
+        'Everything in Starter',
+        'Faster AI model — richer commentary and deeper observations',
+        'PDF trial balance ingestion — text and scanned documents',
+        'EBITDA Bridge, Anomaly Detection, AI-suggested Adjustments',
+        'Sector-specific AI intelligence across 8 industry verticals',
+        'Email support',
       ],
-      cta: 'Start Free Trial',
-      highlight: true,
+      cta: 'Buy Now',
+      highlight: false,
+      planId: 'plan_T6uiSaazrNc0S1',
+      annualPlanId: 'plan_T6ujIMdIIpMHXk',
     },
     {
-      name: 'Firm',
-      monthlyPrice: '$129',
-      annualPrice: '$999',
-      annualSavings: '36% off',
-      seats: '10 seats',
-      description: 'For boutique advisory firms.',
+      name: 'Pro',
+      monthlyPrice: '$30',
+      annualPrice: '$288',
+      annualSavings: 'Save 20%',
+      seats: '1 user',
+      description: 'For senior practitioners who need the best output quality.',
       features: [
-        'ZAF Core (30+ tools)',
-        'ZAF AI (all features)',
-        '10 user seats',
-        'Multi-device access',
-        'All future updates',
+        'Everything in Solo',
+        'Premium AI model — significantly better commentary quality',
+        'Full FDD workflow — MQ, adjustments, anomalies, EBITDA Bridge',
+        'Diligence Library — 28 built-in FDD reference formats',
+        'PPT and Word export of FDD schedules and commentary',
         'Priority support',
-        'Onboarding assistance',
-        '14-day money-back',
       ],
-      cta: 'Start Free Trial',
-      highlight: false,
+      cta: 'Buy Now',
+      highlight: true,
+      planId: 'plan_T6v4GBp2ctVmHh',
+      annualPlanId: 'plan_T6uyjDHdLSFCD9',
     },
     {
       name: 'Enterprise',
@@ -73,18 +76,18 @@ const Pricing = () => {
       annualPrice: 'Custom',
       annualSavings: '',
       seats: 'Unlimited',
-      description: 'Team licensing & volume discounts.',
+      description: 'For TAS teams and advisory firms.',
       features: [
-        'Everything in Firm',
-        'Unlimited user seats',
-        'Multi-device access',
-        'Priority support',
-        'Dedicated onboarding',
-        'Custom integrations',
-        'Volume pricing available',
+        'Dedicated seats for your team (3 to 50+)',
+        'Azure OpenAI endpoint — stays within your Microsoft data boundary',
+        'Custom deal templates and FDD library',
+        'Dedicated onboarding and implementation support',
+        'Volume pricing',
       ],
       cta: 'Contact Sales',
       highlight: false,
+      planId: '',
+      annualPlanId: '',
     },
   ];
 
@@ -131,11 +134,6 @@ const Pricing = () => {
 
   const getSavings = (tier: typeof tiers[0]) => {
     return isAnnual ? tier.annualSavings : '';
-  };
-
-  const getPlanKey = (tierName: string): string => {
-    const baseKey = tierName.toLowerCase();
-    return isAnnual ? `${baseKey}_annual` : `${baseKey}_monthly`;
   };
 
   return (
@@ -239,8 +237,7 @@ const Pricing = () => {
                 ) : (
                   <div className="space-y-3">
                     <a
-                      href="https://github.com/Avira1306/Zaf-tool/releases/download/v4.2.0/ZAF_Tools_v4.2.0.msi"
-                      download
+                      href={`https://rzp.io/rzp/${isAnnual ? tier.annualPlanId : tier.planId}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-300 ${
@@ -249,10 +246,8 @@ const Pricing = () => {
                           : 'bg-white/10 text-zaf-text hover:bg-white/20'
                       }`}
                     >
-                      <Download className="w-4 h-4" />
                       {tier.cta}
                     </a>
-                    <BuyNowButton planKey={getPlanKey(tier.name)} />
                   </div>
                 )}
               </div>
