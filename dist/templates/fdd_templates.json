@@ -1,0 +1,37 @@
+[
+  {
+    "id": "ev_equity_bridge",
+    "name": "EV -> Equity Bridge",
+    "description": "Reconciles headline EV to the cash payable to the seller for the equity.",
+    "category": "Valuation",
+    "file": "ev_equity_bridge.xlsx"
+  },
+  {
+    "id": "net_debt_bridge",
+    "name": "Net Debt & Debt-like Items",
+    "description": "Builds the net-debt figure that flows into the EV-to-equity bridge.",
+    "category": "Debt & NWC",
+    "file": "net_debt_bridge.xlsx"
+  },
+  {
+    "id": "ebitda_normalisation",
+    "name": "EBITDA Normalisation Bridge (QoE)",
+    "description": "Reported EBITDA adjusted to a maintainable, run-rate basis for pricing.",
+    "category": "Quality of Earnings",
+    "file": "ebitda_normalisation.xlsx"
+  },
+  {
+    "id": "price_volume_mix",
+    "name": "Price-Volume-Mix Analysis",
+    "description": "Decomposes the revenue variance between two periods into price, volume, mix and interaction effects, by product.",
+    "category": "Revenue Analysis",
+    "file": "price_volume_mix.xlsx"
+  },
+  {
+    "id": "price_volume_mix_2",
+    "name": "Price-Volume-Mix Analysis (3-Year Trend)",
+    "description": "Decomposes the revenue variance across three consecutive periods into price, volume, mix and interaction effects, by product, with a chained 3-period revenue bridge.",
+    "category": "Revenue Analysis",
+    "file": "price_volume_mix_3yr.xlsx"
+  }
+]
