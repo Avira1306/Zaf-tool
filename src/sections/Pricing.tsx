@@ -136,6 +136,26 @@ const Pricing = () => {
     return isAnnual ? tier.annualSavings : '';
   };
 
+  const API_BASE = 'https://zaf-backend-production.up.railway.app';
+
+  const handleBuyNow = async (planId: string) => {
+    try {
+      const response = await fetch(`${API_BASE}/razorpay/create-subscription`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId }),
+      });
+      const data = await response.json();
+      if (data.subscriptionUrl) {
+        window.open(data.subscriptionUrl, '_blank');
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      alert('Network error. Please try again.');
+    }
+  };
+
   return (
     <section
       ref={sectionRef}
@@ -236,10 +256,8 @@ const Pricing = () => {
                   </a>
                 ) : (
                   <div className="space-y-3">
-                    <a
-                      href={`https://rzp.io/rzp/${isAnnual ? tier.annualPlanId : tier.planId}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      onClick={() => handleBuyNow(isAnnual ? tier.annualPlanId : tier.planId)}
                       className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-300 ${
                         tier.highlight
                           ? 'bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90'
@@ -247,7 +265,7 @@ const Pricing = () => {
                       }`}
                     >
                       {tier.cta}
-                    </a>
+                    </button>
                   </div>
                 )}
               </div>
