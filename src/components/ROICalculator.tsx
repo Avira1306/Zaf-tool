@@ -3,24 +3,25 @@ import { DollarSign, Clock, TrendingUp, Zap } from 'lucide-react';
 
 const ROICalculator = () => {
   const [manualHours, setManualHours] = useState(40);
-  const [hourlyRate, setHourlyRate] = useState(50);
+  const [hourlyRate, setHourlyRate] = useState(75);
   const [reductionPercentage, setReductionPercentage] = useState(90);
-  const [selectedPlan, setSelectedPlan] = useState('Team');
+  const [selectedPlan, setSelectedPlan] = useState('Solo');
 
   const monthlySavingsHours = manualHours * (reductionPercentage / 100);
   const monthlySavingsDollars = monthlySavingsHours * hourlyRate;
   const annualSavingsDollars = monthlySavingsDollars * 12;
 
-  // Pricing plans (synced with Pricing.tsx)
+  // Updated Pricing (synced with new Pricing.tsx)
   const plans = {
-    Solo: { monthly: 19, annual: 149, seats: 1 },
-    Team: { monthly: 49, annual: 399, seats: 3 },
-    Firm: { monthly: 129, annual: 999, seats: 10 },
+    Solo: { monthly: 29, annual: 290, seats: '1 user' },
+    Firm: { monthly: 299, annual: 2990, seats: 'Up to 5 users' },
+    Enterprise: { monthly: 0, annual: 0, seats: 'Unlimited' },
   };
 
-  const selectedPlanPrice = plans[selectedPlan as keyof typeof plans];
-  const monthlyCost = selectedPlanPrice.monthly;
-  const annualCost = selectedPlanPrice.annual;
+  const selectedPlanData = plans[selectedPlan as keyof typeof plans];
+  const monthlyCost = selectedPlanData.monthly;
+  const annualCost = selectedPlanData.annual;
+
   const netMonthlyROI = monthlySavingsDollars - monthlyCost;
   const netAnnualROI = annualSavingsDollars - annualCost;
   const paybackDays = monthlyCost > 0 ? Math.ceil((monthlyCost / monthlySavingsDollars) * 30) : 0;
@@ -38,14 +39,10 @@ const ROICalculator = () => {
         <div className="bg-zaf-navy rounded-2xl p-6 md:p-10 shadow-xl border border-white/10">
           {/* Input Section */}
           <div className="grid md:grid-cols-3 gap-8 mb-10">
-            {/* Input: Manual Hours */}
             <div className="flex flex-col items-center">
-              <label htmlFor="manualHours" className="text-sm font-medium text-zaf-text-muted mb-2">
-                Manual Hours / Month
-              </label>
+              <label className="text-sm font-medium text-zaf-text-muted mb-2">Manual Hours / Month</label>
               <input
                 type="number"
-                id="manualHours"
                 value={manualHours}
                 onChange={(e) => setManualHours(Number(e.target.value))}
                 className="input-zaf w-full text-center"
@@ -55,14 +52,10 @@ const ROICalculator = () => {
               <p className="text-xs text-zaf-text-muted mt-2">Hours spent on repetitive tasks.</p>
             </div>
 
-            {/* Input: Hourly Rate */}
             <div className="flex flex-col items-center">
-              <label htmlFor="hourlyRate" className="text-sm font-medium text-zaf-text-muted mb-2">
-                Average Hourly Rate ($)
-              </label>
+              <label className="text-sm font-medium text-zaf-text-muted mb-2">Average Hourly Rate ($)</label>
               <input
                 type="number"
-                id="hourlyRate"
                 value={hourlyRate}
                 onChange={(e) => setHourlyRate(Number(e.target.value))}
                 className="input-zaf w-full text-center"
@@ -72,14 +65,10 @@ const ROICalculator = () => {
               <p className="text-xs text-zaf-text-muted mt-2">Your or your team's average cost.</p>
             </div>
 
-            {/* Input: Reduction Percentage */}
             <div className="flex flex-col items-center">
-              <label htmlFor="reductionPercentage" className="text-sm font-medium text-zaf-text-muted mb-2">
-                Time Reduction with ZAF Tools (%)
-              </label>
+              <label className="text-sm font-medium text-zaf-text-muted mb-2">Time Reduction with ZAF Tools (%)</label>
               <input
                 type="range"
-                id="reductionPercentage"
                 value={reductionPercentage}
                 onChange={(e) => setReductionPercentage(Number(e.target.value))}
                 className="w-full accent-zaf-gold"
@@ -114,30 +103,22 @@ const ROICalculator = () => {
           <div className="grid md:grid-cols-4 gap-4 mt-8 border-t border-white/10 pt-8">
             <div className="flex flex-col items-center">
               <Clock className="w-8 h-8 text-zaf-gold mb-3" />
-              <p className="text-lg font-semibold text-zaf-text">
-                {monthlySavingsHours.toFixed(0)} Hours
-              </p>
+              <p className="text-lg font-semibold text-zaf-text">{monthlySavingsHours.toFixed(0)} Hours</p>
               <p className="text-sm text-zaf-text-muted">Saved Monthly</p>
             </div>
             <div className="flex flex-col items-center">
               <DollarSign className="w-8 h-8 text-zaf-gold mb-3" />
-              <p className="text-lg font-semibold text-zaf-text">
-                ${monthlySavingsDollars.toFixed(0)}
-              </p>
+              <p className="text-lg font-semibold text-zaf-text">${monthlySavingsDollars.toFixed(0)}</p>
               <p className="text-sm text-zaf-text-muted">Monthly Savings</p>
             </div>
             <div className="flex flex-col items-center">
               <TrendingUp className="w-8 h-8 text-zaf-gold mb-3" />
-              <p className="text-lg font-semibold text-zaf-text">
-                ${netMonthlyROI.toFixed(0)}
-              </p>
+              <p className="text-lg font-semibold text-zaf-text">${netMonthlyROI.toFixed(0)}</p>
               <p className="text-sm text-zaf-text-muted">Net Monthly ROI</p>
             </div>
             <div className="flex flex-col items-center">
               <Zap className="w-8 h-8 text-zaf-gold mb-3" />
-              <p className="text-lg font-semibold text-zaf-text">
-                {paybackDays} Days
-              </p>
+              <p className="text-lg font-semibold text-zaf-text">{paybackDays} Days</p>
               <p className="text-sm text-zaf-text-muted">Payback Period</p>
             </div>
           </div>
@@ -163,11 +144,8 @@ const ROICalculator = () => {
 
           {/* CTA */}
           <div className="mt-12">
-            <a 
-              href="https://github.com/Avira1306/Zaf-tool/releases/download/v4.2.0/ZAF_Tools_v4.2.0.msi" 
-              download
-              target="_blank"
-              rel="noopener noreferrer"
+            <a
+              href="#pricing"
               className="btn-gold text-lg flex items-center justify-center gap-2 mx-auto max-w-xs"
             >
               <Zap className="w-5 h-5" />
