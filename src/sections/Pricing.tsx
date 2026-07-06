@@ -5,91 +5,12 @@ import { Check, Mail } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const SOLO_LINK = 'https://rzp.io/rzp/zHqFzGcq';
+const CONTACT_EMAIL = 'abhishek.bhandari@zaftool.com';
+
 const Pricing = () => {
   const sectionRef = useRef<HTMLElement>(null);
-  const [isAnnual, setIsAnnual] = useState(false);
-
-  const tiers = [
-    {
-      name: 'Starter',
-      monthlyPrice: '$8',
-      annualPrice: '$77',
-      annualSavings: 'Save 20%',
-      seats: '1 user',
-      description: 'For consultants running occasional deals.',
-      features: [
-        'Full ZAF Tools suite — 30+ built-in FDD productivity tools',
-        'Auto-generate P&L, Balance Sheet, Cash Flow & NWC from trial balance',
-        'AI-written FDD commentary with observations and watch items',
-        'Management Questions generator',
-        '1 device per user',
-        'Email support',
-      ],
-      cta: 'Buy Now',
-      highlight: false,
-      planId: 'plan_T6uf7mQTXBT1yh',
-      annualPlanId: 'plan_T6uhZ95zmWBP8C',
-    },
-    {
-      name: 'Solo',
-      monthlyPrice: '$19',
-      annualPrice: '$182',
-      annualSavings: 'Save 20%',
-      seats: '1 user',
-      description: 'For active practitioners on 2-4 live deals.',
-      features: [
-        'Everything in Starter',
-        'Faster AI model — richer commentary and deeper observations',
-        'PDF trial balance ingestion — text and scanned documents',
-        'EBITDA Bridge, Anomaly Detection, AI-suggested Adjustments',
-        'Sector-specific AI intelligence across 8 industry verticals',
-        'Email support',
-      ],
-      cta: 'Buy Now',
-      highlight: false,
-      planId: 'plan_T6uiSaazrNc0S1',
-      annualPlanId: 'plan_T6ujIMdIIpMHXk',
-    },
-    {
-      name: 'Pro',
-      monthlyPrice: '$30',
-      annualPrice: '$288',
-      annualSavings: 'Save 20%',
-      seats: '1 user',
-      description: 'For senior practitioners who need the best output quality.',
-      features: [
-        'Everything in Solo',
-        'Premium AI model — significantly better commentary quality',
-        'Full FDD workflow — MQ, adjustments, anomalies, EBITDA Bridge',
-        'Diligence Library — 28 built-in FDD reference formats',
-        'PPT and Word export of FDD schedules and commentary',
-        'Priority support',
-      ],
-      cta: 'Buy Now',
-      highlight: true,
-      planId: 'plan_T6v4GBp2ctVmHh',
-      annualPlanId: 'plan_T6uyjDHdLSFCD9',
-    },
-    {
-      name: 'Enterprise',
-      monthlyPrice: 'Custom',
-      annualPrice: 'Custom',
-      annualSavings: '',
-      seats: 'Unlimited',
-      description: 'For TAS teams and advisory firms.',
-      features: [
-        'Dedicated seats for your team (3 to 50+)',
-        'Azure OpenAI endpoint — stays within your Microsoft data boundary',
-        'Custom deal templates and FDD library',
-        'Dedicated onboarding and implementation support',
-        'Volume pricing',
-      ],
-      cta: 'Contact Sales',
-      highlight: false,
-      planId: '',
-      annualPlanId: '',
-    },
-  ];
+  const [planType, setPlanType] = useState<'individual' | 'firmEnterprise'>('individual');
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -128,34 +49,6 @@ const Pricing = () => {
     return () => ctx.revert();
   }, []);
 
-  const getPrice = (tier: typeof tiers[0]) => {
-    return isAnnual ? tier.annualPrice : tier.monthlyPrice;
-  };
-
-  const getSavings = (tier: typeof tiers[0]) => {
-    return isAnnual ? tier.annualSavings : '';
-  };
-
-  const API_BASE = 'https://zaf-backend-production.up.railway.app';
-
-  const handleBuyNow = async (planId: string) => {
-    try {
-      const response = await fetch(`${API_BASE}/razorpay/create-subscription`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ planId }),
-      });
-      const data = await response.json();
-      if (data.subscriptionUrl) {
-        window.location.href = data.subscriptionUrl;
-      } else {
-        alert('Something went wrong. Please try again.');
-      }
-    } catch (err) {
-      alert('Network error. Please try again.');
-    }
-  };
-
   return (
     <section
       ref={sectionRef}
@@ -176,101 +69,161 @@ const Pricing = () => {
               Choose the plan that works best for your financial modeling needs.
             </p>
 
-            {/* Billing Toggle */}
+            {/* Plan Type Toggle */}
             <div className="flex items-center justify-center gap-4">
-              <span className={`text-sm font-semibold ${!isAnnual ? 'text-zaf-text' : 'text-zaf-text-muted'}`}>
-                Monthly
-              </span>
               <button
-                onClick={() => setIsAnnual(!isAnnual)}
-                className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
-                  isAnnual ? 'bg-zaf-gold' : 'bg-white/10'
+                onClick={() => setPlanType('individual')}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  planType === 'individual'
+                    ? 'bg-zaf-gold text-zaf-navy-darker'
+                    : 'bg-white/10 text-zaf-text-muted hover:text-zaf-text'
                 }`}
               >
-                <span
-                  className={`inline-block h-6 w-6 transform rounded-full bg-zaf-navy-darker transition-transform ${
-                    isAnnual ? 'translate-x-7' : 'translate-x-1'
-                  }`}
-                />
+                Individual
               </button>
-              <span className={`text-sm font-semibold ${isAnnual ? 'text-zaf-text' : 'text-zaf-text-muted'}`}>
-                Annual
-              </span>
-              {isAnnual && (
-                <span className="ml-4 px-3 py-1 bg-zaf-gold/20 text-zaf-gold rounded-full text-xs font-bold">
-                  Save up to 36%
-                </span>
-              )}
+              <button
+                onClick={() => setPlanType('firmEnterprise')}
+                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                  planType === 'firmEnterprise'
+                    ? 'bg-zaf-gold text-zaf-navy-darker'
+                    : 'bg-white/10 text-zaf-text-muted hover:text-zaf-text'
+                }`}
+              >
+                Firm &amp; Enterprise
+              </button>
             </div>
           </div>
 
-          <div className="pricing-grid grid md:grid-cols-4 gap-6">
-            {tiers.map((tier, index) => (
-              <div
-                key={index}
-                className={`pricing-card relative p-8 rounded-2xl border transition-all duration-300 ${
-                  tier.highlight
-                    ? 'bg-white/[0.05] border-zaf-gold shadow-[0_0_40px_-15px_rgba(212,175,55,0.3)] md:scale-105'
-                    : 'bg-white/[0.02] border-white/10 hover:border-white/20'
-                }`}
-              >
-                {tier.highlight && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-zaf-gold rounded-full">
-                    <span className="text-xs font-bold text-zaf-navy-darker uppercase tracking-wider">
-                      Most Popular
-                    </span>
+          {/* Individual: Solo Only */}
+          {planType === 'individual' && (
+            <div className="pricing-grid max-w-md mx-auto">
+              <div className="pricing-card relative p-8 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-all duration-300">
+                <div className="mb-8 text-center">
+                  <h3 className="text-2xl font-bold text-zaf-text mb-1">Solo</h3>
+                  <p className="text-sm text-zaf-text-muted mb-4">For individual FDD practitioners</p>
+                  <div className="flex items-baseline justify-center gap-1 mb-1">
+                    <span className="text-5xl font-bold text-zaf-text">$29</span>
+                    <span className="text-zaf-text-muted">/ month</span>
                   </div>
-                )}
-
-                <div className="mb-8">
-                  <h3 className="text-xl font-bold text-zaf-text mb-1">{tier.name}</h3>
-                  <p className="text-xs text-zaf-gold mb-3 font-semibold">{tier.seats}</p>
-                  <div className="flex items-baseline gap-1 mb-2">
-                    <span className="text-4xl font-bold text-zaf-text">{getPrice(tier)}</span>
-                    {tier.monthlyPrice !== 'Custom' && (
-                      <span className="text-zaf-text-muted">{isAnnual ? '/ year' : '/ month'}</span>
-                    )}
-                  </div>
-                  {getSavings(tier) && (
-                    <p className="text-xs text-zaf-gold font-semibold mb-2">{getSavings(tier)}</p>
-                  )}
-                  <p className="text-sm text-zaf-text-muted">{tier.description}</p>
+                  <p className="text-xs text-zaf-text-muted">No commitment · Cancel anytime</p>
                 </div>
 
                 <div className="space-y-3 mb-8">
-                  {tier.features.map((feature, fIndex) => (
-                    <div key={fIndex} className="flex items-start gap-3">
+                  {[
+                    'Full P&amp;L, Balance Sheet, NWC &amp; Cash Flow analysis',
+                    'AI commentary on every financial statement',
+                    'Management Questions generation',
+                    'Anomaly &amp; Quality of Earnings detection',
+                    'Word &amp; PowerPoint export',
+                    'Up to 13 full due diligence runs/month',
+                  ].map((feature, i) => (
+                    <div key={i} className="flex items-start gap-3">
                       <Check className="w-4 h-4 text-zaf-gold flex-shrink-0 mt-1" />
                       <span className="text-sm text-zaf-text-muted">{feature}</span>
                     </div>
                   ))}
                 </div>
 
-                {tier.name === 'Enterprise' ? (
-                  <a
-                    href="mailto:Abhishek.bhandari@zaftool.com?subject=Enterprise%20Inquiry%20for%20ZAF%20Tools&body=Hi%20Abhishek%2C%0A%0AI'm%20interested%20in%20learning%20more%20about%20the%20Enterprise%20plan%20for%20ZAF%20Tools.%20We%20have%20a%20team%20and%20would%20like%20to%20discuss%20volume%20licensing.%0A%0ABest%20regards"
-                    className="btn-outline w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold border border-zaf-gold text-zaf-gold hover:bg-zaf-gold hover:text-zaf-navy-darker transition-all duration-300"
-                  >
-                    <Mail className="w-4 h-4" />
-                    {tier.cta}
-                  </a>
-                ) : (
-                  <div className="space-y-3">
-                    <button
-                      onClick={() => handleBuyNow(isAnnual ? tier.annualPlanId : tier.planId)}
-                      className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                        tier.highlight
-                          ? 'bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90'
-                          : 'bg-white/10 text-zaf-text hover:bg-white/20'
-                      }`}
-                    >
-                      {tier.cta}
-                    </button>
-                  </div>
-                )}
+                <a
+                  href={SOLO_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full text-center py-3 rounded-xl font-semibold bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90 transition-all duration-300"
+                >
+                  Get Started
+                </a>
               </div>
-            ))}
-          </div>
+            </div>
+          )}
+
+          {/* Firm & Enterprise: Pro + Enterprise side by side */}
+          {planType === 'firmEnterprise' && (
+            <div className="pricing-grid grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              {/* Pro Card */}
+              <div className="pricing-card relative p-8 rounded-2xl border border-zaf-gold bg-white/[0.05] shadow-[0_0_40px_-15px_rgba(212,175,55,0.3)] transition-all duration-300">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-zaf-gold rounded-full">
+                  <span className="text-xs font-bold text-zaf-navy-darker uppercase tracking-wider">
+                    Most Popular
+                  </span>
+                </div>
+
+                <div className="mb-8 text-center">
+                  <h3 className="text-2xl font-bold text-zaf-text mb-1">Pro</h3>
+                  <p className="text-sm text-zaf-text-muted mb-4">For transaction advisory teams</p>
+                  <div className="flex items-baseline justify-center gap-1 mb-1">
+                    <span className="text-5xl font-bold text-zaf-text">$189</span>
+                    <span className="text-zaf-text-muted">/ month</span>
+                  </div>
+                  <p className="text-xs text-zaf-text-muted">No commitment · Cancel anytime</p>
+                </div>
+
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-start gap-3">
+                    <Check className="w-4 h-4 text-zaf-gold flex-shrink-0 mt-1" />
+                    <span className="text-sm text-zaf-text-muted font-semibold">Everything in Solo, plus:</span>
+                  </div>
+                  {[
+                    '5 seats for your team',
+                    'Advanced AI on every analysis',
+                    'Up to 68 full due diligence runs/month',
+                    'Priority processing',
+                    'Email support',
+                  ].map((feature, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-zaf-gold flex-shrink-0 mt-1" />
+                      <span className="text-sm text-zaf-text-muted">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <a
+                  href={`mailto:${CONTACT_EMAIL}?subject=Book%20a%2030-Day%20Pilot%20-%20Pro%20Plan&body=Hi%20Abhishek%2C%0A%0AI'm%20interested%20in%20booking%20a%2030-day%20pilot%20of%20the%20ZAF%20Tools%20Pro%20plan.%0A%0ABest%20regards`}
+                  className="block w-full text-center py-3 rounded-xl font-semibold bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90 transition-all duration-300"
+                >
+                  Book a 30-Day Pilot
+                </a>
+              </div>
+
+              {/* Enterprise Card */}
+              <div className="pricing-card relative p-8 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-all duration-300">
+                <div className="mb-8 text-center">
+                  <h3 className="text-2xl font-bold text-zaf-text mb-1">Enterprise</h3>
+                  <p className="text-sm text-zaf-text-muted mb-4">For Big 4 and mid-tier firms</p>
+                  <div className="flex items-baseline justify-center gap-1 mb-1">
+                    <span className="text-5xl font-bold text-zaf-text">Custom</span>
+                  </div>
+                </div>
+
+                <div className="space-y-3 mb-8">
+                  <div className="flex items-start gap-3">
+                    <Check className="w-4 h-4 text-zaf-gold flex-shrink-0 mt-1" />
+                    <span className="text-sm text-zaf-text-muted font-semibold">Everything in Pro, plus:</span>
+                  </div>
+                  {[
+                    'Unlimited seats',
+                    'Dedicated onboarding',
+                    'Custom workflows',
+                    'SLA-backed support',
+                  ].map((feature, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <Check className="w-4 h-4 text-zaf-gold flex-shrink-0 mt-1" />
+                      <span className="text-sm text-zaf-text-muted">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <a
+                  href={`mailto:${CONTACT_EMAIL}?subject=Enterprise%20Inquiry%20for%20ZAF%20Tools&body=Hi%20Abhishek%2C%0A%0AI'm%20interested%20in%20learning%20more%20about%20the%20Enterprise%20plan%20for%20ZAF%20Tools.%0A%0ABest%20regards`}
+                  className="block w-full text-center py-3 rounded-xl font-semibold border border-zaf-gold text-zaf-gold hover:bg-zaf-gold hover:text-zaf-navy-darker transition-all duration-300"
+                >
+                  <span className="flex items-center justify-center gap-2">
+                    <Mail className="w-4 h-4" />
+                    Contact Us
+                  </span>
+                </a>
+              </div>
+            </div>
+          )}
 
           <div className="mt-12 text-center">
             <p className="text-sm text-zaf-text-muted italic">
