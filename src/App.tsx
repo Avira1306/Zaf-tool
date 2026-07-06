@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Navigation from './sections/Navigation';
@@ -224,7 +224,7 @@ function App() {
         <Route path="/features" element={<MainSite />} />
         <Route path="/pricing" element={<MainSite />} />
         <Route path="/solutions" element={<MainSite />} />
-        <Route path="/download" element={<MainSite />} />
+        <Route path="/download" element={<Navigate to="https://xcabkqfvcnuzfjkthfjw.supabase.co/storage/v1/object/public/zaf-releases/ZAF_Tools_v5.0.0.msi" replace />} />
         <Route path="/contact" element={<MainSite />} />
       </Routes>
     </Router>
