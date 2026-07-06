@@ -70,23 +70,23 @@ const Pricing = () => {
             </p>
 
             {/* Plan Type Toggle */}
-            <div className="flex items-center justify-center gap-4">
+            <div className="inline-flex items-center gap-4 p-1.5 bg-white/[0.03] rounded-2xl">
               <button
                 onClick={() => setPlanType('individual')}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
                   planType === 'individual'
-                    ? 'bg-zaf-gold text-zaf-navy-darker'
-                    : 'bg-white/10 text-zaf-text-muted hover:text-zaf-text'
+                    ? 'bg-zaf-gold text-zaf-navy-darker shadow-lg'
+                    : 'text-zaf-text-muted hover:text-zaf-text'
                 }`}
               >
                 Individual
               </button>
               <button
                 onClick={() => setPlanType('firmEnterprise')}
-                className={`px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 ${
+                className={`px-6 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
                   planType === 'firmEnterprise'
-                    ? 'bg-zaf-gold text-zaf-navy-darker'
-                    : 'bg-white/10 text-zaf-text-muted hover:text-zaf-text'
+                    ? 'bg-zaf-gold text-zaf-navy-darker shadow-lg'
+                    : 'text-zaf-text-muted hover:text-zaf-text'
                 }`}
               >
                 Firm &amp; Enterprise
@@ -97,24 +97,24 @@ const Pricing = () => {
           {/* Individual: Solo Only */}
           {planType === 'individual' && (
             <div className="pricing-grid max-w-md mx-auto">
-              <div className="pricing-card relative p-8 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-all duration-300">
+              <div className="pricing-card relative p-8 md:p-10 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-all duration-300">
                 <div className="mb-8 text-center">
                   <h3 className="text-2xl font-bold text-zaf-text mb-1">Solo</h3>
-                  <p className="text-sm text-zaf-text-muted mb-4">For individual FDD practitioners</p>
+                  <p className="text-sm text-zaf-text-muted mb-6">For individual FDD practitioners</p>
                   <div className="flex items-baseline justify-center gap-1 mb-1">
                     <span className="text-5xl font-bold text-zaf-text">$29</span>
                     <span className="text-zaf-text-muted">/ month</span>
                   </div>
-                  <p className="text-xs text-zaf-text-muted">No commitment · Cancel anytime</p>
+                  <p className="text-xs text-zaf-text-muted">No commitment &middot; Cancel anytime</p>
                 </div>
 
                 <div className="space-y-3 mb-8">
                   {[
-                    'Full P&amp;L, Balance Sheet, NWC &amp; Cash Flow analysis',
+                    'Full P&L, Balance Sheet, NWC & Cash Flow analysis',
                     'AI commentary on every financial statement',
                     'Management Questions generation',
-                    'Anomaly &amp; Quality of Earnings detection',
-                    'Word &amp; PowerPoint export',
+                    'Anomaly & Quality of Earnings detection',
+                    'Word & PowerPoint export',
                     'Up to 13 full due diligence runs/month',
                   ].map((feature, i) => (
                     <div key={i} className="flex items-start gap-3">
@@ -140,7 +140,7 @@ const Pricing = () => {
           {planType === 'firmEnterprise' && (
             <div className="pricing-grid grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
               {/* Pro Card */}
-              <div className="pricing-card relative p-8 rounded-2xl border border-zaf-gold bg-white/[0.05] shadow-[0_0_40px_-15px_rgba(212,175,55,0.3)] transition-all duration-300">
+              <div className="pricing-card relative p-8 md:p-10 rounded-2xl border border-zaf-gold bg-white/[0.05] shadow-[0_0_40px_-15px_rgba(212,175,55,0.3)] transition-all duration-300">
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-zaf-gold rounded-full">
                   <span className="text-xs font-bold text-zaf-navy-darker uppercase tracking-wider">
                     Most Popular
@@ -149,12 +149,12 @@ const Pricing = () => {
 
                 <div className="mb-8 text-center">
                   <h3 className="text-2xl font-bold text-zaf-text mb-1">Pro</h3>
-                  <p className="text-sm text-zaf-text-muted mb-4">For transaction advisory teams</p>
+                  <p className="text-sm text-zaf-text-muted mb-6">For transaction advisory teams</p>
                   <div className="flex items-baseline justify-center gap-1 mb-1">
                     <span className="text-5xl font-bold text-zaf-text">$189</span>
                     <span className="text-zaf-text-muted">/ month</span>
                   </div>
-                  <p className="text-xs text-zaf-text-muted">No commitment · Cancel anytime</p>
+                  <p className="text-xs text-zaf-text-muted">No commitment &middot; Cancel anytime</p>
                 </div>
 
                 <div className="space-y-3 mb-8">
@@ -185,10 +185,10 @@ const Pricing = () => {
               </div>
 
               {/* Enterprise Card */}
-              <div className="pricing-card relative p-8 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-all duration-300">
+              <div className="pricing-card relative p-8 md:p-10 rounded-2xl border border-white/10 bg-white/[0.02] hover:border-white/20 transition-all duration-300">
                 <div className="mb-8 text-center">
                   <h3 className="text-2xl font-bold text-zaf-text mb-1">Enterprise</h3>
-                  <p className="text-sm text-zaf-text-muted mb-4">For Big 4 and mid-tier firms</p>
+                  <p className="text-sm text-zaf-text-muted mb-6">For Big 4 and mid-tier firms</p>
                   <div className="flex items-baseline justify-center gap-1 mb-1">
                     <span className="text-5xl font-bold text-zaf-text">Custom</span>
                   </div>
@@ -227,7 +227,7 @@ const Pricing = () => {
 
           <div className="mt-12 text-center">
             <p className="text-sm text-zaf-text-muted italic">
-              "Used by FDD professionals at boutique advisory firms across US, UK, UAE and India."
+              &ldquo;Used by FDD professionals at boutique advisory firms across US, UK, UAE and India.&rdquo;
             </p>
           </div>
         </div>
