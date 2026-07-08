@@ -68,6 +68,8 @@ const tiers = [
       'SLA-backed support',
     ],
     cta: 'Contact Us',
+    planIdUsd: '',
+    planIdInr: '',
     highlight: false,
     badge: null,
     ctaOutline: true,
