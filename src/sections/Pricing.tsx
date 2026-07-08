@@ -7,6 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const SOLO_LINK = 'https://rzp.io/rzp/zHqFzGcq';
 const CONTACT_EMAIL = 'abhishek.bhandari@zaftool.com';
+const API_BASE = 'https://zaf-backend-production.up.railway.app';
 
 const tiers = [
   {
@@ -72,6 +73,24 @@ const tiers = [
 
 const Pricing = () => {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const handleBuyNow = async (planId: string) => {
+    try {
+      const response = await fetch(`${API_BASE}/razorpay/create-subscription`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ planId }),
+      });
+      const data = await response.json();
+      if (data.subscriptionUrl) {
+        window.location.href = data.subscriptionUrl;
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      alert('Network error. Please try again.');
+    }
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -182,6 +201,13 @@ const Pricing = () => {
                       {tier.cta}
                     </span>
                   </a>
+                ) : tier.name === 'Solo' ? (
+                  <button
+                    onClick={() => handleBuyNow('plan_TADViBAtxX1Qyf')}
+                    className="block w-full text-center py-3 rounded-xl font-semibold bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90 transition-all duration-300"
+                  >
+                    {tier.cta}
+                  </button>
                 ) : (
                   <a
                     href={tier.ctaLink}
