@@ -38,6 +38,8 @@ const tiers = [
     priceInr: '₹15,999',
     period: '/ month',
     notice: 'No commitment · Cancel anytime',
+    planIdUsd: '',
+    planIdInr: '',
     features: [
       'Everything in Solo, plus:',
       '5 seats for your team',
