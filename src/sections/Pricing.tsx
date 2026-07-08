@@ -1,11 +1,10 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Check, Mail } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const SOLO_LINK = 'https://rzp.io/rzp/zHqFzGcq';
 const CONTACT_EMAIL = 'abhishek.bhandari@zaftool.com';
 const API_BASE = 'https://zaf-backend-production.up.railway.app';
 
@@ -13,9 +12,12 @@ const tiers = [
   {
     name: 'Solo',
     tagline: 'For individual FDD practitioners',
-    price: '$29',
+    priceUsd: '$29',
+    priceInr: '₹2,499',
     period: '/ month',
-    notice: 'No commitment \u00b7 Cancel anytime',
+    notice: 'No commitment · Cancel anytime',
+    planIdUsd: 'plan_TADViBAtxX1Qyf',
+    planIdInr: 'plan_TB07qPNwwdrGDp',
     features: [
       'Full P&L, Balance Sheet, NWC & Cash Flow analysis',
       'AI commentary on every financial statement',
@@ -25,7 +27,6 @@ const tiers = [
       'Up to 13 full due diligence runs/month',
     ],
     cta: 'Get Started',
-    ctaLink: SOLO_LINK,
     highlight: false,
     badge: null,
     ctaOutline: false,
@@ -33,9 +34,10 @@ const tiers = [
   {
     name: 'Pro',
     tagline: 'For transaction advisory teams',
-    price: '$189',
+    priceUsd: '$189',
+    priceInr: '₹15,999',
     period: '/ month',
-    notice: 'No commitment \u00b7 Cancel anytime',
+    notice: 'No commitment · Cancel anytime',
     features: [
       'Everything in Solo, plus:',
       '5 seats for your team',
@@ -45,7 +47,6 @@ const tiers = [
       'Email support',
     ],
     cta: 'Book a 30-Day Pilot',
-    ctaLink: `mailto:${CONTACT_EMAIL}?subject=Book%20a%2030-Day%20Pilot%20-%20Pro%20Plan&body=Hi%20Abhishek%2C%0A%0AI'm%20interested%20in%20booking%20a%2030-day%20pilot%20of%20the%20ZAF%20Tools%20Pro%20plan.%0A%0ABest%20regards`,
     highlight: true,
     badge: 'Most Popular',
     ctaOutline: false,
@@ -53,7 +54,8 @@ const tiers = [
   {
     name: 'Enterprise',
     tagline: 'For Big 4 and mid-tier firms',
-    price: 'Custom',
+    priceUsd: 'Custom',
+    priceInr: 'Custom',
     period: '',
     notice: '',
     features: [
@@ -64,7 +66,6 @@ const tiers = [
       'SLA-backed support',
     ],
     cta: 'Contact Us',
-    ctaLink: `mailto:${CONTACT_EMAIL}?subject=Enterprise%20Inquiry%20for%20ZAF%20Tools&body=Hi%20Abhishek%2C%0A%0AI'm%20interested%20in%20learning%20more%20about%20the%20Enterprise%20plan%20for%20ZAF%20Tools.%0A%0ABest%20regards`,
     highlight: false,
     badge: null,
     ctaOutline: true,
@@ -73,6 +74,7 @@ const tiers = [
 
 const Pricing = () => {
   const sectionRef = useRef<HTMLElement>(null);
+  const [region, setRegion] = useState<'india' | 'international'>('international');
 
   const handleBuyNow = async (planId: string) => {
     try {
@@ -145,9 +147,33 @@ const Pricing = () => {
               Simple, Transparent{' '}
               <span className="text-gradient-gold">Pricing</span>
             </h2>
-            <p className="body-md max-w-xl mx-auto">
+            <p className="body-md max-w-xl mx-auto mb-8">
               Choose the plan that works best for your financial due diligence needs.
             </p>
+
+            {/* Region Toggle */}
+            <div className="inline-flex items-center gap-1 p-1 bg-white/[0.05] rounded-2xl">
+              <button
+                onClick={() => setRegion('international')}
+                className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                  region === 'international'
+                    ? 'bg-zaf-gold text-zaf-navy-darker shadow-lg'
+                    : 'text-zaf-text-muted hover:text-zaf-text'
+                }`}
+              >
+                Outside India
+              </button>
+              <button
+                onClick={() => setRegion('india')}
+                className={`px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-300 ${
+                  region === 'india'
+                    ? 'bg-zaf-gold text-zaf-navy-darker shadow-lg'
+                    : 'text-zaf-text-muted hover:text-zaf-text'
+                }`}
+              >
+                India
+              </button>
+            </div>
           </div>
 
           <div className="pricing-grid grid md:grid-cols-3 gap-6">
@@ -172,7 +198,9 @@ const Pricing = () => {
                   <h3 className="text-2xl font-bold text-zaf-text mb-1">{tier.name}</h3>
                   <p className="text-sm text-zaf-text-muted mb-6">{tier.tagline}</p>
                   <div className="flex items-baseline justify-center gap-1 mb-1">
-                    <span className="text-5xl font-bold text-zaf-text">{tier.price}</span>
+                    <span className="text-5xl font-bold text-zaf-text">
+                      {region === 'india' && tier.priceInr ? tier.priceInr : tier.priceUsd}
+                    </span>
                     {tier.period && <span className="text-zaf-text-muted">{tier.period}</span>}
                   </div>
                   {tier.notice && (
@@ -193,7 +221,7 @@ const Pricing = () => {
 
                 {tier.ctaOutline ? (
                   <a
-                    href={tier.ctaLink}
+                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Enterprise Inquiry - ZAF Tools')}`}
                     className="block w-full text-center py-3 rounded-xl font-semibold border border-zaf-gold text-zaf-gold hover:bg-zaf-gold hover:text-zaf-navy-darker transition-all duration-300"
                   >
                     <span className="flex items-center justify-center gap-2">
@@ -203,21 +231,15 @@ const Pricing = () => {
                   </a>
                 ) : tier.name === 'Solo' ? (
                   <button
-                    onClick={() => handleBuyNow('plan_TADViBAtxX1Qyf')}
+                    onClick={() => handleBuyNow(region === 'india' ? tier.planIdInr : tier.planIdUsd)}
                     className="block w-full text-center py-3 rounded-xl font-semibold bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90 transition-all duration-300"
                   >
                     {tier.cta}
                   </button>
                 ) : (
                   <a
-                    href={tier.ctaLink}
-                    target={tier.ctaLink.startsWith('http') ? '_blank' : undefined}
-                    rel={tier.ctaLink.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className={`block w-full text-center py-3 rounded-xl font-semibold transition-all duration-300 ${
-                      tier.highlight
-                        ? 'bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90'
-                        : 'bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90'
-                    }`}
+                    href={`mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent('Book a 30-Day Pilot - Pro Plan')}&body=${encodeURIComponent('Hi Abhishek,\n\nI\'m interested in booking a 30-day pilot of the ZAF Tools Pro plan.\n\nBest regards')}`}
+                    className="block w-full text-center py-3 rounded-xl font-semibold bg-zaf-gold text-zaf-navy-darker hover:bg-zaf-gold/90 transition-all duration-300"
                   >
                     {tier.cta}
                   </a>
