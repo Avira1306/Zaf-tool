@@ -144,7 +144,7 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
       <p class="lede">The ZAF Template Library is a cloud library of FDD schedules you search and insert straight into your workbook. New templates arrive without reinstalling.</p>
       <div class="cards c4" style="margin-top:1.5rem">
         {library.slice(0, 4).map((t) => (
-          <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">{t.category}</div><h3>{t.name}</h3><p>{t.desc.split('. ')[0].replace(/.$/, '')}.</p></a>
+          <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">{t.category}</div><h3>{t.name}</h3><p>{t.desc.split('. ')[0].replace(/\.$/, '')}.</p></a>
         ))}
       </div>
       <p style="margin-top:1rem"><a href="/fdd-templates">Browse the template library →</a></p>
