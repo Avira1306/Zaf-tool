@@ -322,3 +322,6 @@ a.card:hover { border-color: var(--ink); }
 
 .logo, .nav-links a, .nav-cta .btn { white-space: nowrap; }
 .nav-cta .btn { padding: .55rem 1rem; font-size: .92rem; }
+
+.logo img { height: 40px; width: auto; display: block; }
+.footer .logo img { height: 44px; }
