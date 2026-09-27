@@ -1,6 +1,6 @@
 ---
-title: "How to Audit a Financial Model in Excel: A Practitioner's Checklist"
-description: "A step-by-step method for auditing a financial model in Excel: structure, formula consistency, hardcodes, references, tie-outs and presentation, with a 25-point checklist."
+title: "How to Audit a Financial Model in Excel: Checklist"
+description: "Step-by-step method to audit a financial model in Excel: structure, formula consistency, hardcodes, references and tie-outs, with a 25-point checklist."
 date: 2026-02-28
 updated: 2026-09-02
 category: Financial modelling

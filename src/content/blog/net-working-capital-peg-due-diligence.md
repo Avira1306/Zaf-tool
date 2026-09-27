@@ -1,5 +1,5 @@
 ---
-title: "Net Working Capital in Due Diligence: How the Peg Gets Set and How to Analyse It"
+title: "Net Working Capital Peg in Due Diligence, Explained"
 description: "Why the working capital peg moves price as much as EBITDA, what diligence teams analyse (monthly NWC, seasonality, DSO/DIO/DPO) and how to build the schedule."
 date: 2026-09-02
 category: Working capital

@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
+import Intro from '../components/Intro.astro';
+import ProofSheet from '../components/ProofSheet.astro';
 import Faq from '../components/Faq.astro';
 import HoursSaved from '../components/HoursSaved.astro';
 import Tiers from '../components/Tiers.astro';
@@ -15,44 +17,12 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
 ---
 <Base
   title="ZAF Tools: AI Financial Due Diligence Add-in for Excel"
-  description="Excel add-in for FDD teams: TB mapping, financial statements, Quality of Earnings, EBITDA bridge and commentary in one pass. 80% less build time. Free trial."
+  description="Excel add-in for FDD teams: TB mapping, financial statements, Quality of Earnings, EBITDA bridge and commentary in one pass. 80% less build time. Book a demo."
   jsonld={web}
 >
-  <section class="hero">
-    <div class="wrap">
-      <div class="hero-copy">
-        <span class="eyebrow">AI financial due diligence, inside Excel</span>
-        <h1>Trial balance in. <span class="hl">FDD databook out.</span></h1>
-        <p class="lede">ZAF Tools maps the TB, builds the statements, runs Quality of Earnings and the EBITDA bridge, and drafts partner-ready commentary. Everything stays in Excel and traces back to source. Your team keeps the judgement; ZAF does the build.</p>
-        <div class="btn-row" style="margin:1.6rem 0 1rem">
-          <a class="btn btn-primary" href="/start-trial">Start 14-day free trial</a>
-          <a class="btn btn-ghost" href="/start-trial?type=demo">Book a live demo</a>
-        </div>
-        <p class="small">No card required · Windows Excel 2016–365 · Built by ex-EY Transaction Services practitioners</p>
-      </div>
-      <div class="xl">
-        <img src="/img/pl-commentary.webp" alt="ZAF Tools in Excel: P&L schedule built from a trial balance with AI-generated FDD commentary beside it" width="1917" height="1130" fetchpriority="high" />
-      </div>
-    </div>
-  </section>
+  <Intro />
 
-  <section class="section-tight">
-    <div class="wrap">
-      <div class="trust">
-        <span class="small">Trusted on live deals by</span>
-        {SITE.clients.map((c) => <span class="logo-word">{c}</span>)}
-        <span class="small">and FDD teams across the US, UK, Nordics, UAE and India</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="section-tight" style="padding-top:0">
-    <div class="wrap">
-      <div class="stats">
-        {SITE.stats.map((s) => <div><strong>{s.n}</strong><small>{s.l}</small></div>)}
-      </div>
-    </div>
-  </section>
+  <ProofSheet />
 
   <section class="section">
     <div class="wrap">
@@ -76,7 +46,7 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="workflow">
     <div class="wrap">
       <span class="eyebrow">Workflow</span>
       <h2>TB in. Full FDD out. One pass.</h2>
@@ -131,13 +101,13 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
         <p>The point is not that a model can write. It is that the numbers in the text and the numbers in the databook are the same numbers.</p>
         <a href="/features/fdd-commentary">How FDD commentary works →</a>
       </div>
-      <figure class="shot" style="margin:0">
-        <img src="/img/dashboard.webp" alt="ZAF financial dashboard in Excel with revenue, EBITDA, net debt and working capital KPIs" width="1136" height="849" loading="lazy" />
+      <figure class="shot shot-zoom" style="margin:0">
+        <img src="/img/pl-commentary.webp" alt="ZAF FDD commentary drafted beside a P&L schedule in Excel, quoting the schedule's own figures" width="1917" height="1130" loading="lazy" />
       </figure>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section" id="library">
     <div class="wrap">
       <span class="eyebrow">Template library</span>
       <h2>Formula-driven FDD schedules, one click from the ribbon</h2>
@@ -175,7 +145,7 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
   )}
 
 
-  <section class="section section-alt">
+  <section class="section section-alt" id="pricing">
     <div class="wrap">
       <span class="eyebrow">Pricing</span>
       <h2>Output capacity without headcount</h2>
@@ -188,3 +158,4 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
   <Faq items={homeFaqs} heading="Common questions" />
   <CTA />
 </Base>
+

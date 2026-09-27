@@ -1,5 +1,5 @@
 ---
-title: "EBITDA Adjustments in a Quality of Earnings Review: 40 Common Add-Backs and Deductions"
+title: "EBITDA Adjustments in QoE: 40 Common Add-Backs"
 description: "The adjustments that appear in most Quality of Earnings reports, grouped by category, with the evidence diligence teams expect and the ones buyers push back on."
 date: 2026-09-02
 category: Quality of Earnings

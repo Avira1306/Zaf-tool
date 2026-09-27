@@ -6,7 +6,7 @@ const releases = [
   { v: '4.2.0', d: 'April 2026', items: ['EBITDA Bridge with waterfall chart and P&L cross-check', 'Databook Builder', 'Export to Word', 'Remote prompt library', 'Code-signed installer and auto-update flow'] },
 ];
 ---
-<Base title="Changelog | ZAF Tools" description="Release history for the ZAF Tools Excel add-in." crumbs={[{name:'Changelog',href:'/changelog'}]}>
+<Base title="ZAF Tools Changelog: Release Notes for the Excel Add-in" description="Release history for the ZAF Tools Excel add-in: new FDD features, AI modules, template library additions and fixes in each version." crumbs={[{name:'Changelog',href:'/changelog'}]}>
   <section class="section" style="padding-top:1.5rem"><div class="wrap prose">
     <h1>Changelog</h1>
     {releases.map(r => <><div class="bar"><h2>Version {r.v}</h2><span>{r.d}</span></div><ul>{r.items.map(i => <li>{i}</li>)}</ul></>)}

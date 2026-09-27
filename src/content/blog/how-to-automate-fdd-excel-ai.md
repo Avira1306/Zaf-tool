@@ -1,5 +1,5 @@
 ---
-title: "How to Automate Financial Due Diligence in Excel with AI (Without Losing Control)"
+title: "How to Automate Financial Due Diligence in Excel with AI"
 description: "What can be automated in an FDD engagement, what cannot, and how to do it inside Excel from trial balance import to commentary with the reviewer in charge."
 date: 2026-04-29
 updated: 2026-09-02

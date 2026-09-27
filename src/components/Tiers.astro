@@ -21,9 +21,18 @@ const link = (h: string, cur: 'inr' | 'usd') =>
         <ul>{(full ? t.features : t.features.slice(0, 4)).map((x) => <li>{x}</li>)}</ul>
         {t.href === 'solo' || t.href === 'pro' ? (
           <>
-            <a class={`btn ${t.highlight ? 'btn-primary' : 'btn-ghost'}`} data-show="usd" href={link(t.href, 'usd')} rel="nofollow">{t.cta}</a>
-            <a class={`btn ${t.highlight ? 'btn-primary' : 'btn-ghost'}`} data-show="inr" hidden href={link(t.href, 'inr')} rel="nofollow">{t.cta} with Razorpay</a>
-            <a class="trial-link" href="/start-trial">or start a 14-day free trial</a>
+            {(['usd', 'inr'] as const).map((cur) => {
+              const v = link(t.href, cur);
+              const label = cur === 'inr' ? `${t.cta} with Razorpay` : t.cta;
+              return v.startsWith('pl_') ? (
+                <div class="rzp-btn" data-show={cur} hidden={cur === 'inr'}>
+                  <form><script is:inline src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-subscription_button_id={v} data-button_theme="brand-color" async></script></form>
+                </div>
+              ) : (
+                <a class={`btn ${t.highlight ? 'btn-primary' : 'btn-ghost'}`} data-show={cur} hidden={cur === 'inr'} href={v} rel="nofollow">{label}</a>
+              );
+            })}
+            <a class="trial-link" href="/start-trial">or request a trial</a>
           </>
         ) : (
           <a class="btn btn-ghost" href={t.href}>{t.cta}</a>
@@ -39,6 +48,9 @@ const link = (h: string, cur: 'inr' | 'usd') =>
       w.querySelectorAll<HTMLButtonElement>('[data-cur]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cur === cur)));
     };
     w.querySelectorAll<HTMLButtonElement>('[data-cur]').forEach((b) => b.addEventListener('click', () => set(b.dataset.cur!)));
+    // Razorpay widget: pre-select its single plan (the plan card itself is hidden by CSS)
+    const pick = () => w.querySelectorAll<HTMLInputElement>('.rzp-btn input[type=radio]').forEach((r) => { if (!r.checked) r.click(); });
+    new MutationObserver(pick).observe(w, { childList: true, subtree: true });
     if ((Intl.DateTimeFormat().resolvedOptions().timeZone || '').includes('Calcutta') || (Intl.DateTimeFormat().resolvedOptions().timeZone || '').includes('Kolkata')) set('inr');
   });
 </script>

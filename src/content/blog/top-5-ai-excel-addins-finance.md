@@ -1,6 +1,6 @@
 ---
-title: "AI Excel Add-ins for Finance Professionals in 2026: What Each One Is Actually For"
-description: "An honest map of AI-enabled Excel add-ins for finance teams, grouped by job: productivity and linking, document extraction, public-company data and diligence analysis."
+title: "AI Excel Add-ins for Finance in 2026: What Each Does"
+description: "An honest map of AI Excel add-ins for finance teams, grouped by job: productivity, document extraction, public-company data and diligence analysis."
 date: 2026-04-29
 updated: 2026-09-02
 category: Tools

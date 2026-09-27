@@ -1,6 +1,6 @@
 ---
-title: "Quality of Earnings vs Audit: What a QoE Report Is, Who Needs One and What It Costs"
-description: "How a Quality of Earnings report differs from an audit, what it contains, when buyers and sellers commission one, typical fees, and how AI tooling changes the economics."
+title: "Quality of Earnings vs Audit: What a QoE Report Is"
+description: "How a Quality of Earnings report differs from an audit, what it contains, when buyers and sellers commission one, and what it typically costs."
 date: 2026-09-02
 category: Quality of Earnings
 ---

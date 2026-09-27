@@ -2,38 +2,39 @@
 import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
 import { SITE, faqs } from '../data/site';
-const action = SITE.formEndpoint || `mailto:${SITE.email}`;
+const hsUrl = `https://api.hsforms.com/submissions/v3/integration/submit/${SITE.hubspot.portalId}/${SITE.hubspot.formId}`;
 ---
-<Base title="Start a Free Trial or Book a Demo | ZAF Tools" description="Try the ZAF Tools FDD suite free for 14 days or book a 30-minute live demo on your own trial balance. No card required. We reply within one business day." crumbs={[{ name: 'Free trial', href: '/start-trial' }]}>
+<Base title="Book a Demo or Request a Trial | ZAF Tools" description="Book a 30-minute live demo of the ZAF Tools FDD suite on your own trial balance, or request a trial with your work email. We reply within one business day." crumbs={[{ name: 'Demo and trial', href: '/start-trial' }]}>
   <section class="section" style="padding-top:1.5rem">
     <div class="wrap grid-2" style="align-items:start">
       <div>
-        <span class="eyebrow">14-day free trial · no card</span>
+        <span class="eyebrow">Live demo · trial on request</span>
         <h1>See ZAF on your own trial balance</h1>
-        <p class="lede">Tell us a little about your team. We send the signed add-in and your trial licence within one business day, or set up a 30-minute live demo with the founder.</p>
+        <p class="lede">Book a 30-minute live demo with the founder, or request a trial. Every ZAF AI run has a real AI cost, so trials are reviewed and sent by email to your work address, usually within one business day.</p>
         <ul class="checks">
-          <li>Full ZAF AI ribbon for 14 days, including Run Full FDD</li>
+          <li>Trial of the full ZAF AI ribbon, including Run Full FDD</li>
           <li>38 ZAF Tools free for good</li>
           <li>Onboarding call on a real (masked) file if you want one</li>
           <li>Enterprise: pilot on your own Azure OpenAI tenant</li>
         </ul>
       </div>
-      <form class="form calc" method={SITE.formEndpoint ? 'POST' : 'GET'} action={action} enctype={SITE.formEndpoint ? undefined : 'text/plain'} data-trial>
+      <form class="form calc" method="POST" action={`mailto:${SITE.email}`} data-trial data-hs={hsUrl}>
         <div class="seg" role="group" aria-label="Request type">
-          <button type="button" aria-pressed="true" data-type="trial">Free trial</button>
+          <button type="button" aria-pressed="true" data-type="trial">Request a trial</button>
           <button type="button" aria-pressed="false" data-type="demo">Live demo</button>
         </div>
         <input type="hidden" name="request" value="trial" />
-        <input type="hidden" name="_next" value={`${SITE.url}/thank-you`} />
         <label>Name<input name="name" required autocomplete="name" /></label>
-        <label>Work email<input name="email" type="email" required autocomplete="email" /></label>
+        <label>Work email<input name="email" type="email" required autocomplete="email" placeholder="you@yourfirm.com" data-work-email /><span class="note" data-email-msg hidden>Please use your work email. Trials are sent to company addresses only.</span></label>
         <label>Firm<input name="firm" required autocomplete="organization" /></label>
         <label>Team size
           <select name="team"><option>Just me</option><option>2–5</option><option>6–20</option><option>20+</option></select>
         </label>
         <label>FDD engagements per year<input name="deals" type="number" min="0" /></label>
-        <button class="btn btn-primary" type="submit" data-submit>Request free trial</button>
-        <p class="note">We use your details only to send the trial and follow up. No spam, no sharing.</p>
+        <label>What will you test it on? <span class="note">(optional)</span><input name="use" placeholder="e.g. buy-side FDD, QoE, TB mapping" /></label>
+        <button class="btn btn-primary" type="submit" data-submit>Request a trial</button>
+        <p class="note" data-status role="status" hidden></p>
+        <p class="note">Trial details, installer and licence are sent to the work email above. Your details are stored in our CRM (HubSpot) and used only to set up the trial or demo and follow up.</p>
       </form>
     </div>
   </section>
@@ -46,20 +47,62 @@ const action = SITE.formEndpoint || `mailto:${SITE.email}`;
     const submit = f.querySelector<HTMLButtonElement>('[data-submit]')!;
     const set = (t: string) => {
       hidden.value = t;
-      submit.textContent = t === 'demo' ? 'Book a live demo' : 'Request free trial';
+      submit.textContent = t === 'demo' ? 'Book a live demo' : 'Request a trial';
       f.querySelectorAll<HTMLButtonElement>('[data-type]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.type === t)));
     };
     f.querySelectorAll<HTMLButtonElement>('[data-type]').forEach((b) => b.addEventListener('click', () => set(b.dataset.type!)));
     if (new URLSearchParams(location.search).get('type') === 'demo') set('demo');
-    // Without a form endpoint, open the visitor's email client with the details prefilled.
-    if (f.getAttribute('action')!.startsWith('mailto:')) {
-      f.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const d = new FormData(f);
-        const body = ['name', 'email', 'firm', 'team', 'deals'].map((k) => `${k}: ${d.get(k) ?? ''}`).join('\n');
-        const subj = hidden.value === 'demo' ? 'ZAF Tools demo request' : 'ZAF Tools free trial request';
-        location.href = `${f.getAttribute('action')}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
-      });
-    }
+    // Work email only: block free/personal mailbox domains.
+    const free = /@(gmail|googlemail|yahoo|ymail|hotmail|outlook|live|msn|aol|icloud|me|mac|proton|protonmail|gmx|zoho|yandex|mail|rediffmail|qq|163)\./i;
+    const email = f.querySelector<HTMLInputElement>('[data-work-email]')!;
+    const msg = f.querySelector<HTMLElement>('[data-email-msg]')!;
+    const check = () => { const bad = free.test(email.value); email.setCustomValidity(bad ? 'Please use your work email.' : ''); msg.hidden = !bad; };
+    email.addEventListener('input', check);
+    f.addEventListener('submit', (e) => { check(); if (!f.checkValidity()) { e.preventDefault(); e.stopImmediatePropagation(); f.reportValidity(); } }, true);
+    // Send to HubSpot; if that fails, fall back to the visitor's email client so no request is lost.
+    const status = f.querySelector<HTMLElement>('[data-status]')!;
+    const fields = ['name', 'email', 'firm', 'team', 'deals', 'use'];
+    const mailto = (d: FormData) => {
+      const body = fields.map((k) => `${k}: ${d.get(k) ?? ''}`).join('\n');
+      const subj = hidden.value === 'demo' ? 'ZAF Tools demo request' : 'ZAF Tools trial request';
+      location.href = `${f.getAttribute('action')}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+    };
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const d = new FormData(f);
+      const [first, ...rest] = String(d.get('name') ?? '').trim().split(/\s+/);
+      const message = [
+        `Request: ${hidden.value === 'demo' ? 'Live demo' : 'Trial'}`,
+        `Team size: ${d.get('team') ?? ''}`,
+        `FDD engagements per year: ${d.get('deals') || '-'}`,
+        `Will test it on: ${d.get('use') || '-'}`,
+        `Source: ${document.referrer || 'direct'}`,
+      ].join('\n');
+      submit.disabled = true; submit.textContent = 'Sending…';
+      try {
+        const res = await fetch(f.dataset.hs!, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fields: [
+              { name: 'firstname', value: first || '' },
+              { name: 'lastname', value: rest.join(' ') },
+              { name: 'email', value: String(d.get('email') ?? '') },
+              { name: 'company', value: String(d.get('firm') ?? '') },
+              { name: 'message', value: message },
+            ],
+            context: { pageUri: location.href, pageName: document.title },
+          }),
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        location.href = `/thank-you?type=${hidden.value}`;
+      } catch {
+        status.hidden = false;
+        status.textContent = 'Could not send the form. Opening your email app instead.';
+        mailto(d);
+      } finally {
+        submit.disabled = false; set(hidden.value);
+      }
+    });
   }
 </script>

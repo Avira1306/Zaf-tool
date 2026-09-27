@@ -7,7 +7,7 @@ const { p } = Astro.props;
 const feats = features.filter(f => p.features.includes(f.slug));
 ---
 <Base title={p.title} description={p.metaDescription} crumbs={[{name:'Who it is for',href:'/features'},{name:p.name,href:`/for/${p.slug}`}]}>
-  <section class="section" style="padding-top:1.5rem"><div class="wrap"><h1>{p.h1}</h1><p class="lede">{p.intro}</p><div class="btn-row" style="margin-top:1rem"><a class="btn btn-primary" href="/start-trial">Start free trial</a><a class="btn btn-ghost" href="/pricing">Pricing</a></div></div></section>
+  <section class="section" style="padding-top:1.5rem"><div class="wrap"><h1>{p.h1}</h1><p class="lede">{p.intro}</p><div class="btn-row" style="margin-top:1rem"><a class="btn btn-primary" href="/start-trial?type=demo">Book a demo</a><a class="btn btn-ghost" href="/start-trial">Request a trial</a></div></div></section>
   <section class="section section-alt"><div class="wrap grid-2" style="align-items:start">
     <div><div class="bar"><h2>Today</h2></div><ul>{p.pains.map(x => <li>{x}</li>)}</ul></div>
     <div><div class="bar"><h2>With ZAF Tools</h2></div><ul class="checks">{p.gains.map(x => <li>{x}</li>)}</ul></div>

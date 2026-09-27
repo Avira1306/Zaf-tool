@@ -5,13 +5,13 @@ import Tiers from '../components/Tiers.astro';
 import { pricing, faqs, SITE } from '../data/site';
 const pf = [faqs[3], faqs[4], faqs[5], { q:'Can I pay in INR?', a:'Yes. Switch the price toggle to INR: Solo is ₹2,499 and Pro is ₹15,999 per month, paid securely through Razorpay (cards, UPI, net banking).' }, { q:'What counts as a full due diligence run?', a:'One Run Full FDD across P&L, balance sheet, NWC, net debt and cash flow with commentary. Individual analyses (a single commentary, a bridge, a PDF import) consume a fraction of a run.' }, { q:'What happens after the trial?', a:'The ZAF AI ribbon pauses until you subscribe. The ZAF Tools utility ribbon keeps working for free.' }];
 ---
-<Base title="ZAF Tools Pricing | From $29 per Month, 14-Day Free Trial" description="Solo $29/month for individual FDD practitioners, Pro $189/month for 5-seat teams, Enterprise with your own Azure endpoint. INR pricing. 14-day free trial." crumbs={[{name:'Pricing',href:'/pricing'}]}>
+<Base title="ZAF Tools Pricing | FDD Add-in for Excel from $29/month" description="Solo $29/month for individual FDD practitioners, Pro $189/month for 5-seat teams, Enterprise with your own Azure endpoint. INR pricing. Book a live demo." crumbs={[{name:'Pricing',href:'/pricing'}]}>
   <section class="section" style="padding-top:1.5rem">
     <div class="wrap">
       <h1>Pricing</h1>
       <p class="lede">Per analyst, monthly, cancel any time. Every plan includes the full ZAF Tools utility ribbon and founder support.</p>
       <div style="margin-top:2rem"><Tiers full /></div>
-      <p class="small" style="margin-top:1rem">Prices exclude applicable taxes. 14-day money-back guarantee on all paid plans.</p>
+      <p class="small" style="margin-top:1rem">Prices exclude applicable taxes. 14-day money-back guarantee on all paid plans. Payments are processed securely by Razorpay under our registered entity, {SITE.legalEntity}.</p>
     </div>
   </section>
   <section class="section section-alt">

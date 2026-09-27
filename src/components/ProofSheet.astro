@@ -1,0 +1,88 @@
+---
+// Trust strip + headline stats drawn as a small Excel sheet: column letters, row numbers,
+// a formula bar, and a selected cell with the gold fill handle (the ZAF logo motif).
+import { SITE } from '../data/site';
+const regions = ['US', 'UK', 'Nordics', 'UAE', 'India'];
+const cols = ['A', 'B', 'C', 'D'];
+---
+<section class="proof" aria-label="Customers and results">
+  <div class="wrap">
+    <div class="ps">
+      <div class="ps-fx" aria-hidden="true"><span class="ps-ref" data-ref>B2</span><span class="ps-fn">fx</span><span class="ps-formula" data-formula>=TRUSTED_BY("live deals")</span></div>
+      <div class="ps-grid">
+        <div class="ps-corner" aria-hidden="true"></div>
+        {cols.map((c) => <div class="ps-col" aria-hidden="true">{c}</div>)}
+
+        <div class="ps-row" aria-hidden="true">1</div>
+        <div class="ps-cell ps-label">Trusted on live deals by</div>
+        {SITE.clients.map((c, i) => (
+          <div class={`ps-cell ps-client ${i === 0 ? 'is-sel' : ''}`} tabindex="0" data-cell={`${cols[i + 1]}1`} data-f={`="${c}"`}>{c}</div>
+        ))}
+        <div class="ps-cell ps-regions">
+          <span>and FDD teams in</span>
+          <span class="ps-chips">{regions.map((r) => <b>{r}</b>)}</span>
+        </div>
+
+        <div class="ps-row" aria-hidden="true">2</div>
+        {SITE.stats.map((s, i) => (
+          <div class="ps-cell ps-stat" tabindex="0" data-cell={`${cols[i]}2`} data-f={`=${s.l.toUpperCase().replace(/[^A-Z0-9]+/g, '_').replace(/^_|_$/g, '')}()`}>
+            <strong>{s.n}</strong><small>{s.l}</small>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof { padding-block: clamp(2rem, 5vw, 3.5rem); }
+  .ps { border: 1px solid #d9d4c7; border-radius: 12px; background: #fff; overflow: hidden; box-shadow: 0 24px 60px -44px rgba(17,20,24,.45); }
+  .ps-fx { display: flex; align-items: center; gap: .75rem; padding: .45rem .8rem; border-bottom: 1px solid #e6e2d8; background: #faf9f5; font: 500 .8rem/1.2 ui-monospace, 'Cascadia Mono', Consolas, monospace; color: var(--ink-2); }
+  .ps-ref { min-width: 2.6rem; padding: .15rem .45rem; border: 1px solid #e0dbcf; border-radius: 4px; background: #fff; text-align: center; color: var(--ink); }
+  .ps-fn { font-style: italic; color: var(--ink-3); }
+  .ps-formula { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #1f6e43; }
+
+  .ps-grid { display: grid; grid-template-columns: 34px repeat(4, minmax(0, 1fr)); }
+  .ps-corner, .ps-col, .ps-row { background: #f4f2ec; color: #8a8577; font: 600 .72rem/1 var(--font); display: grid; place-items: center; border-right: 1px solid #e6e2d8; border-bottom: 1px solid #e6e2d8; }
+  .ps-col { height: 24px; }
+  .ps-cell { position: relative; padding: 1.1rem 1.2rem; border-right: 1px solid #eeebe3; border-bottom: 1px solid #eeebe3; min-height: 84px; display: flex; flex-direction: column; justify-content: center; outline: none; transition: background .25s var(--ease); }
+  .ps-cell:nth-last-child(-n+4) { border-bottom: 0; }
+
+  .ps-label { color: var(--ink-2); font-size: .92rem; }
+  .ps-client { font-size: clamp(1.15rem, 2vw, 1.45rem); font-weight: 700; letter-spacing: -.02em; color: var(--ink); cursor: cell; }
+  .ps-regions { gap: .45rem; font-size: .85rem; color: var(--ink-2); }
+  .ps-chips { display: flex; flex-wrap: wrap; gap: .3rem; }
+  .ps-chips b { font-weight: 600; font-size: .75rem; padding: .15rem .5rem; border-radius: 999px; background: #f4f2ec; color: var(--ink); }
+
+  .ps-stat { cursor: cell; }
+  .ps-stat strong { font-size: clamp(1.8rem, 3.4vw, 2.5rem); font-weight: 700; letter-spacing: -.04em; line-height: 1; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .ps-stat small { margin-top: .4rem; color: var(--ink-2); font-size: .85rem; line-height: 1.35; }
+
+  /* Selected cell: green border + gold fill handle, like the logo */
+  .ps-cell.is-sel, .ps-cell:hover, .ps-cell:focus-visible { background: #fbf6e6; }
+  .ps-cell.is-sel::after, .ps-cell:focus-visible::after { content: ''; position: absolute; inset: -1px; border: 2px solid #1f6e43; pointer-events: none; z-index: 1; }
+  .ps-cell.is-sel::before, .ps-cell:focus-visible::before { content: ''; position: absolute; right: -4px; bottom: -4px; width: 7px; height: 7px; background: #c9a227; border: 1px solid #fff; z-index: 2; }
+
+  @media (max-width: 760px) {
+    .ps-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ps-corner, .ps-col, .ps-row { display: none; }
+    .ps-label, .ps-regions { grid-column: span 2; min-height: 0; }
+    .ps-cell { min-height: 72px; padding: .9rem 1rem; }
+    .ps-cell:nth-last-child(-n+4) { border-bottom: 1px solid #eeebe3; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.ps').forEach((ps) => {
+    const ref = ps.querySelector<HTMLElement>('[data-ref]')!;
+    const fx = ps.querySelector<HTMLElement>('[data-formula]')!;
+    const cells = ps.querySelectorAll<HTMLElement>('[data-cell]');
+    const select = (c: HTMLElement) => {
+      cells.forEach((x) => x.classList.toggle('is-sel', x === c));
+      ref.textContent = c.dataset.cell!;
+      fx.textContent = c.dataset.f!;
+    };
+    cells.forEach((c) => { c.addEventListener('mouseenter', () => select(c)); c.addEventListener('focus', () => select(c)); });
+    select(cells[0]);
+  });
+</script>

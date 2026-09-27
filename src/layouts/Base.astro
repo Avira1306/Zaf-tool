@@ -27,7 +27,7 @@ const org = {
   logo: `${SITE.url}/icon-512.png`,
   email: SITE.email,
   founder: { '@type': 'Person', name: SITE.founder, sameAs: SITE.linkedin },
-  legalName: SITE.company,
+  legalName: SITE.legalEntity,
   address: { '@type': 'PostalAddress', addressLocality: 'Gurugram', addressCountry: 'IN' },
   sameAs: [SITE.linkedin],
 };
@@ -109,5 +109,42 @@ const extra = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
       <slot />
     </main>
     <Footer />
+    <script>
+      // Smooth reveal: sections, then their cards/rows one after another. Content is visible without JS.
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!reduce && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((es) => es.forEach((e) => {
+          if (!e.isIntersecting) return;
+          e.target.classList.add('in'); io.unobserve(e.target);
+        }), { rootMargin: '0px 0px -8% 0px' });
+        const below = (el: Element) => el.getBoundingClientRect().top > innerHeight * 0.95;
+        document.querySelectorAll<HTMLElement>('main > section:not([data-intro]) > .wrap > :is(h2, .eyebrow, .lede, .grid-2, figure, .shot)').forEach((el) => {
+          if (below(el)) { el.classList.add('reveal'); io.observe(el); }
+        });
+        const groups = '.cards > *, .stats > *, .flow > li, .tiers > *, .engines > *, .quotes > *, .rows > .row, .post-list > li, .faq > details';
+        document.querySelectorAll<HTMLElement>(groups).forEach((el) => {
+          if (!below(el)) return;
+          const i = Array.from(el.parentElement!.children).indexOf(el);
+          el.style.setProperty('--d', `${Math.min(i, 6) * 70}ms`);
+          el.classList.add('reveal'); io.observe(el);
+        });
+        // Count up the headline stats (80%, 150+, 7)
+        document.querySelectorAll<HTMLElement>('.stats strong, .ps-stat strong').forEach((s) => {
+          const m = s.textContent!.match(/^(\d+)(.*)$/); if (!m || +m[1] < 2) return;
+          const end = +m[1], suf = m[2];
+          const o = new IntersectionObserver(([e]) => {
+            if (!e.isIntersecting) return; o.disconnect();
+            const t0 = performance.now();
+            const step = (t: number) => {
+              const k = Math.min(1, (t - t0) / 1100);
+              s.textContent = Math.round(end * (1 - Math.pow(1 - k, 3))) + suf;
+              if (k < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+          }, { threshold: .6 });
+          o.observe(s);
+        });
+      }
+    </script>
   </body>
 </html>

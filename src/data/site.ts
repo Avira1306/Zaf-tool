@@ -11,16 +11,19 @@ export const SITE = {
   trialUrl: '/start-trial',
   demoUrl: '/start-trial?type=demo',
   // TODO(Abhishek): paste a Formspree (or similar) form endpoint here. Until then the form falls back to email.
-  formEndpoint: '',
-  // TODO(Abhishek): paste Razorpay Payment Links (INR) and USD payment links here.
+  // Demo/trial requests go to HubSpot (free CRM) via the Forms API. No HubSpot script or cookies on the site.
+  hubspot: { portalId: '247537681', formId: 'bdaf77b0-bc3c-4d71-a0c3-e46b5cf657ae' },
+  // Razorpay Subscription Button IDs (pl_...) from Dashboard > Payment Button, or any payment URL.
   payLinks: {
-    soloINR: '#razorpay-solo-inr',
-    proINR: '#razorpay-pro-inr',
-    soloUSD: '#pay-solo-usd',
-    proUSD: '#pay-pro-usd',
+    soloINR: 'pl_Th819xBeEMyqdx',
+    proINR: 'pl_Th82ljtZAyM3ta',
+    soloUSD: 'pl_Th84bUhXAGt2Dl',
+    proUSD: 'pl_Th86nDcleHttpb',
   },
   version: '5.0.6',
-  company: 'Four Aces Education Private Limited',
+  company: 'ZAF Suite Automation',
+  // Registered legal entity: shown where it must match official records (code-signing certificate, schema legalName, Razorpay).
+  legalEntity: 'Four Aces Education Private Limited',
   founder: 'Abhishek Bhandari',
   founderBio:
     'Abhishek Bhandari is a financial due diligence practitioner with 15+ years in FDD and M&A advisory at EY and Grant Thornton, working on Nordic and DACH mandates. He founded ZAF Tools to automate the parts of an FDD engagement that do not need a human, and Zion Advisor, an offshore FDD and Quality of Earnings practice.',
@@ -295,7 +298,7 @@ export const features: Feature[] = [
     short: 'AI scans any sheet for one-offs, outliers and inconsistencies.',
     title: 'Find EBITDA Adjustments and Data Anomalies in Excel | ZAF Tools',
     metaDescription:
-      'AI-assisted detection of EBITDA adjustments, one-off items and data anomalies in any Excel sheet. ZAF Tools flags candidates with reasons so reviewers decide faster.',
+      'AI detection of EBITDA adjustments, one-off items and data anomalies in any Excel sheet. ZAF flags candidates with reasons so reviewers decide faster.',
     h1: 'Find the one-offs before the buyer’s advisor does',
     intro:
       'Find Adjustments and Find Anomalies work on any sheet, not only ZAF-built ones. They scan for spikes, sign flips, round-number entries, related-party patterns and items that break run-rate, and list them with the reason.',
@@ -333,7 +336,7 @@ export const features: Feature[] = [
     slug: 'management-questions',
     name: 'Management questions',
     short: 'FDD-grade management questions generated from the active schedule, logged and tracked.',
-    title: 'Due Diligence Management Questions Generator for Excel | ZAF Tools',
+    title: 'Due Diligence Management Questions Generator | ZAF Tools',
     metaDescription:
       'Generate financial due diligence management questions from any P&L, balance sheet or NWC schedule in Excel. Log, track and export the MQ list with ZAF Tools.',
     h1: 'Management questions, generated from the numbers',
@@ -350,9 +353,9 @@ export const features: Feature[] = [
     slug: 'group-consolidation',
     name: 'Group consolidation',
     short: 'Consolidate entity trial balances with intercompany eliminations, inside Excel.',
-    title: 'Excel Consolidation Add-in with Intercompany Eliminations | ZAF Tools',
+    title: 'Excel Consolidation Add-in with Eliminations | ZAF Tools',
     metaDescription:
-      'Consolidate multi-entity trial balances in Excel with intercompany eliminations. Group-level financial statements for due diligence, built by the ZAF Tools add-in.',
+      'Consolidate multi-entity trial balances in Excel with intercompany eliminations. Group financial statements for due diligence, built by ZAF Tools.',
     h1: 'Group statements from entity trial balances',
     intro:
       'Group Consolidation combines mapped entity trial balances into group financial statements and applies intercompany eliminations, with an audit trail from each group line back to the entity accounts. Consolidate Files and Consolidate Sheets pull scattered workbooks together first.',
@@ -429,7 +432,7 @@ export const pricing = {
         'Management questions generation',
         'Anomaly and Quality of Earnings detection',
         'Word and PowerPoint export',
-        'Up to 13 full due diligence runs per month',
+        '5–6 full due diligence runs per month',
       ],
       cta: 'Buy Solo',
       href: 'solo',
@@ -445,7 +448,7 @@ export const pricing = {
         'Everything in Solo',
         '5 seats for your team',
         'Advanced AI on every analysis',
-        'Up to 68 full due diligence runs per month',
+        '30–35 full due diligence runs per month',
         'Priority processing',
         'Email support',
       ],
@@ -471,7 +474,7 @@ export const faqs = [
   { q: 'Which Excel versions does ZAF Tools support?', a: 'Excel 2016, 2019, 2021 and Microsoft 365 on Windows. Mac support is on the roadmap.' },
   { q: 'Where does my data go?', a: 'The ZAF Tools ribbon (formatting, audit, consolidation) runs entirely on your machine. The ZAF AI ribbon sends the selected range or document to the ZAF backend for analysis and returns the result; nothing is stored beyond the request. Enterprise plans can route AI calls to the firm’s own Azure OpenAI endpoint via Corporate AI. Data Masking lets you anonymise entity names before any AI call.' },
   { q: 'Does it use VBA macros?', a: 'Yes. ZAF Tools is a code-signed .xlam add-in. Your IT team can verify the certificate and whitelist the publisher.' },
-  { q: 'How does the free trial work?', a: 'Request a trial on the Start free trial page and we email you the signed installer and a licence within one business day. Use the full ZAF AI ribbon for 14 days. No card required. The ZAF Tools utility ribbon remains free to use afterwards.' },
+  { q: 'How do I get a trial?', a: 'Fill in the trial request form with your work email. Because every ZAF AI run has a real AI cost, trials are reviewed by the founder and sent by email, usually within one business day, with the signed installer, a trial licence and setup notes. The 38 ZAF Tools utilities stay free to use.' },
   { q: 'What is the refund policy?', a: 'Paid plans carry a 14-day money-back guarantee. Email support and it is processed the same week.' },
   { q: 'Can I use it on more than one device?', a: 'A Solo seat covers one active device at a time. Pro includes five seats.' },
   { q: 'How do I get support?', a: 'Email support@zaftool.com or use Support in the Updates menu, which attaches a diagnostic bundle. Founder support is included on every plan.' },
@@ -526,7 +529,7 @@ export const comparisons: Comparison[] = [
     competitor: 'UpSlide',
     title: 'ZAF Tools vs UpSlide: Which Fits a Deal Team? (2026)',
     metaDescription:
-      'UpSlide automates documents and brand compliance for large institutions. ZAF Tools automates FDD analysis for boutiques and deal teams. Comparison and fit guide.',
+      'UpSlide automates documents and brand compliance for large firms. ZAF Tools automates FDD analysis for boutiques and deal teams. Comparison and fit guide.',
     h1: 'ZAF Tools vs UpSlide',
     summary:
       'UpSlide is enterprise document automation: brand-compliant slides, Excel-to-PowerPoint linking, content libraries and Power BI integration for banks and Big 4 firms. ZAF Tools is a working tool for the analyst building the databook.',
@@ -570,7 +573,7 @@ export const comparisons: Comparison[] = [
     competitor: 'Daloopa',
     title: 'ZAF Tools vs Daloopa: Data Extraction vs FDD Analysis',
     metaDescription:
-      'Daloopa supplies AI-cleaned historical data from public filings. ZAF Tools analyses private-company trial balances for due diligence. A comparison for deal teams.',
+      'Daloopa supplies AI-cleaned data from public filings. ZAF Tools analyses private-company trial balances for due diligence. A comparison for deal teams.',
     h1: 'ZAF Tools vs Daloopa',
     summary:
       'Daloopa maintains a database of public-company financials and pushes them into models. ZAF Tools works on private targets, where there is no database, only a trial balance and a data room.',
@@ -626,7 +629,7 @@ export const personas = [
     slug: 'pe-deal-teams',
     name: 'Private equity deal teams',
     title: 'Due Diligence Tools for Private Equity Deal Teams | ZAF Tools',
-    metaDescription: 'Run your own first-pass financial diligence in Excel before commissioning advisors. QoE, EBITDA bridge, working capital and management questions from the CIM and TB.',
+    metaDescription: 'Run first-pass financial diligence in Excel before hiring advisors. QoE, EBITDA bridge, working capital and management questions from the CIM and TB.',
     h1: 'First-pass diligence before you pay for a report',
     intro: 'Deal teams read the CIM, build a bridge and draft questions for management before advisors are engaged. ZAF Tools compresses that from days to hours and makes the eventual FDD scope sharper.',
     pains: ['CIM numbers retyped into a model', 'Bridge and NWC built from scratch per deal', 'Management questions drafted from memory', 'Advisor reports arrive too late to shape the thesis'],
