@@ -23,3 +23,6 @@ https://zaftool.com/* https://www.zaftool.com/:splat 301
 /demo /start-trial?type=demo 302
 /calculator /hours-saved 301
 /blog/how-to-audit-financial-model-excel/ /blog/how-to-audit-financial-model-excel 301
+
+# Old sitemap location (submitted in Search Console before the rebuild)
+/sitemap.xml /sitemap-index.xml 301
