@@ -12,9 +12,9 @@ const toc = [
 <section class="intro" data-intro aria-labelledby="intro-title">
   <div class="intro-stage">
     <div class="intro-panels" aria-hidden="true">
-      <div class="ip ip-side"><img src="/img/nwc-schedule.webp" alt="" width="1914" height="1135" /></div>
+      <div class="ip ip-side"><img src="/img/nwc-schedule.webp" alt="" width="1914" height="1135" loading="lazy" /></div>
       <div class="ip ip-mid">
-        <img class="ip-shot" src="/img/pl-commentary.webp" alt="" width="1917" height="1130" loading="lazy" />
+        <img class="ip-shot" src="/img/pl-commentary.webp" alt="" width="1917" height="1130" fetchpriority="high" />
         <div class="ip-brand">
           <p class="intro-kicker">Introducing</p>
           <picture><source srcset="/img/zaf-logo.webp" type="image/webp" /><img src="/img/zaf-logo.png" alt="" width="261" height="96" fetchpriority="high" /></picture>
@@ -22,7 +22,7 @@ const toc = [
           <p class="ip-tag">Trial balance in. FDD databook out.</p>
         </div>
       </div>
-      <div class="ip ip-side"><img src="/img/ebitda-bridge.webp" alt="" width="1914" height="1132" /></div>
+      <div class="ip ip-side"><img src="/img/ebitda-bridge.webp" alt="" width="1914" height="1132" loading="lazy" /></div>
     </div>
 
     <div class="intro-copy">
@@ -104,6 +104,7 @@ const toc = [
     .intro-stage { position: relative; height: auto; min-height: 88svh; display: flex; align-items: flex-end; }
     .intro-panels { inset: 0; }
     .ip-brand { display: none; }
+    .ip-side { display: none; }
     .intro-copy { position: relative; opacity: 1; translate: none; padding-top: 30svh; animation: fade-up .8s ease-out both; }
     .intro-toc { display: none; }
   }

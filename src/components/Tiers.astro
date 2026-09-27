@@ -26,7 +26,7 @@ const link = (h: string, cur: 'inr' | 'usd') =>
               const label = cur === 'inr' ? `${t.cta} with Razorpay` : t.cta;
               return v.startsWith('pl_') ? (
                 <div class="rzp-btn" data-show={cur} hidden={cur === 'inr'}>
-                  <form><script is:inline src="https://cdn.razorpay.com/static/widget/subscription-button.js" data-subscription_button_id={v} data-button_theme="brand-color" async></script></form>
+                  <form data-rzp={v}></form>
                 </div>
               ) : (
                 <a class={`btn ${t.highlight ? 'btn-primary' : 'btn-ghost'}`} data-show={cur} hidden={cur === 'inr'} href={v} rel="nofollow">{label}</a>
@@ -51,6 +51,18 @@ const link = (h: string, cur: 'inr' | 'usd') =>
     // Razorpay widget: pre-select its single plan (the plan card itself is hidden by CSS)
     const pick = () => w.querySelectorAll<HTMLInputElement>('.rzp-btn input[type=radio]').forEach((r) => { if (!r.checked) r.click(); });
     new MutationObserver(pick).observe(w, { childList: true, subtree: true });
+    // Load the Razorpay widget only when pricing is close to the screen (it is heavy)
+    const load = () => w.querySelectorAll<HTMLFormElement>('form[data-rzp]').forEach((f) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdn.razorpay.com/static/widget/subscription-button.js';
+      s.dataset.subscription_button_id = f.dataset.rzp!;
+      s.dataset.button_theme = 'brand-color';
+      s.async = true;
+      f.removeAttribute('data-rzp');
+      f.appendChild(s);
+    });
+    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) { io.disconnect(); load(); } }, { rootMargin: '800px 0px' });
+    io.observe(w);
     if ((Intl.DateTimeFormat().resolvedOptions().timeZone || '').includes('Calcutta') || (Intl.DateTimeFormat().resolvedOptions().timeZone || '').includes('Kolkata')) set('inr');
   });
 </script>
