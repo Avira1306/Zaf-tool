@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import Databook from '../components/Databook.astro';
 import CTA from '../components/CTA.astro';
 import Faq from '../components/Faq.astro';
 import HoursSaved from '../components/HoursSaved.astro';
@@ -20,18 +19,20 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
   jsonld={web}
 >
   <section class="hero">
-    <div class="wrap grid-2">
-      <div>
-        <span class="eyebrow">AI financial due diligence · inside Excel</span>
-        <h1>Trial balance in. <em>Full FDD databook out.</em></h1>
-        <p class="lede">ZAF Tools maps the TB, builds the statements, runs Quality of Earnings and the EBITDA bridge, and drafts partner-ready commentary. Everything happens in Excel and traces back to source. Your team keeps the judgement; ZAF does the build.</p>
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="eyebrow">AI financial due diligence, inside Excel</span>
+        <h1>Trial balance in. <span class="hl">FDD databook out.</span></h1>
+        <p class="lede">ZAF Tools maps the TB, builds the statements, runs Quality of Earnings and the EBITDA bridge, and drafts partner-ready commentary. Everything stays in Excel and traces back to source. Your team keeps the judgement; ZAF does the build.</p>
         <div class="btn-row" style="margin:1.6rem 0 1rem">
-          <a class="btn btn-gold" href="/start-trial">Start 14-day free trial</a>
-          <a class="btn btn-ghost-light" href="/start-trial?type=demo">Book a live demo</a>
+          <a class="btn btn-primary" href="/start-trial">Start 14-day free trial</a>
+          <a class="btn btn-ghost" href="/start-trial?type=demo">Book a live demo</a>
         </div>
         <p class="small">No card required · Windows Excel 2016–365 · Built by ex-EY Transaction Services practitioners</p>
       </div>
-      <Databook />
+      <div class="xl">
+        <img src="/img/pl-commentary.webp" alt="ZAF Tools in Excel: P&L schedule built from a trial balance with AI-generated FDD commentary beside it" width="1917" height="1130" fetchpriority="high" />
+      </div>
     </div>
   </section>
 
@@ -131,7 +132,7 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
         <a href="/features/fdd-commentary">How FDD commentary works →</a>
       </div>
       <figure class="shot" style="margin:0">
-        <img src="/img/pl-commentary.webp" alt="ZAF Tools P&L schedule in Excel with AI-generated FDD commentary in an adjacent panel" width="1917" height="1130" loading="lazy" />
+        <img src="/img/dashboard.webp" alt="ZAF financial dashboard in Excel with revenue, EBITDA, net debt and working capital KPIs" width="1136" height="849" loading="lazy" />
       </figure>
     </div>
   </section>
@@ -143,7 +144,7 @@ const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF T
       <p class="lede">The ZAF Template Library is a cloud library of FDD schedules you search and insert straight into your workbook. New templates arrive without reinstalling.</p>
       <div class="cards c4" style="margin-top:1.5rem">
         {library.slice(0, 4).map((t) => (
-          <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">{t.category}</div><h3>{t.name}</h3><p>{t.desc.split('. ')[0]}.</p></a>
+          <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">{t.category}</div><h3>{t.name}</h3><p>{t.desc.split('. ')[0].replace(/.$/, '')}.</p></a>
         ))}
       </div>
       <p style="margin-top:1rem"><a href="/fdd-templates">Browse the template library →</a></p>

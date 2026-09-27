@@ -10,11 +10,11 @@ import { templates, library } from '../../data/site';
       <h1>FDD templates, inserted from the ribbon</h1>
       <p class="lede">Formula-driven schedules for financial due diligence. Each page explains how the schedule works; inside ZAF Tools you insert it into your workbook with one click from Template Library.</p>
       <div class="cards c3" style="margin-top:2rem">
-        {library.map((t) => <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">{t.category}</div><h3>{t.name}</h3><p>{t.desc.split('. ')[0]}.</p></a>)}
+        {library.map((t) => <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">{t.category}</div><h3>{t.name}</h3><p>{t.desc.split('. ')[0].replace(/.$/, '')}.</p></a>)}
       </div>
       <h2 style="margin-top:3rem">FDD guides and checklists</h2>
       <div class="cards c3" style="margin-top:1rem">
-        {templates.map((t) => <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">Guide</div><h3>{t.name}</h3><p>{t.what.split('. ')[0]}.</p></a>)}
+        {templates.map((t) => <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">Guide</div><h3>{t.name}</h3><p>{t.what.split('. ')[0].replace(/.$/, '')}.</p></a>)}
       </div>
     </div>
   </section>
