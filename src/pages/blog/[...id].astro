@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '../../data/site';
+export async function getStaticPaths() { const posts = await getCollection('blog'); return posts.map(p => ({ params: { id: p.id }, props: { p } })); }
+const { p } = Astro.props;
+const { Content, headings } = await render(p);
+const fmt = (d) => d.toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+const ld = { '@context':'https://schema.org','@type':'Article', headline: p.data.title, description: p.data.description, datePublished: p.data.date.toISOString(), dateModified: (p.data.updated ?? p.data.date).toISOString(), author: { '@type':'Person', name: p.data.author, url: `${SITE.url}/about`, sameAs: SITE.linkedin }, publisher: { '@type':'Organization', name:'ZAF Tools', logo: { '@type':'ImageObject', url:`${SITE.url}/img/logo.svg` } }, image: p.data.image ? new URL(p.data.image, SITE.url).href : undefined, mainEntityOfPage: `${SITE.url}/blog/${p.id}` };
+const others = (await getCollection('blog')).filter(x => x.id !== p.id).slice(0,3);
+---
+<Base title={p.data.title} description={p.data.description} type="article" image={p.data.image} jsonld={ld} crumbs={[{name:'Blog',href:'/blog'},{name:p.data.title,href:`/blog/${p.id}`}]}>
+  <article class="section" style="padding-top:1rem"><div class="wrap">
+    <div class="prose">
+      <h1>{p.data.title}</h1>
+      <p class="meta">{p.data.category} · {p.data.author} · {fmt(p.data.date)}{p.data.updated && ` · Updated ${fmt(p.data.updated)}`}</p>
+      <p class="lede">{p.data.description}</p>
+      {headings.filter(h => h.depth===2).length > 3 && <nav class="callout" aria-label="Contents"><strong>In this guide</strong><ul style="margin:.5rem 0 0">{headings.filter(h=>h.depth===2).map(h => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ul></nav>}
+      <Content />
+      <div class="callout" style="margin-top:2.5rem"><p><strong>About the author.</strong> {SITE.founderBio}</p></div>
+    </div>
+    <aside style="margin-top:3rem"><h2 style="font-size:1.2rem">Read next</h2><ul>{others.map(o => <li><a href={`/blog/${o.id}`}>{o.data.title}</a></li>)}</ul></aside>
+  </div></article>
+  <CTA />
+</Base>

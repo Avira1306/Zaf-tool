@@ -1,0 +1,13 @@
+---
+const { title = 'See it on your own trial balance', text = '14-day free trial, no card. Or book a 30-minute live demo on your own trial balance.' } = Astro.props;
+---
+<section class="section section-navy">
+  <div class="wrap">
+    <h2>{title}</h2>
+    <p class="lede" style="color:#cfd7e4">{text}</p>
+    <div class="btn-row">
+      <a class="btn btn-gold" href="/start-trial">Start free trial</a>
+      <a class="btn btn-ghost-light" href="/start-trial?type=demo">Book a live demo</a>
+    </div>
+  </div>
+</section>

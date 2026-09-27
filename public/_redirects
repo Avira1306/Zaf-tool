@@ -1,3 +1,25 @@
-/sitemap.xml /sitemap.xml 200
-/robots.txt /robots.txt 200
-/* /index.html 200
+# Canonical host: apex -> www
+https://zaftool.com/* https://www.zaftool.com/:splat 301
+
+# Old blog comparison posts now live under /compare
+/blog/zaf-tools-vs-macabacus /compare/zaf-tools-vs-macabacus 301
+/blog/zaf-tools-vs-daloopa /compare/zaf-tools-vs-daloopa 301
+/blog/zaf-tools-vs-o11 /compare 301
+
+# Legacy paths from earlier site versions
+/download /start-trial 301
+/download/ /start-trial 301
+/download.html /start-trial 301
+/start-trial.html /start-trial 301
+/thank-you.html /thank-you 301
+/checklist /fdd-templates/financial-due-diligence-checklist 301
+/checklist/ /fdd-templates/financial-due-diligence-checklist 301
+/templates /fdd-templates 301
+/templates/ /fdd-templates 301
+/free-templates /fdd-templates 301
+/features/ /features 301
+/solutions /features 301
+/contact /start-trial 301
+/demo /start-trial?type=demo 302
+/calculator /hours-saved 301
+/blog/how-to-audit-financial-model-excel/ /blog/how-to-audit-financial-model-excel 301

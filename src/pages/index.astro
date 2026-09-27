@@ -1,0 +1,189 @@
+---
+import Base from '../layouts/Base.astro';
+import Databook from '../components/Databook.astro';
+import CTA from '../components/CTA.astro';
+import Faq from '../components/Faq.astro';
+import HoursSaved from '../components/HoursSaved.astro';
+import Tiers from '../components/Tiers.astro';
+import { SITE, features, workflow, faqs, library, testimonials } from '../data/site';
+const homeFaqs = [
+  { q: 'What is ZAF Tools?', a: 'ZAF Tools is a Microsoft Excel add-in for financial due diligence. It imports and maps a trial balance, builds the financial statements and FDD databook, runs Quality of Earnings, EBITDA bridge and working capital analysis, drafts FDD commentary and management questions, and exports to Word, PowerPoint and PDF. It also includes 38 free Excel productivity tools.' },
+  { q: 'Who uses ZAF Tools?', a: 'Transaction advisory and FDD teams at M&A boutiques, private equity deal teams and CA and accounting firms. Deal teams at Windy Street and BPS Analytics use ZAF on live engagements.' },
+  { q: 'How many hours does ZAF save on an FDD engagement?', a: 'On a typical single-entity buy-side FDD, the Excel build (mapping, statements, QoE schedule, commentary, questions and export) falls from roughly 70 hours to about 11 hours in our estimates, around 80% less time on the build. Try the hours saved calculator with your own numbers.' },
+  ...faqs,
+];
+const web = { '@context': 'https://schema.org', '@type': 'WebSite', name: 'ZAF Tools', url: SITE.url };
+---
+<Base
+  title="ZAF Tools: AI Financial Due Diligence Add-in for Excel"
+  description="Excel add-in for FDD teams: TB mapping, financial statements, Quality of Earnings, EBITDA bridge and commentary in one pass. 80% less build time. Free trial."
+  jsonld={web}
+>
+  <section class="hero">
+    <div class="wrap grid-2">
+      <div>
+        <span class="eyebrow">AI financial due diligence · inside Excel</span>
+        <h1>Trial balance in. <em>Full FDD databook out.</em></h1>
+        <p class="lede">ZAF Tools maps the TB, builds the statements, runs Quality of Earnings and the EBITDA bridge, and drafts partner-ready commentary. Everything happens in Excel and traces back to source. Your team keeps the judgement; ZAF does the build.</p>
+        <div class="btn-row" style="margin:1.6rem 0 1rem">
+          <a class="btn btn-gold" href="/start-trial">Start 14-day free trial</a>
+          <a class="btn btn-ghost-light" href="/start-trial?type=demo">Book a live demo</a>
+        </div>
+        <p class="small">No card required · Windows Excel 2016–365 · Built by ex-EY Transaction Services practitioners</p>
+      </div>
+      <Databook />
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="wrap">
+      <div class="trust">
+        <span class="small">Trusted on live deals by</span>
+        {SITE.clients.map((c) => <span class="logo-word">{c}</span>)}
+        <span class="small">and FDD teams across the US, UK, Nordics, UAE and India</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight" style="padding-top:0">
+    <div class="wrap">
+      <div class="stats">
+        {SITE.stats.map((s) => <div><strong>{s.n}</strong><small>{s.l}</small></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">The problem</span>
+      <h2>Weeks lost to the Excel grind</h2>
+      <div class="cards c3" style="margin-top:1.5rem">
+        <div class="card"><div class="tag">01</div><h3>Trial balance, mapped by hand</h3><p>Account-by-account mapping into databook format, checked, re-checked, and redone at every TB update.</p></div>
+        <div class="card"><div class="tag">02</div><h3>Statements built from scratch</h3><p>Formatting and tie-outs eat days before the analysis even starts.</p></div>
+        <div class="card"><div class="tag">03</div><h3>Commentary under pressure</h3><p>QoE write-ups squeezed into late nights right before delivery.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="hours-saved">
+    <div class="wrap">
+      <span class="eyebrow">Hours saved by ZAF</span>
+      <h2>About 60 hours back on every engagement</h2>
+      <p class="lede">Same trial balance. Same client deliverable. The only thing that changes is the wait.</p>
+      <div style="margin-top:1.5rem"><HoursSaved compact /></div>
+      <p style="margin-top:1rem"><a href="/hours-saved">How we calculate hours saved →</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Workflow</span>
+      <h2>TB in. Full FDD out. One pass.</h2>
+      <p class="lede">Each stage is a button on the ZAF AI ribbon, and the output of one is the input of the next. <strong>Run Full FDD</strong> runs them all together.</p>
+      <ol class="flow" style="margin-top:2rem">
+        {workflow.map((w) => (<li><a href={w.href}><strong>{w.step}</strong></a><p>{w.text}</p></li>))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <span class="eyebrow">Product</span>
+      <h2>One add-in. Two engines.</h2>
+      <div class="engines" style="margin-top:1.5rem">
+        <div class="engine">
+          <div class="big">38</div>
+          <h3>ZAF Tools: free Excel tools</h3>
+          <p>Formatting, formula tools, navigation, fill and trace, consolidation, data cleaning and model audit. Works on any workbook, runs offline, no subscription.</p>
+          <div class="chips"><span>Model Audit</span><span>Error Scan</span><span>Consolidate Files</span><span>Wrap IFERROR</span><span>Clean Text</span><span>Fix Dates</span><span>+32 more</span></div>
+          <p style="margin-top:1rem"><a href="/features/model-audit">See the free tools →</a></p>
+        </div>
+        <div class="engine dark">
+          <div class="big">60</div>
+          <h3>ZAF AI: the FDD engine</h3>
+          <p>Statement commentary, Quality of Earnings, a full TB-to-FS build engine, deal document analysis, PDF and image import, and Word, PowerPoint and PDF export.</p>
+          <div class="chips"><span>Run Full FDD</span><span>AI Map</span><span>Translate TB</span><span>QoE</span><span>EBITDA Bridge</span><span>Mgmt Questions</span><span>+54 more</span></div>
+          <p style="margin-top:1rem"><a href="/features">See all AI features →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Features</span>
+      <h2>The diligence worklist, automated</h2>
+      <div class="cards c3" style="margin-top:1.5rem">
+        {features.map((f) => (
+          <a class="card" href={`/features/${f.slug}`}><h3>{f.name}</h3><p>{f.short}</p></a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="wrap grid-2">
+      <div>
+        <span class="eyebrow">FDD commentary</span>
+        <h2>Commentary written from the schedule, beside the schedule</h2>
+        <p>Select a P&amp;L and ZAF drafts the headline, basis of preparation and driver analysis next to it, quoting the sheet's own figures. Choose concise (350–450 words, slide-ready) or elaborate (1,000+ words). Set the sector once and every commentary applies a sector lens.</p>
+        <p>The point is not that a model can write. It is that the numbers in the text and the numbers in the databook are the same numbers.</p>
+        <a href="/features/fdd-commentary">How FDD commentary works →</a>
+      </div>
+      <figure class="shot" style="margin:0">
+        <img src="/img/pl-commentary.webp" alt="ZAF Tools P&L schedule in Excel with AI-generated FDD commentary in an adjacent panel" width="1917" height="1130" loading="lazy" />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Template library</span>
+      <h2>Formula-driven FDD schedules, one click from the ribbon</h2>
+      <p class="lede">The ZAF Template Library is a cloud library of FDD schedules you search and insert straight into your workbook. New templates arrive without reinstalling.</p>
+      <div class="cards c4" style="margin-top:1.5rem">
+        {library.slice(0, 4).map((t) => (
+          <a class="card" href={`/fdd-templates/${t.slug}`}><div class="tag">{t.category}</div><h3>{t.name}</h3><p>{t.desc.split('. ')[0]}.</p></a>
+        ))}
+      </div>
+      <p style="margin-top:1rem"><a href="/fdd-templates">Browse the template library →</a></p>
+    </div>
+  </section>
+
+  <section class="section section-navy">
+    <div class="wrap grid-2" style="align-items:start">
+      <div>
+        <span class="eyebrow">Privacy by design</span>
+        <h2>Built for data clients never want leaked</h2>
+        <p>Company names are detected and masked before every AI call. No client data is stored. Enterprise firms can route every AI call through their own Azure OpenAI tenant.</p>
+        <a href="/security">Security details →</a>
+      </div>
+      <div class="cards">
+        <div class="card"><h3>Masked</h3><p>Entity and customer names replaced with tokens before any AI call.</p></div>
+        <div class="card"><h3>Zero stored</h3><p>Requests are processed and discarded. Nothing is used for training.</p></div>
+        <div class="card"><h3>Your tenant</h3><p>Corporate AI routes calls to your firm's own Azure OpenAI.</p></div>
+        <div class="card"><h3>Code-signed</h3><p>A signed .xlam. IT can whitelist the publisher.</p></div>
+      </div>
+    </div>
+  </section>
+
+  {testimonials.show && (
+    <section class="section"><div class="wrap"><h2>What deal teams say</h2><div class="quotes" style="margin-top:1.5rem">
+      {testimonials.items.map((t) => <blockquote><p>{t.quote}</p><cite>{t.who}, {t.firm}</cite></blockquote>)}
+    </div></div></section>
+  )}
+
+
+  <section class="section section-alt">
+    <div class="wrap">
+      <span class="eyebrow">Pricing</span>
+      <h2>Output capacity without headcount</h2>
+      <p class="lede">Per analyst, monthly, cancel any time. The 38 ZAF Tools stay free.</p>
+      <div style="margin-top:1.5rem"><Tiers /></div>
+      <p class="small" style="margin-top:1rem"><a href="/pricing">Full plan comparison</a></p>
+    </div>
+  </section>
+
+  <Faq items={homeFaqs} heading="Common questions" />
+  <CTA />
+</Base>

@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import Faq from '../../components/Faq.astro';
+import { features } from '../../data/site';
+export function getStaticPaths() { return features.map(f => ({ params: { slug: f.slug }, props: { f } })); }
+const { f } = Astro.props;
+const related = features.filter(x => f.related.includes(x.slug));
+const howto = { '@context':'https://schema.org','@type':'HowTo', name: f.h1, step: f.how.map((s,i)=>({'@type':'HowToStep', position:i+1, text:s})) };
+---
+<Base title={f.title} description={f.metaDescription} jsonld={howto} image={f.image ?? '/img/og-default.png'} crumbs={[{name:'Features',href:'/features'},{name:f.name,href:`/features/${f.slug}`}]}>
+  <section class="section" style="padding-top:1.5rem">
+    <div class="wrap">
+      <h1>{f.h1}</h1>
+      <p class="lede">{f.intro}</p>
+      <div class="btn-row" style="margin-top:1.2rem"><a class="btn btn-primary" href="/start-trial">Try it on your file</a><a class="btn btn-ghost" href="/pricing">Pricing</a></div>
+    </div>
+  </section>
+  {f.image && <section class="section-tight"><div class="wrap"><figure class="shot" style="margin:0"><img src={f.image} alt={f.imageAlt} loading="eager" width="1900" height="1120" /></figure></div></section>}
+  <section class="section section-alt">
+    <div class="wrap grid-2" style="align-items:start">
+      <div><div class="bar"><h2>The problem</h2></div><p>{f.problem}</p></div>
+      <div><div class="bar"><h2>What you get</h2></div><ul class="checks">{f.outputs.map(o => <li>{o}</li>)}</ul></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2>How it works</h2>
+      <ol style="margin-top:1rem">{f.how.map(s => <li style="margin-bottom:.7rem">{s}</li>)}</ol>
+    </div>
+  </section>
+  <Faq items={f.faqs} heading={`Questions about ${f.name.toLowerCase()}`} />
+  <section class="section-tight section-alt">
+    <div class="wrap">
+      <h2 style="font-size:1.2rem">Related</h2>
+      <ul>{related.map(r => <li><a href={`/features/${r.slug}`}>{r.name}</a> — {r.short}</li>)}</ul>
+    </div>
+  </section>
+  <CTA />
+</Base>

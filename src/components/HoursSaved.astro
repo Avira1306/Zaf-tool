@@ -1,0 +1,57 @@
+---
+import { hoursSaved } from '../data/site';
+const { compact = false } = Astro.props;
+const totM = hoursSaved.reduce((a, r) => a + r.manual, 0);
+const totZ = hoursSaved.reduce((a, r) => a + r.zaf, 0);
+const saved = totM - totZ;
+const pct = Math.round((saved / totM) * 100);
+---
+<div class="grid-2" style="align-items:start">
+  <div class="table-scroll">
+    <table class="hs-table">
+      <caption class="sr-only">Hours per FDD engagement, manual versus with ZAF Tools</caption>
+      <thead><tr><th>Task (per engagement)</th><th>Manual</th><th>With ZAF</th><th>Saved</th></tr></thead>
+      <tbody>
+        {hoursSaved.map((r) => (
+          <tr>
+            <td>{r.task}</td>
+            <td>{r.manual} h</td>
+            <td>{r.zaf} h</td>
+            <td><div class="hs-bar" title={`${Math.round(((r.manual - r.zaf) / r.manual) * 100)}% saved`}><i style={`width:${Math.round(((r.manual - r.zaf) / r.manual) * 100)}%`}></i></div></td>
+          </tr>
+        ))}
+      </tbody>
+      <tfoot><tr><td>Total</td><td>{totM} h</td><td>{totZ} h</td><td>{saved} h ({pct}%)</td></tr></tfoot>
+    </table>
+    <p class="note" style="margin-top:.6rem">Illustrative estimates for a mid-market buy-side FDD on a single entity, based on the founders' engagement experience. Your numbers depend on data quality and scope.</p>
+  </div>
+  <div class="calc" data-calc data-saved={saved}>
+    <h3 style="margin:0">Calculate your firm's savings</h3>
+    <label for="deals">FDD engagements per year: <output data-o="deals">24</output></label>
+    <input id="deals" type="range" min="1" max="200" value="24" data-i="deals" />
+    <label for="rate">Blended analyst cost per hour (USD)</label>
+    <input id="rate" type="number" min="5" max="500" value="40" data-i="rate" />
+    <div class="out">
+      <div><strong data-o="hours">—</strong><small>hours saved per year</small></div>
+      <div><strong data-o="money">—</strong><small>cost saved per year</small></div>
+    </div>
+    {!compact && <p class="note" style="margin-top:.8rem">That is about <b data-o="weeks">—</b> analyst working weeks returned to judgement work, or extra mandates without extra headcount.</p>}
+    <a class="btn btn-primary" href="/start-trial" style="margin-top:1rem">Test it on your own TB</a>
+  </div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-calc]').forEach((c) => {
+    const saved = Number(c.dataset.saved);
+    const q = (s: string) => c.querySelector<HTMLElement>(s);
+    const run = () => {
+      const deals = Number((q('[data-i=deals]') as HTMLInputElement).value);
+      const rate = Number((q('[data-i=rate]') as HTMLInputElement).value) || 0;
+      const h = Math.round(deals * saved);
+      q('[data-o=deals]')!.textContent = String(deals);
+      q('[data-o=hours]')!.textContent = h.toLocaleString();
+      q('[data-o=money]')!.textContent = '$' + Math.round(h * rate).toLocaleString();
+      const w = q('[data-o=weeks]'); if (w) w.textContent = String(Math.round(h / 40));
+    };
+    c.addEventListener('input', run); run();
+  });
+</script>

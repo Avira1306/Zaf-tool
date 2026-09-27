@@ -1,0 +1,14 @@
+---
+import Base from '../layouts/Base.astro';
+const releases = [
+  { v: '5.0.6', d: 'August 2026', items: ['Financial dashboard with rule-based deal health scorecard and action centre', 'Partner Commentary: enriched commentary using management explanations', 'Group Consolidation across entity trial balances', 'Export to PowerPoint: table, commentary or both, multi-sheet', 'Data Masking configuration before AI calls', 'Update TB: add a later period without rebuilding'] },
+  { v: '5.0.0', d: 'July 2026', items: ['Managed AI backend replaces bring-your-own-key', 'Run Full FDD: P&L, BS, NWC, net debt and cash flow from a mapped TB', 'Trial balance translation and AI mapping', 'Doc Triage and Deal Documents for CIMs and transcripts', 'Management Questions with MQ log', 'Sector Data Book and Deal Brief'] },
+  { v: '4.2.0', d: 'April 2026', items: ['EBITDA Bridge with waterfall chart and P&L cross-check', 'Databook Builder', 'Export to Word', 'Remote prompt library', 'Code-signed installer and auto-update flow'] },
+];
+---
+<Base title="Changelog | ZAF Tools" description="Release history for the ZAF Tools Excel add-in." crumbs={[{name:'Changelog',href:'/changelog'}]}>
+  <section class="section" style="padding-top:1.5rem"><div class="wrap prose">
+    <h1>Changelog</h1>
+    {releases.map(r => <><div class="bar"><h2>Version {r.v}</h2><span>{r.d}</span></div><ul>{r.items.map(i => <li>{i}</li>)}</ul></>)}
+  </div></section>
+</Base>

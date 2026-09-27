@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { features, workflow } from '../../data/site';
+---
+<Base title="Features | ZAF Tools AI FDD Suite for Excel" description="Every module in the ZAF Tools Excel add-in: TB mapping, statement build, Quality of Earnings, EBITDA bridge, working capital, document analysis, commentary and model audit." crumbs={[{name:'Features',href:'/features'}]}>
+  <section class="section" style="padding-top:1.5rem">
+    <div class="wrap">
+      <h1>Features</h1>
+      <p class="lede">Two ribbons. ZAF AI runs the due diligence workflow. ZAF Tools carries the utilities you use all day.</p>
+      <ol class="flow" style="margin:2rem 0 3rem">{workflow.map(w => <li><a href={w.href}><strong>{w.step}</strong></a><p>{w.text}</p></li>)}</ol>
+      <div class="rows">
+        {features.map(f => <div class="row"><h3><a href={`/features/${f.slug}`} style="text-decoration:none">{f.name}</a></h3><p>{f.short}</p><a class="more" href={`/features/${f.slug}`}>Details</a></div>)}
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Base>

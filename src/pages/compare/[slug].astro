@@ -1,0 +1,35 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { comparisons } from '../../data/site';
+export function getStaticPaths() { return comparisons.map(c => ({ params: { slug: c.slug }, props: { c } })); }
+const { c } = Astro.props;
+---
+<Base title={c.title} description={c.metaDescription} crumbs={[{name:'Compare',href:'/compare'},{name:`vs ${c.competitor}`,href:`/compare/${c.slug}`}]}>
+  <section class="section" style="padding-top:1.5rem">
+    <div class="wrap">
+      <h1>{c.h1}</h1>
+      <p class="lede">{c.summary}</p>
+    </div>
+  </section>
+  <section class="section-tight section-alt">
+    <div class="wrap grid-2" style="align-items:start">
+      <div><div class="bar"><h2>Where {c.competitor} is strong</h2></div><p>{c.theirStrength}</p></div>
+      <div><div class="bar"><h2>Where ZAF Tools is strong</h2></div><p>{c.ourStrength}</p></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <h2>Feature by feature</h2>
+      <div class="table-scroll"><table class="cmp">
+        <thead><tr><th>Dimension</th><th>ZAF Tools</th><th>{c.competitor}</th></tr></thead>
+        <tbody>{c.rows.map(r => <tr><th scope="row">{r.dim}</th><td class="zaf">{r.zaf}</td><td>{r.them}</td></tr>)}</tbody>
+      </table></div>
+      <p class="small" style="margin-top:.8rem">Competitor information is based on public documentation and reviews as of September 2026 and may change. Corrections welcome at <a href="mailto:abhishek.bhandari@zaftool.com">abhishek.bhandari@zaftool.com</a>.</p>
+    </div>
+  </section>
+  <section class="section-tight section-alt">
+    <div class="wrap"><div class="bar"><h2>Which should you choose</h2></div><p>{c.verdict}</p></div>
+  </section>
+  <CTA title="Run the comparison on your own deal" text="Install ZAF Tools, load a real trial balance and see whether the output is good enough to send. 14 days, no card." />
+</Base>

@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { personas, features } from '../../data/site';
+export function getStaticPaths() { return personas.map(p => ({ params: { slug: p.slug }, props: { p } })); }
+const { p } = Astro.props;
+const feats = features.filter(f => p.features.includes(f.slug));
+---
+<Base title={p.title} description={p.metaDescription} crumbs={[{name:'Who it is for',href:'/features'},{name:p.name,href:`/for/${p.slug}`}]}>
+  <section class="section" style="padding-top:1.5rem"><div class="wrap"><h1>{p.h1}</h1><p class="lede">{p.intro}</p><div class="btn-row" style="margin-top:1rem"><a class="btn btn-primary" href="/start-trial">Start free trial</a><a class="btn btn-ghost" href="/pricing">Pricing</a></div></div></section>
+  <section class="section section-alt"><div class="wrap grid-2" style="align-items:start">
+    <div><div class="bar"><h2>Today</h2></div><ul>{p.pains.map(x => <li>{x}</li>)}</ul></div>
+    <div><div class="bar"><h2>With ZAF Tools</h2></div><ul class="checks">{p.gains.map(x => <li>{x}</li>)}</ul></div>
+  </div></section>
+  <section class="section"><div class="wrap"><h2>The modules you will use most</h2><div class="rows" style="margin-top:1rem">{feats.map(f => <div class="row"><h3><a href={`/features/${f.slug}`} style="text-decoration:none">{f.name}</a></h3><p>{f.short}</p><a class="more" href={`/features/${f.slug}`}>Details</a></div>)}</div></div></section>
+  <CTA />
+</Base>

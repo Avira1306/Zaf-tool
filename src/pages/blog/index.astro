@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('blog')).sort((a,b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d) => d.toLocaleDateString('en-GB', { day:'numeric', month:'long', year:'numeric' });
+---
+<Base title="FDD and Excel Guides for Deal Teams | ZAF Tools Blog" description="Practical guides on financial due diligence, Quality of Earnings, EBITDA adjustments, working capital and Excel model auditing, written by practitioners." crumbs={[{name:'Blog',href:'/blog'}]}>
+  <section class="section" style="padding-top:1.5rem"><div class="wrap">
+    <h1>Guides for deal teams</h1>
+    <p class="lede">Financial due diligence technique, Excel practice and the occasional honest tool comparison. Written by people who do the work.</p>
+    <ul class="post-list" style="margin-top:1.5rem">
+      {posts.map(p => <li><span class="small">{p.data.category} · {fmt(p.data.date)}</span><h3><a href={`/blog/${p.id}`}>{p.data.title}</a></h3><p>{p.data.description}</p></li>)}
+    </ul>
+  </div></section>
+  <CTA />
+</Base>

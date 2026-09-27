@@ -1,0 +1,51 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { templates, library } from '../../data/site';
+export function getStaticPaths() {
+  return [
+    ...templates.map((t) => ({ params: { slug: t.slug }, props: { kind: 'guide', t } })),
+    ...library.map((t) => ({ params: { slug: t.slug }, props: { kind: 'lib', t } })),
+  ];
+}
+const { kind, t } = Astro.props as any;
+const isLib = kind === 'lib';
+const title = isLib ? `${t.name} Template (Excel) | ZAF Tools` : t.title;
+const desc = isLib ? `${t.name} template for financial due diligence: how the ${t.kw} schedule works and how to insert it in Excel with ZAF Tools.` : t.metaDescription;
+const h1 = isLib ? `${t.name} template` : t.h1;
+const lede = isLib ? t.desc : t.what;
+const list: string[] = isLib ? t.steps : t.includes;
+const ld = { '@context': 'https://schema.org', '@type': 'HowTo', name: `How to build a ${t.name.toLowerCase()}`, step: list.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, text: s })) };
+const others = library.filter((x) => x.slug !== t.slug).slice(0, 3);
+---
+<Base title={title} description={desc} jsonld={ld} crumbs={[{ name: 'FDD templates', href: '/fdd-templates' }, { name: t.name, href: `/fdd-templates/${t.slug}` }]}>
+  <section class="section" style="padding-top:1.5rem">
+    <div class="wrap grid-2" style="align-items:start">
+      <div>
+        <span class="eyebrow">{isLib ? t.category : 'FDD guide'}</span>
+        <h1>{h1}</h1>
+        <p class="lede">{lede}</p>
+        <div class="btn-row" style="margin:1.2rem 0"><a class="btn btn-primary" href="/start-trial">Use it in Excel: free trial</a><a class="btn btn-ghost" href="/start-trial?type=demo">Book a demo</a></div>
+        <p class="small">{isLib ? 'Available in the ZAF Template Library: search, click Insert, and the schedule lands in your workbook with live formulas.' : 'Built into ZAF Tools workflows and generated from your mapped trial balance.'}</p>
+      </div>
+      <div><div class="bar"><h2>{isLib ? 'How the schedule is built' : 'What it covers'}</h2></div><ol>{list.map((x) => <li style="margin-bottom:.5rem">{x}</li>)}</ol></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="wrap prose">
+      <h2>Why it matters in due diligence</h2>
+      <p>{isLib
+        ? `The ${t.kw} schedule is one of the analyses a buyer, lender or investment committee expects in a financial due diligence report. Built by hand, it means recreating the same layout, formulas and checks on every engagement. The ZAF version is formula-driven, so every number traces to an input cell and the checks tell you when something does not tie.`
+        : 'This is one of the core workpapers of a financial due diligence engagement. The layout above is the one we used on live mandates before automating it in ZAF Tools.'}</p>
+      <h2>Build it from your trial balance instead</h2>
+      <p>Inside ZAF Tools, Import and Map TB, AI Map and Build FS create the statements this schedule draws on. Run Full FDD then produces statements, commentary and management questions in one pass. <a href="/features">See how the add-in works</a> or <a href="/hours-saved">calculate the hours saved</a>.</p>
+    </div>
+  </section>
+  <section class="section-tight">
+    <div class="wrap">
+      <h2 style="font-size:1.2rem">More from the template library</h2>
+      <div class="cards c3" style="margin-top:1rem">{others.map((o) => <a class="card" href={`/fdd-templates/${o.slug}`}><div class="tag">{o.category}</div><h3>{o.name}</h3></a>)}</div>
+    </div>
+  </section>
+  <CTA title="Insert this template from the ZAF ribbon" text="14-day free trial, no card. Or book a 30-minute live demo on your own trial balance." />
+</Base>

@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import { SITE } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  type?: 'website' | 'article';
+  image?: string;
+  jsonld?: object | object[];
+  noindex?: boolean;
+  crumbs?: { name: string; href: string }[];
+}
+const { title, description, type = 'website', image = '/img/og-default.png', jsonld, noindex = false, crumbs } = Astro.props;
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '').replace(/\/$/, '');
+const canonical = Astro.props.canonical ?? (SITE.url + path);
+const ogImage = new URL(image, SITE.url).href;
+
+const org = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: SITE.name,
+  url: SITE.url,
+  logo: `${SITE.url}/img/logo.svg`,
+  email: SITE.email,
+  founder: { '@type': 'Person', name: SITE.founder, sameAs: SITE.linkedin },
+  legalName: SITE.company,
+  address: { '@type': 'PostalAddress', addressLocality: 'Gurugram', addressCountry: 'IN' },
+  sameAs: [SITE.linkedin],
+};
+const software = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'ZAF Tools',
+  applicationCategory: 'BusinessApplication',
+  applicationSubCategory: 'Financial due diligence',
+  operatingSystem: 'Windows, Microsoft Excel 2016-365',
+  softwareVersion: SITE.version,
+  url: SITE.url,
+  description: SITE.description,
+  offers: [
+    { '@type': 'Offer', name: 'Solo', price: '29', priceCurrency: 'USD', billingIncrement: 'P1M', url: `${SITE.url}/pricing` },
+    { '@type': 'Offer', name: 'Pro', price: '189', priceCurrency: 'USD', billingIncrement: 'P1M', url: `${SITE.url}/pricing` },
+  ],
+  publisher: { '@type': 'Organization', name: SITE.company },
+};
+const breadcrumb = crumbs
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [{ name: 'Home', href: '/' }, ...crumbs].map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        item: new URL(c.href, SITE.url).href,
+      })),
+    }
+  : null;
+const extra = jsonld ? (Array.isArray(jsonld) ? jsonld : [jsonld]) : [];
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="ZAF Tools" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#1b2a4a" />
+    <script type="application/ld+json" set:html={JSON.stringify(org)} />
+    <script type="application/ld+json" set:html={JSON.stringify(software)} />
+    {breadcrumb && <script type="application/ld+json" set:html={JSON.stringify(breadcrumb)} />}
+    {extra.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
+  </head>
+  <body>
+    <Nav />
+    <main id="main">
+      {crumbs && (
+        <div class="wrap crumbs" style="margin-top:1rem">
+          <a href="/">Home</a>
+          {crumbs.map((c, i) => (
+            <>
+              {' / '}
+              {i === crumbs.length - 1 ? <span>{c.name}</span> : <a href={c.href}>{c.name}</a>}
+            </>
+          ))}
+        </div>
+      )}
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

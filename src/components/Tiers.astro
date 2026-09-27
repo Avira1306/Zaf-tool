@@ -1,0 +1,44 @@
+---
+import { pricing, SITE } from '../data/site';
+const { full = false } = Astro.props;
+const link = (h: string, cur: 'inr' | 'usd') =>
+  h === 'solo' ? (cur === 'inr' ? SITE.payLinks.soloINR : SITE.payLinks.soloUSD)
+  : h === 'pro' ? (cur === 'inr' ? SITE.payLinks.proINR : SITE.payLinks.proUSD)
+  : h;
+---
+<div data-tiers>
+  <div class="seg" role="group" aria-label="Currency" style="margin-bottom:1.25rem">
+    <button type="button" aria-pressed="true" data-cur="usd">USD</button>
+    <button type="button" aria-pressed="false" data-cur="inr">INR (Razorpay)</button>
+  </div>
+  <div class="tiers">
+    {pricing.tiers.map((t) => (
+      <div class={`tier ${t.highlight ? 'highlight' : ''}`}>
+        <h3>{t.name}</h3>
+        <div class="for">{t.for}</div>
+        <div class="price"><span data-show="usd">{t.usd}</span><span data-show="inr" hidden>{t.inr}</span> {t.period && <small>{t.period}</small>}</div>
+        <div class="inr">{t.inr !== 'Custom' ? 'Per month, cancel any time' : 'Volume pricing'}</div>
+        <ul>{(full ? t.features : t.features.slice(0, 4)).map((x) => <li>{x}</li>)}</ul>
+        {t.href === 'solo' || t.href === 'pro' ? (
+          <>
+            <a class={`btn ${t.highlight ? 'btn-primary' : 'btn-ghost'}`} data-show="usd" href={link(t.href, 'usd')} rel="nofollow">{t.cta}</a>
+            <a class={`btn ${t.highlight ? 'btn-primary' : 'btn-ghost'}`} data-show="inr" hidden href={link(t.href, 'inr')} rel="nofollow">{t.cta} with Razorpay</a>
+            <a class="trial-link" href="/start-trial">or start a 14-day free trial</a>
+          </>
+        ) : (
+          <a class="btn btn-ghost" href={t.href}>{t.cta}</a>
+        )}
+      </div>
+    ))}
+  </div>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-tiers]').forEach((w) => {
+    const set = (cur: string) => {
+      w.querySelectorAll<HTMLElement>('[data-show]').forEach((e) => (e.hidden = e.dataset.show !== cur));
+      w.querySelectorAll<HTMLButtonElement>('[data-cur]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.cur === cur)));
+    };
+    w.querySelectorAll<HTMLButtonElement>('[data-cur]').forEach((b) => b.addEventListener('click', () => set(b.dataset.cur!)));
+    if ((Intl.DateTimeFormat().resolvedOptions().timeZone || '').includes('Calcutta') || (Intl.DateTimeFormat().resolvedOptions().timeZone || '').includes('Kolkata')) set('inr');
+  });
+</script>

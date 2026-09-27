@@ -1,0 +1,65 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import { SITE, faqs } from '../data/site';
+const action = SITE.formEndpoint || `mailto:${SITE.email}`;
+---
+<Base title="Start a Free Trial or Book a Demo | ZAF Tools" description="Try the ZAF Tools FDD suite free for 14 days or book a 30-minute live demo on your own trial balance. No card required. We reply within one business day." crumbs={[{ name: 'Free trial', href: '/start-trial' }]}>
+  <section class="section" style="padding-top:1.5rem">
+    <div class="wrap grid-2" style="align-items:start">
+      <div>
+        <span class="eyebrow">14-day free trial · no card</span>
+        <h1>See ZAF on your own trial balance</h1>
+        <p class="lede">Tell us a little about your team. We send the signed add-in and your trial licence within one business day, or set up a 30-minute live demo with the founder.</p>
+        <ul class="checks">
+          <li>Full ZAF AI ribbon for 14 days, including Run Full FDD</li>
+          <li>38 ZAF Tools free for good</li>
+          <li>Onboarding call on a real (masked) file if you want one</li>
+          <li>Enterprise: pilot on your own Azure OpenAI tenant</li>
+        </ul>
+      </div>
+      <form class="form calc" method={SITE.formEndpoint ? 'POST' : 'GET'} action={action} enctype={SITE.formEndpoint ? undefined : 'text/plain'} data-trial>
+        <div class="seg" role="group" aria-label="Request type">
+          <button type="button" aria-pressed="true" data-type="trial">Free trial</button>
+          <button type="button" aria-pressed="false" data-type="demo">Live demo</button>
+        </div>
+        <input type="hidden" name="request" value="trial" />
+        <input type="hidden" name="_next" value={`${SITE.url}/thank-you`} />
+        <label>Name<input name="name" required autocomplete="name" /></label>
+        <label>Work email<input name="email" type="email" required autocomplete="email" /></label>
+        <label>Firm<input name="firm" required autocomplete="organization" /></label>
+        <label>Team size
+          <select name="team"><option>Just me</option><option>2–5</option><option>6–20</option><option>20+</option></select>
+        </label>
+        <label>FDD engagements per year<input name="deals" type="number" min="0" /></label>
+        <button class="btn btn-primary" type="submit" data-submit>Request free trial</button>
+        <p class="note">We use your details only to send the trial and follow up. No spam, no sharing.</p>
+      </form>
+    </div>
+  </section>
+  <Faq items={[faqs[0], faqs[1], faqs[2], faqs[3]]} heading="Before you start" />
+</Base>
+<script>
+  const f = document.querySelector<HTMLFormElement>('[data-trial]');
+  if (f) {
+    const hidden = f.querySelector<HTMLInputElement>('input[name=request]')!;
+    const submit = f.querySelector<HTMLButtonElement>('[data-submit]')!;
+    const set = (t: string) => {
+      hidden.value = t;
+      submit.textContent = t === 'demo' ? 'Book a live demo' : 'Request free trial';
+      f.querySelectorAll<HTMLButtonElement>('[data-type]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.type === t)));
+    };
+    f.querySelectorAll<HTMLButtonElement>('[data-type]').forEach((b) => b.addEventListener('click', () => set(b.dataset.type!)));
+    if (new URLSearchParams(location.search).get('type') === 'demo') set('demo');
+    // Without a form endpoint, open the visitor's email client with the details prefilled.
+    if (f.getAttribute('action')!.startsWith('mailto:')) {
+      f.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const d = new FormData(f);
+        const body = ['name', 'email', 'firm', 'team', 'deals'].map((k) => `${k}: ${d.get(k) ?? ''}`).join('\n');
+        const subj = hidden.value === 'demo' ? 'ZAF Tools demo request' : 'ZAF Tools free trial request';
+        location.href = `${f.getAttribute('action')}?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
+      });
+    }
+  }
+</script>

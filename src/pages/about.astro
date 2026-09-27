@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import { SITE } from '../data/site';
+const person = { '@context':'https://schema.org','@type':'Person', name: SITE.founder, jobTitle:'Founder, ZAF Tools; Partner, Zion Advisor', worksFor:{'@type':'Organization',name:SITE.company}, sameAs:[SITE.linkedin], description: SITE.founderBio };
+---
+<Base title="About ZAF Tools | Built by FDD Practitioners" description="ZAF Tools is built by Abhishek Bhandari, an FDD practitioner with 15+ years at EY and Grant Thornton, and used daily by the Zion Advisor diligence team." jsonld={person} crumbs={[{name:'About',href:'/about'}]}>
+  <section class="section" style="padding-top:1.5rem"><div class="wrap prose">
+    <h1>About ZAF Tools</h1>
+    <p class="lede">ZAF Tools started as a folder of macros that one FDD team refused to work without. It is now a full due diligence suite used on live mandates.</p>
+    <h2>Why it exists</h2>
+    <p>Financial due diligence has a strange cost structure. The part clients pay for is judgement: what is an adjustment, what the working capital peg should be, whether the forecast is credible. The part that consumes the hours is mechanical: mapping a trial balance, building schedules, drafting the first version of paragraphs that follow the same structure on every deal. Enterprise software addressed the formatting; the new cloud platforms moved the whole job out of Excel. Neither helped the analyst at 11pm with a databook open.</p>
+    <p>ZAF Tools automates the mechanical half and leaves the judgement in the reviewer’s hands, cell by cell, inside the workbook everyone already trusts.</p>
+    <h2>Who builds it</h2>
+    <p>{SITE.founderBio}</p>
+    <p>The add-in is used daily by the <a href="https://zionadvisor.com" rel="noopener">Zion Advisor</a> diligence team, which means every release is tested on real client data before it ships. Clients on live engagements include {SITE.clients.join(' and ')}.</p>
+    <h2>Company</h2>
+    <p>ZAF Tools is a product of {SITE.company}, Gurugram, India. Contact: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  </div></section>
+  <CTA />
+</Base>

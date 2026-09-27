@@ -1,0 +1,7 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Thanks | ZAF Tools" description="We have your request." noindex={true}>
+  <section class="section"><div class="wrap"><h1>Thanks, we have your request</h1><p class="lede">We will email you within one business day with your trial licence and installation steps, or a demo slot. Questions in the meantime: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p><p><a href="/hours-saved">Estimate your hours saved</a> · <a href="/fdd-templates">Browse the template library</a></p></div></section>
+</Base>

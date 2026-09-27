@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import HoursSaved from '../components/HoursSaved.astro';
+import Faq from '../components/Faq.astro';
+import CTA from '../components/CTA.astro';
+import { hoursSaved } from '../data/site';
+const totM = hoursSaved.reduce((a, r) => a + r.manual, 0);
+const totZ = hoursSaved.reduce((a, r) => a + r.zaf, 0);
+const items = [
+  { q: 'How long does financial due diligence take?', a: 'A mid-market buy-side FDD typically runs three to six weeks. Around a week of that is the Excel build: mapping the trial balance, building statements and schedules, and writing commentary. That build is what ZAF Tools automates.' },
+  { q: 'Where do the hours saved numbers come from?', a: `They are illustrative estimates from the founders' own engagements at Big 4 and boutique level: about ${totM} hours of manual build on a single-entity FDD versus about ${totZ} hours with ZAF. Multi-entity, multi-language or poor-quality data increases both, and usually increases the saving.` },
+  { q: 'Does ZAF replace the analyst?', a: 'No. ZAF does the mechanical build: mapping, statements, schedules and first-draft commentary. Analysts and managers keep the judgement: which adjustments stand, what the commentary says, what goes to the client.' },
+];
+---
+<Base title="FDD Hours Saved Calculator: How Much Time Does ZAF Save?" description={`Calculate hours and cost saved on financial due diligence with ZAF Tools. About ${totM - totZ} hours saved per engagement on the Excel build.`} crumbs={[{ name: 'Hours saved', href: '/hours-saved' }]}>
+  <section class="section" style="padding-top:1.5rem">
+    <div class="wrap">
+      <span class="eyebrow">Hours saved by ZAF</span>
+      <h1>How many hours does ZAF save on an FDD?</h1>
+      <p class="lede">About {totM - totZ} hours per engagement on the Excel build, roughly {Math.round(((totM - totZ) / totM) * 100)}% less time. Move the slider to see what that means for your firm over a year.</p>
+      <div style="margin-top:2rem"><HoursSaved /></div>
+    </div>
+  </section>
+  <section class="section section-alt">
+    <div class="wrap grid-2" style="align-items:start">
+      <div><div class="bar"><h2>Where the time goes today</h2></div><p>On a manual build, most hours go to work that needs no judgement: re-keying a trial balance into a hierarchy, rebuilding the same statements, reformatting, tying out, and rewriting the same commentary structure on every deal.</p></div>
+      <div><div class="bar"><h2>What changes with ZAF</h2></div><p>Import and Map TB, AI Map and Build FS produce the databook in minutes. Find Adjustments and the EBITDA bridge give QoE a head start. FDD commentary, management questions and one-click export finish the report. Seniors review instead of rebuild.</p></div>
+    </div>
+  </section>
+  <Faq items={items} heading="Hours saved: questions" />
+  <CTA title="Measure it on your own file" />
+</Base>

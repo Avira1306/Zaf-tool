@@ -1,0 +1,33 @@
+---
+import Logo from './Logo.astro';
+const links = [
+  { href: '/features', label: 'Features' },
+  { href: '/compare', label: 'Compare' },
+  { href: '/hours-saved', label: 'Hours saved' },
+  { href: '/fdd-templates', label: 'Templates' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/blog', label: 'Blog' },
+];
+---
+<header class="nav">
+  <div class="wrap nav-inner">
+    <Logo />
+    <nav aria-label="Primary">
+      <ul class="nav-links">{links.map(l => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+    </nav>
+    <div class="nav-cta btn-row">
+      <a class="btn btn-ghost" href="/start-trial?type=demo">Book a demo</a>
+      <a class="btn btn-primary" href="/start-trial">Start free trial</a>
+    </div>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="mnav" data-toggle>Menu</button>
+  </div>
+  <div class="wrap nav-mobile" id="mnav" data-open="false">
+    {links.map(l => <a href={l.href}>{l.label}</a>)}
+    <a href="/start-trial?type=demo">Book a demo</a>
+    <a href="/start-trial"><strong>Start free trial</strong></a>
+  </div>
+</header>
+<script>
+  const b = document.querySelector('[data-toggle]'); const m = document.getElementById('mnav');
+  b?.addEventListener('click', () => { const o = m.dataset.open === 'true'; m.dataset.open = String(!o); b.setAttribute('aria-expanded', String(!o)); });
+</script>

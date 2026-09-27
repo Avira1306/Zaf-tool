@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+const alts = [
+  { name: 'ZAF Tools', job: 'FDD analysis inside Excel: TB mapping, statements, QoE, bridge, NWC, commentary. Plus a 30-tool utility ribbon.', price: 'From $29 per user per month', platform: 'Windows Excel', fit: 'Deal teams and boutiques whose output is databooks and FDD reports.' },
+  { name: 'UpSlide', job: 'Enterprise document automation and brand compliance across Office.', price: 'Custom enterprise', platform: 'Windows, limited Mac', fit: 'Banks and Big 4 with 5+ seats and a brand team.' },
+  { name: 'Arixcel', job: 'Formula auditing and navigation for modellers.', price: 'Per seat annual', platform: 'Windows Excel', fit: 'Model reviewers who want deep formula tracing.' },
+  { name: 'Deckary', job: 'Consulting-grade charts and Excel links in PowerPoint.', price: 'From ~$120 per year', platform: 'Windows and Mac', fit: 'Teams whose pain is slides, not spreadsheets.' },
+  { name: 'DataSnipper', job: 'Audit-grade document tie-outs into Excel.', price: 'Per seat, contact sales', platform: 'Windows Excel', fit: 'Audit and assurance teams.' },
+  { name: 'Excel Copilot', job: 'General-purpose AI assistance in Excel.', price: 'Included with M365 Copilot licences', platform: 'Windows, Mac, web', fit: 'Organisations already paying for Copilot who need generic help.' },
+];
+---
+<Base title="6 Macabacus Alternatives for Finance Teams (2026)" description="Six Macabacus alternatives compared by job, price and platform: ZAF Tools for FDD, UpSlide for enterprise linking, Arixcel for formula auditing and more." crumbs={[{name:'Compare',href:'/compare'},{name:'Macabacus alternatives',href:'/compare/macabacus-alternative'}]}>
+  <section class="section" style="padding-top:1.5rem">
+    <div class="wrap">
+      <h1>Macabacus alternatives, by the job you need done</h1>
+      <p class="lede">Macabacus is a good product with a fifteen-year head start. People look for alternatives for three reasons: the price per seat, the Windows-only footprint, or because their actual job is diligence analysis rather than pitchbook production and Macabacus does not do analysis. Pick the row that matches the reason.</p>
+      <div class="table-scroll" style="margin-top:2rem"><table class="cmp">
+        <thead><tr><th>Tool</th><th>What it does</th><th>Price</th><th>Platform</th><th>Best fit</th></tr></thead>
+        <tbody>{alts.map(a => <tr><th scope="row">{a.name}</th><td class={a.name==='ZAF Tools'?'zaf':''}>{a.job}</td><td>{a.price}</td><td>{a.platform}</td><td>{a.fit}</td></tr>)}</tbody>
+      </table></div>
+      <h2 style="margin-top:2.5rem">If your reason is price</h2>
+      <p>ZAF Tools and Deckary both publish prices under $30 per month and sell to individuals without a sales call. ZAF Tools includes the utility layer (formatting, consolidation, model audit) in every plan, and that ribbon keeps working after the trial.</p>
+      <h2>If your reason is Mac</h2>
+      <p>Deckary and Excel Copilot are the only Mac-native options here. ZAF Tools is Windows-only today; Mac support is on the roadmap.</p>
+      <h2>If your reason is that you do FDD</h2>
+      <p>Then Macabacus was never the right category. It formats and links models; it does not map a trial balance, build a QoE schedule or draft commentary. <a href="/compare/zaf-tools-vs-macabacus">See the full ZAF Tools vs Macabacus comparison</a>.</p>
+      <p class="small">Pricing and features are based on public information as of September 2026 and may change.</p>
+    </div>
+  </section>
+  <CTA />
+</Base>

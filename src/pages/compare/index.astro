@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import CTA from '../../components/CTA.astro';
+import { comparisons } from '../../data/site';
+---
+<Base title="ZAF Tools vs Macabacus, UpSlide, DataSnipper and AI QoE Platforms" description="Side-by-side comparisons of ZAF Tools with Excel productivity add-ins and cloud due diligence platforms, so deal teams can pick the right layer of the stack." crumbs={[{name:'Compare',href:'/compare'}]}>
+  <section class="section" style="padding-top:1.5rem">
+    <div class="wrap">
+      <h1>How ZAF Tools compares</h1>
+      <p class="lede">Most tools in this space do one of three jobs: make Excel faster, extract data from documents, or produce a report in the cloud. ZAF Tools sits between them: it runs the diligence analysis itself, inside Excel. These pages are written to help you choose, including when the answer is not us.</p>
+      <div class="rows" style="margin-top:2rem">
+        {comparisons.map(c => <div class="row"><h3><a href={`/compare/${c.slug}`} style="text-decoration:none">ZAF Tools vs {c.competitor}</a></h3><p>{c.summary.split('. ')[0]}.</p><a class="more" href={`/compare/${c.slug}`}>Read comparison</a></div>)}
+        <div class="row"><h3><a href="/compare/macabacus-alternative" style="text-decoration:none">Macabacus alternatives</a></h3><p>Six alternatives compared by job, price and platform.</p><a class="more" href="/compare/macabacus-alternative">Read guide</a></div>
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Base>

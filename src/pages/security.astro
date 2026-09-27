@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+---
+<Base title="Security and Data Handling | ZAF Tools" description="How ZAF Tools handles client data: offline utility ribbon, transient AI processing, data masking, code signing, and Enterprise routing to your own Azure endpoint." crumbs={[{name:'Security',href:'/security'}]}>
+  <section class="section" style="padding-top:1.5rem"><div class="wrap prose">
+    <h1>Security and data handling</h1>
+    <p class="lede">Due diligence data is the most sensitive data a firm touches. This page describes exactly what leaves your machine, when, and where it goes.</p>
+    <h2>Two ribbons, two data paths</h2>
+    <p><strong>ZAF Tools ribbon</strong> (formatting, consolidation, cleaning, model audit, concentration, flatfile): runs entirely inside Excel with VBA. No network calls.</p>
+    <p><strong>ZAF AI ribbon</strong> (mapping suggestions, analysis, commentary, document extraction): sends the selected range, sheet or document to the ZAF backend over HTTPS, receives the result, and writes it to your workbook. Requests are processed and discarded; we do not retain workbook content, and we do not train models on it.</p>
+    <h2>Data masking</h2>
+    <p>Configure Data Masking before any AI call to replace entity names, customer names and identifiers with tokens. The mapping stays on your machine and is reversed when results are written back.</p>
+    <h2>Corporate AI (Enterprise)</h2>
+    <p>Enterprise plans route every AI call to your firm’s own Azure OpenAI deployment. ZAF Tools becomes a client of your tenancy; no data passes through ZAF infrastructure.</p>
+    <h2>Code signing and installation</h2>
+    <p>The add-in and installer are signed by {SITE.company}. IT can restrict macros to signed publishers and whitelist the certificate. The add-in installs per user and does not require administrative privileges.</p>
+    <h2>Account and billing</h2>
+    <p>Accounts hold your email, plan and usage counters. Payments are processed by Razorpay and Stripe; ZAF Tools never sees card details.</p>
+    <h2>Logs and support</h2>
+    <p>Export Support Bundle collects add-in logs (no workbook content) for troubleshooting. Nothing is sent unless you attach it to a support email.</p>
+    <h2>Questions</h2>
+    <p>Security questionnaires and DPAs: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+  </div></section>
+</Base>
