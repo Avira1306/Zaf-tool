@@ -1,7 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CTA from '../../components/CTA.astro';
-import { templates, library } from '../../data/site';
+import { templates, library, features, comparisons } from '../../data/site';
 export function getStaticPaths() {
   return [
     ...templates.map((t) => ({ params: { slug: t.slug }, props: { kind: 'guide', t } })),
@@ -11,7 +11,13 @@ export function getStaticPaths() {
 const { kind, t } = Astro.props as any;
 const isLib = kind === 'lib';
 const title = isLib ? (`${t.name} Excel Template | ZAF Tools`.length <= 60 ? `${t.name} Excel Template | ZAF Tools` : `${t.name} Excel Template`) : t.title;
-const desc = isLib ? `Free ${t.name} template for financial due diligence: how the ${t.kw.replace(/ schedule$/, '')} schedule works and how to insert it in Excel.` : t.metaDescription;
+const desc = isLib
+  ? (t.metaDescription || `Free ${t.name} template for financial due diligence: how the ${t.kw.replace(/ schedule$/, '')} schedule works and how to insert it in Excel.`)
+  : t.metaDescription;
+const relFeature = features.find((x) => x.slug === t.relatedFeature);
+if (!relFeature) throw new Error(`Unknown feature slug "${t.relatedFeature}" in relatedFeature for template "${t.slug}"`);
+const relCompare = comparisons.find((x) => x.slug === t.relatedCompare);
+if (!relCompare) throw new Error(`Unknown compare slug "${t.relatedCompare}" in relatedCompare for template "${t.slug}"`);
 const h1 = isLib ? `${t.name} template` : t.h1;
 const lede = isLib ? t.desc : t.what;
 const list: string[] = isLib ? t.steps : t.includes;
@@ -38,7 +44,8 @@ const others = library.filter((x) => x.slug !== t.slug).slice(0, 3);
         ? `The ${t.kw} schedule is one of the analyses a buyer, lender or investment committee expects in a financial due diligence report. Built by hand, it means recreating the same layout, formulas and checks on every engagement. The ZAF version is formula-driven, so every number traces to an input cell and the checks tell you when something does not tie.`
         : 'This is one of the core workpapers of a financial due diligence engagement. The layout above is the one we used on live mandates before automating it in ZAF Tools.'}</p>
       <h2>Build it from your trial balance instead</h2>
-      <p>Inside ZAF Tools, Import and Map TB, AI Map and Build FS create the statements this schedule draws on. Run Full FDD then produces statements, commentary and management questions in one pass. <a href="/features">See how the add-in works</a> or <a href="/hours-saved">calculate the hours saved</a>.</p>
+      <p>Inside ZAF Tools, Import and Map TB, AI Map and Build FS create the statements this schedule draws on. Run Full FDD then produces statements, commentary and management questions in one pass. See how <a href={`/features/${relFeature.slug}`}>{relFeature.name}</a> works, or <a href="/hours-saved">calculate the hours saved</a>.</p>
+      <p class="small">Comparing tools? See <a href={`/compare/${relCompare.slug}`}>ZAF Tools vs {relCompare.competitor}</a>.</p>
     </div>
   </section>
   <section class="section-tight">

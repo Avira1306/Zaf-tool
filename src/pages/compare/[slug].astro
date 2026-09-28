@@ -1,9 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
 import CTA from '../../components/CTA.astro';
-import { comparisons } from '../../data/site';
+import Faq from '../../components/Faq.astro';
+import { comparisons, features, templates, library } from '../../data/site';
 export function getStaticPaths() { return comparisons.map(c => ({ params: { slug: c.slug }, props: { c } })); }
 const { c } = Astro.props;
+const relFeatures = c.relatedFeatures.map((slug) => {
+  const f = features.find((x) => x.slug === slug);
+  if (!f) throw new Error(`Unknown feature slug "${slug}" in relatedFeatures for comparison "${c.slug}"`);
+  return f;
+});
+const relTemplate = templates.find((x) => x.slug === c.relatedTemplate) || library.find((x) => x.slug === c.relatedTemplate);
+if (!relTemplate) throw new Error(`Unknown template slug "${c.relatedTemplate}" in relatedTemplate for comparison "${c.slug}"`);
 ---
 <Base title={c.title} description={c.metaDescription} crumbs={[{name:'Compare',href:'/compare'},{name:`vs ${c.competitor}`,href:`/compare/${c.slug}`}]}>
   <section class="section" style="padding-top:1.5rem">
@@ -30,6 +38,16 @@ const { c } = Astro.props;
   </section>
   <section class="section-tight section-alt">
     <div class="wrap"><div class="bar"><h2>Which should you choose</h2></div><p>{c.verdict}</p></div>
+  </section>
+  {c.faqs?.length ? <Faq items={c.faqs} heading={`Questions about ${c.competitor}`} /> : null}
+  <section class="section-tight">
+    <div class="wrap">
+      <h2 style="font-size:1.2rem">Related</h2>
+      <div class="cards c3" style="margin-top:1rem">
+        {relFeatures.map((f) => <a class="card" href={`/features/${f.slug}`}><div class="tag">Feature</div><h3>{f.name}</h3></a>)}
+        <a class="card" href={`/fdd-templates/${relTemplate.slug}`}><div class="tag">Template</div><h3>{relTemplate.name}</h3></a>
+      </div>
+    </div>
   </section>
   <CTA title="Run the comparison on your own deal" text="Book a live demo on a real trial balance and see whether the output is good enough to send, or request a trial for your team." />
 </Base>

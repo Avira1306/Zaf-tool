@@ -2,10 +2,17 @@
 import Base from '../../layouts/Base.astro';
 import CTA from '../../components/CTA.astro';
 import Faq from '../../components/Faq.astro';
-import { features } from '../../data/site';
+import { features, templates, library, comparisons } from '../../data/site';
 export function getStaticPaths() { return features.map(f => ({ params: { slug: f.slug }, props: { f } })); }
 const { f } = Astro.props;
 const related = features.filter(x => f.related.includes(x.slug));
+const relatedTemplates = f.relatedTemplates.map((slug) => {
+  const t = templates.find((x) => x.slug === slug) || library.find((x) => x.slug === slug);
+  if (!t) throw new Error(`Unknown template slug "${slug}" in relatedTemplates for feature "${f.slug}"`);
+  return t;
+});
+const relatedCompareItem = comparisons.find((c) => c.slug === f.relatedCompare);
+if (!relatedCompareItem) throw new Error(`Unknown compare slug "${f.relatedCompare}" in relatedCompare for feature "${f.slug}"`);
 const howto = { '@context':'https://schema.org','@type':'HowTo', name: f.h1, step: f.how.map((s,i)=>({'@type':'HowToStep', position:i+1, text:s})) };
 ---
 <Base title={f.title} description={f.metaDescription} jsonld={howto} image={f.image ?? '/img/og-default.png'} crumbs={[{name:'Features',href:'/features'},{name:f.name,href:`/features/${f.slug}`}]}>
@@ -33,7 +40,11 @@ const howto = { '@context':'https://schema.org','@type':'HowTo', name: f.h1, ste
   <section class="section-tight section-alt">
     <div class="wrap">
       <h2 style="font-size:1.2rem">Related</h2>
-      <ul>{related.map(r => <li><a href={`/features/${r.slug}`}>{r.name}</a> — {r.short}</li>)}</ul>
+      <ul>
+        {related.map(r => <li><a href={`/features/${r.slug}`}>{r.name}</a> — {r.short}</li>)}
+        {relatedTemplates.map(t => <li><a href={`/fdd-templates/${t.slug}`}>{t.name}</a> — template</li>)}
+        <li><a href={`/compare/${relatedCompareItem.slug}`}>ZAF Tools vs {relatedCompareItem.competitor}</a></li>
+      </ul>
     </div>
   </section>
   <CTA />
