@@ -1,7 +1,7 @@
 ---
 title: "Debt-Like Items in Due Diligence: The Complete List, with Examples"
 description: "What counts as a debt-like item, the tests buyers apply, a complete list grouped by type, and a worked Excel example from enterprise value to equity."
-date: 2026-10-20
+date: 2026-10-06
 category: Debt & NWC
 image: /img/net-debt-debt-like-items-example.webp
 imageAlt: Excel net debt schedule listing debt-like items with agreed and disputed status and an EV to equity bridge
