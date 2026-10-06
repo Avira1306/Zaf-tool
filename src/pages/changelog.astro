@@ -9,6 +9,15 @@ const releases = [
 <Base title="ZAF Tools Changelog: Release Notes for the Excel Add-in" description="Release history for the ZAF Tools Excel add-in: new FDD features, AI modules, template library additions and fixes in each version." crumbs={[{name:'Changelog',href:'/changelog'}]}>
   <section class="section" style="padding-top:1.5rem"><div class="wrap prose">
     <h1>Changelog</h1>
+    <p>ZAF Tools ships updates every 4–8 weeks. This page lists what changed in each release: new FDD workflows, AI modules, template library additions, and fixes. If you're deciding whether ZAF Tools is actively developed, or whether a feature you need has shipped yet, this is the page to check.</p>
+    <p>Two kinds of releases show up here. Feature releases add a new workflow or module — the move from manual EBITDA bridge building to <code>Run Full FDD</code> across five statements is the kind of change that shows up as a major version bump (5.0.0, July 2026). Maintenance releases add smaller things inside an existing workflow — a new export format, a template library addition, a fix to a mapping edge case — and land as minor versions.</p>
+    <p>Every release is installed automatically for existing users through the code-signed auto-update flow; there's nothing to download by hand. If you're on an older version and a workflow described on a feature page doesn't match what you see in Excel, check the version number against this page — it's usually a sign an update is pending or blocked by IT policy.</p>
+    <p>The releases below are grouped from newest to oldest. Each line is a shipped, user-facing change — not every internal fix is listed.</p>
     {releases.map(r => <><div class="bar"><h2>Version {r.v}</h2><span>{r.d}</span></div><ul>{r.items.map(i => <li>{i}</li>)}</ul></>)}
+    <h3>What's next</h3>
+    <p>The roadmap is driven by what deal teams ask for during live demos, not a fixed release calendar. Recent releases — Group Consolidation, the deal health scorecard, Partner Commentary — all started as a specific request from a boutique or PE deal team running a real engagement. If there's a workflow your team rebuilds by hand every deal and doesn't see here, <a href="/start-trial?type=demo">book a demo</a> and it becomes an input to the next release, not just a feature request in a queue.</p>
+    <h3>How releases reach you</h3>
+    <p>The ZAF Tools installer is code-signed and updates automatically — most users are on the latest version within a few days of release, subject to their firm's IT update policy. Enterprise deployments on a locked-down image can pin to a specific version; talk to us before upgrading a firm-wide install mid-engagement.</p>
+    <p>See also: <a href="/features">what ZAF Tools does today</a>, or <a href="/pricing">how the pricing works</a> if a release above has moved something from Enterprise to a lower plan.</p>
   </div></section>
 </Base>

@@ -52,6 +52,8 @@ export type Feature = {
   faqs: { q: string; a: string }[];
   keywords: string[];
   related: string[];
+  relatedTemplates: string[];
+  relatedCompare: string;
 };
 
 export const features: Feature[] = [
@@ -97,6 +99,8 @@ export const features: Feature[] = [
     ],
     keywords: ['quality of earnings software', 'QoE analysis Excel', 'EBITDA adjustments', 'normalised EBITDA'],
     related: ['ebitda-bridge', 'find-adjustments', 'fdd-commentary'],
+    relatedTemplates: ['quality-of-earnings-template', 'ebitda-normalisation'],
+    relatedCompare: 'zaf-tools-vs-ai-qoe-platforms',
   },
   {
     slug: 'ebitda-bridge',
@@ -130,6 +134,8 @@ export const features: Feature[] = [
     ],
     keywords: ['EBITDA bridge Excel', 'EBITDA bridge template', 'waterfall chart EBITDA'],
     related: ['quality-of-earnings', 'build-financial-statements', 'working-capital'],
+    relatedTemplates: ['ebitda-bridge-excel-template', 'ev-to-equity-bridge'],
+    relatedCompare: 'zaf-tools-vs-macabacus',
   },
   {
     slug: 'trial-balance-mapping',
@@ -163,6 +169,8 @@ export const features: Feature[] = [
     ],
     keywords: ['trial balance mapping', 'TB mapping tool', 'chart of accounts mapping Excel'],
     related: ['build-financial-statements', 'working-capital', 'quality-of-earnings'],
+    relatedTemplates: ['trial-balance-mapping-template'],
+    relatedCompare: 'zaf-tools-vs-daloopa',
   },
   {
     slug: 'build-financial-statements',
@@ -196,6 +204,8 @@ export const features: Feature[] = [
     ],
     keywords: ['FDD databook', 'financial statements from trial balance', 'due diligence databook Excel'],
     related: ['trial-balance-mapping', 'working-capital', 'ebitda-bridge'],
+    relatedTemplates: ['trial-balance-mapping-template', 'financial-due-diligence-checklist'],
+    relatedCompare: 'zaf-tools-vs-daloopa',
   },
   {
     slug: 'working-capital',
@@ -228,6 +238,8 @@ export const features: Feature[] = [
     ],
     keywords: ['net working capital due diligence', 'NWC analysis Excel', 'DSO DIO DPO calculation'],
     related: ['build-financial-statements', 'quality-of-earnings', 'fdd-commentary'],
+    relatedTemplates: ['net-debt-schedule', 'ar-ageing-schedule'],
+    relatedCompare: 'zaf-tools-vs-ai-qoe-platforms',
   },
   {
     slug: 'deal-document-analysis',
@@ -258,6 +270,8 @@ export const features: Feature[] = [
     ],
     keywords: ['CIM analysis AI', 'management questions due diligence', 'data room document analysis'],
     related: ['fdd-commentary', 'quality-of-earnings', 'pdf-to-excel'],
+    relatedTemplates: ['financial-due-diligence-checklist'],
+    relatedCompare: 'zaf-tools-vs-datasnipper',
   },
   {
     slug: 'fdd-commentary',
@@ -291,6 +305,8 @@ export const features: Feature[] = [
     ],
     keywords: ['FDD report automation', 'due diligence commentary AI', 'Excel to Word report'],
     related: ['quality-of-earnings', 'deal-document-analysis', 'build-financial-statements'],
+    relatedTemplates: ['quality-of-earnings-template', 'management-questions-bank'],
+    relatedCompare: 'zaf-tools-vs-upslide',
   },
   {
     slug: 'find-adjustments',
@@ -314,6 +330,8 @@ export const features: Feature[] = [
     faqs: [{ q: 'Does it work on a client’s own workbook?', a: 'Yes. Both tools run on any range in any workbook.' }],
     keywords: ['EBITDA add-backs', 'find one-off items', 'data anomaly detection Excel'],
     related: ['quality-of-earnings', 'model-audit', 'fdd-commentary'],
+    relatedTemplates: ['quality-of-earnings-template', 'ebitda-normalisation'],
+    relatedCompare: 'zaf-tools-vs-ai-qoe-platforms',
   },
   {
     slug: 'pdf-to-excel',
@@ -331,6 +349,8 @@ export const features: Feature[] = [
     faqs: [{ q: 'How accurate is extraction?', a: 'High on typed statements; scanned documents are flagged for a review pass. Always reconcile totals, which the import index makes quick.' }],
     keywords: ['PDF to Excel financial statements', 'extract tables from PDF Excel', 'image to table Excel'],
     related: ['trial-balance-mapping', 'deal-document-analysis', 'build-financial-statements'],
+    relatedTemplates: ['financial-due-diligence-checklist'],
+    relatedCompare: 'zaf-tools-vs-datasnipper',
   },
   {
     slug: 'management-questions',
@@ -348,6 +368,8 @@ export const features: Feature[] = [
     faqs: [{ q: 'Are the questions generic?', a: 'No. They are written from the figures on the active sheet, so they reference the actual movements and periods. Run Full FDD generates them alongside statements and commentary.' }],
     keywords: ['due diligence management questions', 'FDD questions for management', 'due diligence question list'],
     related: ['fdd-commentary', 'deal-document-analysis', 'quality-of-earnings'],
+    relatedTemplates: ['management-questions-bank'],
+    relatedCompare: 'zaf-tools-vs-ai-qoe-platforms',
   },
   {
     slug: 'group-consolidation',
@@ -365,6 +387,8 @@ export const features: Feature[] = [
     faqs: [{ q: 'Does it handle foreign-language trial balances?', a: 'Yes. Translate TB converts Swedish, German, Spanish, French, Dutch, Italian and Portuguese account names to English before mapping.' }],
     keywords: ['excel consolidation add-in', 'intercompany elimination excel', 'consolidate trial balances'],
     related: ['trial-balance-mapping', 'build-financial-statements', 'model-audit'],
+    relatedTemplates: ['trial-balance-mapping-template'],
+    relatedCompare: 'zaf-tools-vs-daloopa',
   },
   {
     slug: 'excel-to-powerpoint-word',
@@ -382,6 +406,8 @@ export const features: Feature[] = [
     faqs: [{ q: 'Do tables keep Excel formatting?', a: 'Yes. Number formats, bracketed negatives, header colours and bold totals carry over to PowerPoint and Word.' }],
     keywords: ['excel to powerpoint add-in', 'export excel to word report', 'excel to pdf all sheets'],
     related: ['fdd-commentary', 'build-financial-statements', 'model-audit'],
+    relatedTemplates: ['financial-due-diligence-checklist'],
+    relatedCompare: 'zaf-tools-vs-upslide',
   },
   {
     slug: 'model-audit',
@@ -405,6 +431,8 @@ export const features: Feature[] = [
     faqs: [{ q: 'Do the utilities need the AI subscription?', a: 'The ZAF Tools ribbon works offline. The ZAF AI ribbon uses the managed backend.' }],
     keywords: ['financial model audit software', 'Excel model audit add-in', 'Macabacus alternative'],
     related: ['find-adjustments', 'build-financial-statements', 'ebitda-bridge'],
+    relatedTemplates: ['ebitda-bridge-excel-template'],
+    relatedCompare: 'zaf-tools-vs-macabacus',
   },
 ];
 
@@ -492,6 +520,9 @@ export type Comparison = {
   rows: { dim: string; zaf: string; them: string }[];
   verdict: string;
   keywords: string[];
+  faqs?: { q: string; a: string }[];
+  relatedFeatures: string[];
+  relatedTemplate: string;
 };
 
 export const comparisons: Comparison[] = [
@@ -523,6 +554,8 @@ export const comparisons: Comparison[] = [
     verdict:
       'Choose Macabacus if your team’s output is linked pitchbooks and you want a mature shortcut layer across Office. Choose ZAF Tools if your team’s output is FDD databooks and reports and you want the analysis, not just the formatting, automated. Many boutiques run both.',
     keywords: ['Macabacus alternative', 'Macabacus vs', 'Macabacus pricing'],
+    relatedFeatures: ['ebitda-bridge', 'model-audit'],
+    relatedTemplate: 'ebitda-bridge-excel-template',
   },
   {
     slug: 'zaf-tools-vs-upslide',
@@ -545,6 +578,8 @@ export const comparisons: Comparison[] = [
     ],
     verdict: 'Different layers of the stack. UpSlide polishes the deliverable; ZAF Tools produces the analysis that goes into it.',
     keywords: ['UpSlide alternative', 'UpSlide vs Macabacus'],
+    relatedFeatures: ['excel-to-powerpoint-word', 'fdd-commentary'],
+    relatedTemplate: 'financial-due-diligence-checklist',
   },
   {
     slug: 'zaf-tools-vs-datasnipper',
@@ -554,9 +589,9 @@ export const comparisons: Comparison[] = [
       'DataSnipper is an audit-grade document tie-out tool. ZAF Tools is an FDD analysis workflow. When to use each, and where they overlap on PDF extraction.',
     h1: 'ZAF Tools vs DataSnipper',
     summary:
-      'DataSnipper is built for auditors: snip figures from PDFs into Excel with a link back to the source page. ZAF Tools also extracts from PDFs, but its centre of gravity is what happens next: mapping, statements, QoE, bridge and commentary.',
-    theirStrength: 'Audit-trail tie-outs, document matching, widespread adoption in audit teams.',
-    ourStrength: 'Analysis. Once numbers are in Excel, ZAF builds and analyses the databook.',
+      'DataSnipper and ZAF Tools both work inside Excel and both touch PDF extraction, which is why they get compared, but they\'re built for different stages of the work. DataSnipper is audit-grade evidence software: it snips a figure out of a source PDF and drops it into a cell with a permanent link back to the exact page and location it came from, built for the sign-off trail an auditor needs. ZAF Tools also extracts tables from PDFs — bank statements, invoices, data-room documents — but that\'s the input stage, not the product. What ZAF Tools is built for is what happens after the numbers are in Excel: mapping them to a chart of accounts, building the financial statements, finding Quality of Earnings adjustment candidates, building the EBITDA bridge and working capital schedules, and drafting the commentary that goes around all of it. Firms doing both statutory audit and transaction advisory work often keep both tools, because they solve adjacent, not overlapping, problems.',
+    theirStrength: 'Audit-trail tie-outs: every snipped figure links back to its exact source location in the original PDF. Deep adoption inside audit teams, where that evidence trail is a compliance requirement, not a convenience.',
+    ourStrength: 'What happens after extraction: mapping, statement build, Quality of Earnings, EBITDA bridge and commentary, all tied back to the trial balance rather than to individual snipped figures.',
     rows: [
       { dim: 'Primary job', zaf: 'FDD analysis', them: 'Document tie-out and evidence' },
       { dim: 'PDF extraction', zaf: 'Tables to Excel, batch folders', them: 'Snips with source link' },
@@ -565,8 +600,15 @@ export const comparisons: Comparison[] = [
       { dim: 'Buyer', zaf: 'Transaction advisory', them: 'Audit and assurance' },
       { dim: 'Pricing', zaf: 'From $29 per month', them: 'Per seat, contact sales' },
     ],
-    verdict: 'For statutory audit evidence, DataSnipper. For transaction diligence, ZAF Tools. Teams doing both often use both.',
+    verdict: 'Choose DataSnipper if the deliverable is an audit file where every number needs a clickable source citation. Choose ZAF Tools if the deliverable is an FDD databook or report built from a mapped trial balance. Firms running both statutory audit and deal advisory engagements typically license both — DataSnipper for the audit evidence, ZAF Tools for the diligence analysis.',
     keywords: ['DataSnipper alternative', 'DataSnipper due diligence'],
+    faqs: [
+      { q: 'Can DataSnipper do a Quality of Earnings analysis?', a: 'No. DataSnipper ties figures to source documents; it doesn\'t build the adjusted EBITDA schedule, propose adjustment candidates, or run working capital and net debt analysis the way ZAF Tools does.' },
+      { q: 'Does ZAF Tools replace DataSnipper for audit evidence?', a: 'No. ZAF Tools extracts tables from PDFs for the FDD build, but it doesn\'t produce the cell-level, click-to-source audit trail that DataSnipper is purpose-built for statutory audit sign-off.' },
+      { q: 'Do transaction advisory teams need both?', a: 'Teams that also do audit or assurance work often keep both: DataSnipper for evidence tie-out, ZAF Tools for the FDD analysis itself. Pure deal-advisory teams with no audit sign-off requirement usually only need ZAF Tools.' },
+    ],
+    relatedFeatures: ['deal-document-analysis', 'pdf-to-excel'],
+    relatedTemplate: 'financial-due-diligence-checklist',
   },
   {
     slug: 'zaf-tools-vs-daloopa',
@@ -576,9 +618,9 @@ export const comparisons: Comparison[] = [
       'Daloopa supplies AI-cleaned data from public filings. ZAF Tools analyses private-company trial balances for due diligence. A comparison for deal teams.',
     h1: 'ZAF Tools vs Daloopa',
     summary:
-      'Daloopa maintains a database of public-company financials and pushes them into models. ZAF Tools works on private targets, where there is no database, only a trial balance and a data room.',
-    theirStrength: 'Public-company historicals with source links, model updates on earnings day.',
-    ourStrength: 'Private-company FDD from raw TB and documents.',
+      'Daloopa and ZAF Tools solve different problems and are easy to confuse because both promise to save an analyst time on data entry. Daloopa maintains a database of public-company financials, scraped and cleaned from SEC filings, earnings decks and investor presentations, and pushes that data into a model with a live link back to the source. ZAF Tools does the opposite kind of work: it takes a private target\'s trial balance — a document that exists nowhere else, in no database — and builds the financial due diligence analysis around it: mapped statements, Quality of Earnings, the EBITDA bridge, working capital and net debt. If your job is public-company modelling or equity research, Daloopa\'s database is the product. If your job is diligence on a private acquisition target, there is no database to subscribe to, and that is where ZAF Tools fits.',
+    theirStrength: 'A maintained database of public-company historicals with a source link on every cell, updated automatically around earnings releases. Strong for equity research, public comps and any model that needs to stay current without an analyst re-keying numbers every quarter.',
+    ourStrength: 'Private-company FDD from a raw trial balance and data-room documents, where no database exists. AI mapping, statement build, Quality of Earnings, EBITDA bridge and working capital analysis, all inside Excel with a live tie-out to the source TB.',
     rows: [
       { dim: 'Data source', zaf: 'Client TB, GL, data-room PDFs', them: 'Public filings database' },
       { dim: 'Use case', zaf: 'M&A due diligence', them: 'Equity research, public comps' },
@@ -586,8 +628,15 @@ export const comparisons: Comparison[] = [
       { dim: 'AI commentary', zaf: 'Yes', them: 'No' },
       { dim: 'Pricing', zaf: 'From $29 per month', them: 'Enterprise' },
     ],
-    verdict: 'Not really competitors. Daloopa for public-company data, ZAF Tools for private-company diligence.',
+    verdict: 'Not really competitors, and teams that do both public-market work and private-company diligence often use both: Daloopa to keep public comps current without manual re-entry, ZAF Tools to run the FDD analysis on the private target itself. If you\'re choosing between them for the same task, the question is simple — is the target public (Daloopa) or private (ZAF Tools)?',
     keywords: ['Daloopa alternative'],
+    faqs: [
+      { q: 'Is Daloopa a due diligence tool?', a: 'Not directly. Daloopa supplies public-company financial data with source links; it doesn\'t run Quality of Earnings, EBITDA bridge or working capital analysis on a private target\'s trial balance the way ZAF Tools does.' },
+      { q: 'Can I use Daloopa data inside a ZAF Tools databook?', a: 'ZAF Tools is built around a trial balance import, not a public-filings feed, so the two don\'t integrate directly today. Some deal teams use Daloopa separately for public comps alongside a ZAF Tools FDD workbook.' },
+      { q: 'Does ZAF Tools cover public companies?', a: 'ZAF Tools works from a trial balance or general ledger, so it applies to any entity with one — including a public company\'s subsidiary in a carve-out deal — but it isn\'t built as a public-filings database the way Daloopa is.' },
+    ],
+    relatedFeatures: ['trial-balance-mapping', 'build-financial-statements'],
+    relatedTemplate: 'trial-balance-mapping-template',
   },
   {
     slug: 'zaf-tools-vs-ai-qoe-platforms',
@@ -610,6 +659,8 @@ export const comparisons: Comparison[] = [
     ],
     verdict: 'If you want a first-draft report from a data room and have the budget, the platforms deliver. If you want your analysts faster in the tool they already use, ZAF Tools does that for the price of a lunch.',
     keywords: ['AI quality of earnings software', 'Finsider alternative', 'AI FDD platform'],
+    relatedFeatures: ['quality-of-earnings', 'find-adjustments'],
+    relatedTemplate: 'quality-of-earnings-template',
   },
 ];
 
@@ -659,6 +710,8 @@ export const templates = [
     what: 'A period-to-period EBITDA bridge with revenue, COGS and opex drivers, a waterfall chart built on native Excel charting, and a variance check against the P&L. Drop in two periods of P&L and the bridge and chart update.',
     includes: ['Bridge schedule for FY, YTD or LTM comparisons', 'Waterfall chart with positive and negative colouring', 'Cross-check row: bridge closing vs P&L EBITDA', 'Notes on how to present bridges in an FDD report'],
     keywords: ['EBITDA bridge template', 'EBITDA bridge Excel', 'waterfall chart template'],
+    relatedFeature: 'ebitda-bridge',
+    relatedCompare: 'zaf-tools-vs-macabacus',
   },
   {
     slug: 'quality-of-earnings-template',
@@ -669,6 +722,8 @@ export const templates = [
     what: 'The schedule at the heart of every QoE report: reported EBITDA, management adjustments, diligence adjustments and adjusted EBITDA by period, driven by an adjustments log with category, evidence and status columns.',
     includes: ['Adjustments log with 12 standard categories', 'Reported-to-adjusted EBITDA by period', 'Run-rate and pro forma columns', 'Checklist of 40 common add-backs and deductions'],
     keywords: ['quality of earnings template', 'QoE template Excel', 'adjusted EBITDA schedule'],
+    relatedFeature: 'quality-of-earnings',
+    relatedCompare: 'zaf-tools-vs-ai-qoe-platforms',
   },
   {
     slug: 'financial-due-diligence-checklist',
@@ -679,6 +734,8 @@ export const templates = [
     what: 'The information request list and workplan used on a mid-market buy-side FDD, organised by area with owner, status and reference columns so it doubles as a tracker.',
     includes: ['Information request list by area', 'QoE, NWC, net debt and cash flow procedures', 'Forecast and business plan review steps', 'Reporting and SPA support items'],
     keywords: ['financial due diligence checklist', 'FDD checklist', 'due diligence information request list'],
+    relatedFeature: 'deal-document-analysis',
+    relatedCompare: 'zaf-tools-vs-datasnipper',
   },
   {
     slug: 'management-questions-bank',
@@ -689,6 +746,8 @@ export const templates = [
     what: 'Questions asked on real engagements, grouped by area, with a column for the schedule that usually prompts them. Filter by area, copy into your MQ log.',
     includes: ['Revenue and margin questions', 'Cost base and headcount', 'Working capital and net debt', 'Forecast, systems and controls'],
     keywords: ['management questions due diligence', 'FDD questions list', 'due diligence questions for management'],
+    relatedFeature: 'management-questions',
+    relatedCompare: 'zaf-tools-vs-ai-qoe-platforms',
   },
   {
     slug: 'trial-balance-mapping-template',
@@ -699,6 +758,8 @@ export const templates = [
     what: 'A three-sheet template: raw TB in, hierarchy codes, and a check sheet that flags unmapped accounts and confirms the mapped total equals the TB total.',
     includes: ['Standard FDD hierarchy (P&L, BS, NWC, ND, CF)', 'Mapping sheet with dropdown codes', 'Unmapped and total checks', 'Sign convention notes'],
     keywords: ['trial balance mapping template', 'chart of accounts mapping Excel', 'FDD hierarchy'],
+    relatedFeature: 'trial-balance-mapping',
+    relatedCompare: 'zaf-tools-vs-daloopa',
   },
 ];
 
@@ -707,25 +768,33 @@ export const templates = [
 export const library = [
   { slug: 'ev-to-equity-bridge', name: 'EV to Equity Bridge', category: 'Valuation', kw: 'EV to equity bridge',
     desc: 'Reconciles headline enterprise value to the cash payable to the seller for the equity: net debt, debt-like items, the working capital adjustment against the peg, and locked-box leakage.',
-    steps: ['Enterprise value (headline price)', 'Less: net financial debt', 'Less: debt-like items (deferred revenue, unpaid bonuses, tax liabilities)', 'Plus or minus: NWC against the peg', 'Equals: equity value payable to the seller'] },
+    steps: ['Enterprise value (headline price)', 'Less: net financial debt', 'Less: debt-like items (deferred revenue, unpaid bonuses, tax liabilities)', 'Plus or minus: NWC against the peg', 'Equals: equity value payable to the seller'],
+    relatedFeature: 'ebitda-bridge', relatedCompare: 'zaf-tools-vs-macabacus' },
   { slug: 'net-debt-schedule', name: 'Net Debt and Debt-like Items', category: 'Debt & NWC', kw: 'net debt and debt-like items',
     desc: 'Builds the net debt figure that flows into the EV-to-equity bridge: cash, borrowings, leases and the debt-like items buyers and sellers argue about.',
-    steps: ['Cash, and cash that is trapped or restricted', 'Bank and shareholder borrowings', 'Lease liabilities (IFRS 16 / ASC 842)', 'Debt-like items, each with a rationale', 'Reported versus adjusted net debt'] },
+    steps: ['Cash, and cash that is trapped or restricted', 'Bank and shareholder borrowings', 'Lease liabilities (IFRS 16 / ASC 842)', 'Debt-like items, each with a rationale', 'Reported versus adjusted net debt'],
+    relatedFeature: 'working-capital', relatedCompare: 'zaf-tools-vs-ai-qoe-platforms' },
   { slug: 'ebitda-normalisation', name: 'EBITDA Normalisation Bridge (QoE)', category: 'Quality of Earnings', kw: 'EBITDA normalisation',
     desc: 'Reported EBITDA adjusted to a maintainable, run-rate basis for pricing, with each adjustment categorised and evidenced.',
-    steps: ['Reported EBITDA by period', 'Management adjustments', 'Diligence adjustments: one-offs, owner costs, related-party items', 'Pro forma and run-rate adjustments', 'Adjusted EBITDA and margin'] },
+    steps: ['Reported EBITDA by period', 'Management adjustments', 'Diligence adjustments: one-offs, owner costs, related-party items', 'Pro forma and run-rate adjustments', 'Adjusted EBITDA and margin'],
+    relatedFeature: 'quality-of-earnings', relatedCompare: 'zaf-tools-vs-ai-qoe-platforms' },
   { slug: 'price-volume-mix-analysis', name: 'Price-Volume-Mix Analysis', category: 'Revenue Analysis', kw: 'price volume mix analysis',
     desc: 'Decomposes the revenue variance between two periods into price, volume, mix and interaction effects, by product.',
-    steps: ['Units and revenue by product for two periods', 'Price effect', 'Volume effect', 'Mix and interaction effects', 'Revenue bridge chart'] },
+    steps: ['Units and revenue by product for two periods', 'Price effect', 'Volume effect', 'Mix and interaction effects', 'Revenue bridge chart'],
+    relatedFeature: 'build-financial-statements', relatedCompare: 'zaf-tools-vs-macabacus' },
   { slug: 'price-volume-mix-3-year', name: 'Price-Volume-Mix Analysis (3-Year Trend)', category: 'Revenue Analysis', kw: '3 year price volume mix analysis',
     desc: 'Price, volume, mix and interaction effects across three consecutive periods, with a chained three-period revenue bridge.',
-    steps: ['Three periods of units and revenue by product', 'Year-on-year PVM for each pair of periods', 'Chained three-period revenue bridge', 'Product-level drivers of growth'] },
+    metaDescription: 'The 3-year price-volume-mix template splits revenue change across three periods into price, volume, mix and interaction effects, with a chained bridge.',
+    steps: ['Three periods of units and revenue by product', 'Year-on-year PVM for each pair of periods', 'Chained three-period revenue bridge', 'Product-level drivers of growth'],
+    relatedFeature: 'build-financial-statements', relatedCompare: 'zaf-tools-vs-macabacus' },
   { slug: 'ar-ageing-schedule', name: 'AR Ageing Schedule', category: 'Balance Sheet', kw: 'accounts receivable ageing schedule',
     desc: 'Accounts receivable ageing with Not due, 0-30, 31-60, 61-90 and over 90 day buckets. Paste customer invoices and the ageing, bucket split and totals calculate automatically.',
-    steps: ['Paste open customer invoices', 'Days overdue computed from the due date', 'Bucket split and totals', 'Provisioning discussion for balances over 90 days'] },
+    steps: ['Paste open customer invoices', 'Days overdue computed from the due date', 'Bucket split and totals', 'Provisioning discussion for balances over 90 days'],
+    relatedFeature: 'working-capital', relatedCompare: 'zaf-tools-vs-ai-qoe-platforms' },
   { slug: 'ap-ageing-schedule', name: 'AP Ageing Schedule', category: 'Balance Sheet', kw: 'accounts payable ageing schedule',
     desc: 'Accounts payable ageing with Not due, 0-30, 31-60, 61-90 and over 90 day buckets. Paste vendor invoices and the ageing, bucket split and totals calculate automatically.',
-    steps: ['Paste open vendor invoices', 'Days overdue computed from the due date', 'Bucket split and totals', 'Stretched-payables check before setting the NWC peg'] },
+    steps: ['Paste open vendor invoices', 'Days overdue computed from the due date', 'Bucket split and totals', 'Stretched-payables check before setting the NWC peg'],
+    relatedFeature: 'working-capital', relatedCompare: 'zaf-tools-vs-ai-qoe-platforms' },
 ];
 
 // Hours saved per engagement. ILLUSTRATIVE estimates — TODO(Abhishek): replace with measured numbers.
