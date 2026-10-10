@@ -61,9 +61,9 @@ export const features: Feature[] = [
     slug: 'quality-of-earnings',
     name: 'Quality of Earnings',
     short: 'Normalise EBITDA and trace every adjustment to source, inside the databook.',
-    title: 'Quality of Earnings Software in Excel | ZAF Tools',
+    title: 'Quality of Earnings Software: QoE in Excel | ZAF Tools',
     metaDescription:
-      'Run Quality of Earnings in Excel: find candidate EBITDA adjustments, build the normalised EBITDA schedule and draft QoE commentary from your trial balance.',
+      'QoE software that lives in Excel: AI flags EBITDA adjustments with source references, builds reported-to-adjusted EBITDA and drafts commentary.',
     h1: 'Quality of Earnings analysis that stays in Excel',
     intro:
       'A QoE is a judgement exercise built on a mechanical one. ZAF Tools does the mechanical part: it scans the P&L and general ledger for one-offs, non-operating items and run-rate issues, proposes adjustments with the source reference, and builds the reported-to-adjusted EBITDA schedule. You keep the judgement.',
@@ -106,9 +106,9 @@ export const features: Feature[] = [
     slug: 'ebitda-bridge',
     name: 'EBITDA Bridge',
     short: 'Period-to-period bridge with waterfall chart and a cross-check to the P&L.',
-    title: 'EBITDA Bridge in Excel with Waterfall Chart | ZAF Tools',
+    title: 'EBITDA Bridge Chart in Excel: One-Click Waterfall | ZAF Tools',
     metaDescription:
-      'Build an EBITDA bridge in Excel in one click: movement by revenue, COGS and opex, a waterfall chart, and a cross-check that ties the bridge to the P&L.',
+      'Build an EBITDA bridge chart in Excel in one click: revenue, COGS and opex movements as a waterfall, tied to the P&L to the decimal.',
     h1: 'EBITDA bridge, built and tied out in one click',
     intro:
       'Select the periods, and ZAF Tools builds the bridge schedule, decomposes the movement into revenue, cost of sales and operating expense drivers, draws the waterfall and adds a cross-check line so the closing EBITDA reconciles to the P&L to the decimal.',
@@ -141,9 +141,9 @@ export const features: Feature[] = [
     slug: 'trial-balance-mapping',
     name: 'Trial balance mapping',
     short: 'Import any TB, translate it, and let AI suggest the mapping to your hierarchy.',
-    title: 'Trial Balance Mapping Tool for FDD | ZAF Tools',
+    title: 'Trial Balance Mapping Tool: AI Mapping in Excel | ZAF Tools',
     metaDescription:
-      'Map a trial balance to your FDD hierarchy in minutes: import, translate, AI-suggested mapping, unmapped-code checks, and refresh when a later TB arrives.',
+      'Map any trial balance to your FDD hierarchy in minutes: auto-translation, AI-suggested mapping, unmapped-code checks and one-click refresh.',
     h1: 'Trial balance mapping without the spreadsheet archaeology',
     intro:
       'Every engagement starts with a trial balance in someone else’s chart of accounts, often in another language. ZAF Tools imports it, translates descriptions to English, scans the structure and proposes a mapping to your reporting hierarchy. You amend what it got wrong and move on.',
